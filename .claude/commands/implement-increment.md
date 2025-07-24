@@ -12,18 +12,32 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 ## Workflow Steps
 
-1. Update Linear issue status:
-- Set status to "In Progress" using `linear:update_issue`. List statuses using `linear:list_issue_statuses` if needed.
-- Add comment: "Claude Code implementation started for {name of specification file linked in $ARGUMENTS}"
+1. Update issue status to "In Progress" - run the .claude/commands/ticket-update-issue.md command, passing the issue key and new status as arguments to it
 
-2. Understand the division of work and spawn sub-agents:
+Get the issue key from the state management file in $ARGUMENTS.
+
+Format the arguments as:
+```
+Ticket Number: [issue key from state management file]
+New Status: In Progress
+```
+
+2. Add implementation comment - run the .claude/commands/ticket-create-comment.md command, passing the issue key and comment as arguments to it
+
+Format the arguments as:
+```
+Ticket Number: [issue key from state management file]
+Comment Text: Claude Code implementation started for {name of specification file linked in $ARGUMENTS}
+```
+
+3. Understand the division of work and spawn sub-agents:
    a. Read specification to identify agent_ids
    b. For each agent_id: spawn a sub-agent using the Task tool, with agent_id and $ARGUMENTS as arguments to it. For tasks that can be done in parallel, and where dependencies are fulfilled, spawn sub-agents in parallel.
    c. Monitor sub-agent progress
    d. Keep an updated list of TODOs in $ARGUMENTS, including sub-agent status
-   e. When monitoring completes for all agent_ids, proceed to step 3
+   e. When monitoring completes for all agent_ids, proceed to step 4
 
-3. Report DONE to the orchestrating command
+4. Report DONE to the orchestrating command
 
 ## This part of the workflow is done when
 

@@ -31,7 +31,13 @@ When this command is run with a state management file as $ARGUMENTS.
 
 6. Final verdict: APPROVED or NEEDS_CHANGES with clear reasons
 
-7. Once APPROVED, add a comment to the Linear issue describing the findings and verdict, using `linear:create_comment`
+7. Once APPROVED, add code review comment - run the .claude/commands/ticket-create-comment.md command, passing the issue key and findings as arguments to it
+
+Format the arguments as:
+```
+Ticket Number: [issue key from state management file]
+Comment Text: [code review findings and verdict]
+```
 
 8. Report DONE to the orchestrating command.
 

@@ -23,6 +23,14 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 4. Iterate on the specification until the user gives their sign-off
 
-5. Add specification in Linear issue using `linear:create_comment`. The Linear issue information can be found in $ARGUMENTS
+5. Add specification comment - run the .claude/commands/ticket-create-comment.md command, passing the issue key and specification details as arguments to it
+
+Get the issue key from the state management file in $ARGUMENTS.
+
+Format the arguments as:
+```
+Ticket Number: [issue key from state management file]
+Comment Text: [specification details and assumptions]
+```
 
 6. Report DONE to the orchestrating command
