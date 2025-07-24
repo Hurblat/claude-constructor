@@ -12,7 +12,15 @@ When this command is run with a state management file as $ARGUMENTS.
 
 1. Read state management file to understand the context for what you need to review
 
-2. Update Linear issue status to "Code Review" using `linear:update_issue`
+2. Update issue status to "Code Review" - run the .claude/commands/ticket-update-issue.md command, passing the issue key and new status as arguments to it
+
+Get the issue key from the state management file in $ARGUMENTS.
+
+Format the arguments as:
+```
+Ticket Number: [issue key from state management file]
+New Status: Code Review
+```
 
 3. Read the specification linked in the state management file
 
@@ -33,7 +41,13 @@ When this command is run with a state management file as $ARGUMENTS.
 
 7. Final verdict: APPROVED or NEEDS_CHANGES with clear reasons
 
-8. Once APPROVED, add a comment to the Linear issue describing the findings and verdict, using `linear:create_comment`
+8. Once APPROVED, add code review comment - run the .claude/commands/ticket-create-comment.md command, passing the issue key and findings as arguments to it
+
+Format the arguments as:
+```
+Ticket Number: [issue key from state management file]
+Comment Text: [code review findings and verdict]
+```
 
 9. Report DONE to the orchestrating command.
 
@@ -69,6 +83,22 @@ Provide structured feedback:
 - **Next Steps**: Actionable items
 - **Decision**: APPROVED or NEEDS_CHANGES
 
-**Update Linear issue based on decision**:
-- If APPROVED: Update status to "Ready For Human Review"
-- If NEEDS_CHANGES: Update status to "In Progress" and add comment with required changes
+**Update issue status based on decision**:
+- If APPROVED: run the .claude/commands/ticket-update-issue.md command with status "Ready For Human Review"
+- If NEEDS_CHANGES: run the .claude/commands/ticket-update-issue.md command with status "In Progress" and run the .claude/commands/ticket-create-comment.md command with required changes
+
+Format the arguments as:
+```
+Ticket Number: [issue key from state management file]
+New Status: Ready For Human Review
+```
+or
+```
+Ticket Number: [issue key from state management file]
+New Status: In Progress
+```
+and
+```
+Ticket Number: [issue key from state management file]
+Comment Text: [required changes description]
+```
