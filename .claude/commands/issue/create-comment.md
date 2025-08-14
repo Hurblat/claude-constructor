@@ -1,8 +1,8 @@
-# Ticket Create Comment Command
+# Create Issue Comment Command
 
 ## Purpose
 
-Add a comment to a ticket in the configured ticket system.
+Add a comment to an issue in the configured issue tracking system.
 This command is called by other orchestrating commands, and is one of the steps in a larger workflow.
 You MUST follow all workflow steps below, not skipping any step and doing all steps in order.
 
@@ -11,28 +11,28 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 This command expects $ARGUMENTS in the following format:
 
 ```
-Ticket Number: [ticket_key_or_id]
+Issue Key: [issue_key]
 Comment Text: [comment_content]
 ```
 
 ## Workflow Steps
 
-1. **Parse Arguments**: Extract the ticket number and comment text from $ARGUMENTS
+1. **Parse Arguments**: Extract the issue key and comment text from $ARGUMENTS
 
-2. **Load Configuration**: Read `.claude/settings.claude-constructor.json` to determine the ticket provider
+2. **Load Configuration**: Read `.claude/settings.claude-constructor.json` to determine the issue tracking provider
 
 3. **Execute Create Comment Operation**:
 
 ### For Linear Provider (`"linear"`)
-- Use `linear:create_comment` with the ticket ID and comment text from $ARGUMENTS
-- Add the comment to the specified ticket
+- Use `linear:create_comment` with the issue ID and comment text from $ARGUMENTS
+- Add the comment to the specified issue
 
 4. **Output Results**: Display confirmation of the comment creation:
-   - **Ticket**: [ticket_number]
+   - **Issue**: [issue_key]
    - **Comment Added**: [comment_preview - first 100 characters]
    - **Result**: Success/Failure
 
-5. **Error Handling**: If the ticket operation fails, log the error but continue gracefully
+5. **Error Handling**: If the issue operation fails, log the error but continue gracefully
 
 6. **Report DONE** to the orchestrating command
 
@@ -41,7 +41,7 @@ Comment Text: [comment_content]
 From other commands, call this command with:
 
 ```markdown
-run the .claude/commands/ticket_create_comment.md command, passing these arguments:
-Ticket Number: ABC-123
+run the .claude/commands/issue/create_comment.md command, passing these arguments:
+Issue Key: ABC-123
 Comment Text: Claude Code implementation started for specification_ABC-123_20240101.md
 ```

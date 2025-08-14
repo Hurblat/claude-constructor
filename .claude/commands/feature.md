@@ -34,7 +34,7 @@ Repeat as needed.
 11. Create pull request - run the .claude/commands/create-pull-request.md command, passing the state management file as argument to it
 12. Review pull request - run the .claude/commands/review-pull-request.md command, passing the state management file as argument to it
 
-**If ticket system operations fail**:
+**If issue tracking system operations fail**:
 - Continue with local specification files
-- Log ticket system errors but don't block development
-- Manually update ticket status if needed
+- Log issue tracking system errors but don't block development
+- Manually update issue status if needed

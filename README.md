@@ -57,9 +57,9 @@ Notes:
 
 ## Configuration
 
-### Ticket System Integration
+### Issue Tracking System Integration
 
-The workflow supports multiple ticket systems through an abstraction layer. This allows you to use Linear, Jira, GitHub Issues, or any other ticket system by configuring the provider.
+The workflow supports multiple issue tracking systems through an abstraction layer. This allows you to use Linear, Jira, GitHub Issues, or any other issue tracking system by configuring the provider.
 
 #### Configuration File
 
@@ -83,20 +83,19 @@ Create or update `.claude/settings.claude-constructor.json` in your repository:
 - Uses `linear:get_issue`, `linear:update_issue`, `linear:create_comment`, `linear:list_issue_statuses`
 - Supports fuzzy matching for status names
 
-#### Ticket System Requirements
+#### Issue Tracking System Requirements
 
-The workflow expects tickets to support these standard status transitions:
+The workflow expects issues to support these standard status transitions:
 - **"In Progress"** - When implementation begins
-- **"Code Review"** - During code review phase  
-- **"Ready For Human Review"** - When code review is approved
+- **"Code Review"** - When automated code review is done and pull request has been created  
 
-Your ticket system should have statuses that match or can be mapped to these workflow states.
+Your issue tracking system should have statuses that match or can be mapped to these workflow states.
 
 #### Adding New Providers
 
-To add support for additional ticket systems (Jira, GitHub Issues, etc.):
+To add support for additional issue tracking systems (Jira, GitHub Issues, etc.):
 
-1. Update the ticket command files (`ticket-get-issue.md`, `ticket-update-issue.md`, etc.)
+1. Update the issue command files (`get-issue.md`, `update-issue.md`, etc.)
 2. Add provider-specific MCP command mappings
 3. Add the new provider option to the configuration
 
@@ -104,8 +103,8 @@ To add support for additional ticket systems (Jira, GitHub Issues, etc.):
 
 This repository is a work in progress, and there are things you might want to change to fit your setup better:
 
-- Using different status transitions within your ticket system
-- Adding reference points for your specific way of doing things, e.g. adding documentation on your E2E test principles in docs/ and then reference it in commands/write-end-to-end-tests.md
+- Using different status transitions within your issue tracking system
+- Adding reference points for your specific way of doing things, e.g. adding documentation on your E2E test principles in `docs/` and then reference it in `commands/write-end-to-end-tests.md`
 - Tweaking your technical guardrails (described in `CLAUDE.md`). I recommend using pre-commit hooks and/or Claude Code hooks and/or CI to make sure the technical guardrails are enforced. TDD is also a great instrument in my opinion.
 - Adapting the git branch and commit guidelines to suit your preferences
 
@@ -151,7 +150,7 @@ I also recommend checking in on the work as it is happening, to gauge if anythin
 ## Prerequisites
 
 ### Technical Requirements
-- Ticket system MCP integration configured (see Ticket System Integration section)
+- Issue tracking system MCP integration configured (see Issue Tracking System Integration section)
 - GitHub CLI (`gh`) authenticated
 - Git repository with `main` branch
 - Quality gate tools available
@@ -159,14 +158,14 @@ I also recommend checking in on the work as it is happening, to gauge if anythin
 ### Required Configuration Files
 - `/CLAUDE.md` - General principles, quality gates, and development workflow
 - `docs/git-commit.md` - Git commit guidelines
-- `.claude/settings.claude-constructor.json` - Ticket system provider configuration
+- `.claude/settings.claude-constructor.json` - Issue tracking system provider configuration
 
 ### Optional Configuration Files
 - `docs/requirements.md` - Domain principles and business rules (can be referenced during implementation planning and code review)
 - ...and any additional context
 
 ### Issue Requirements
-**The workflow assumes well-groomed issues.** Users must ensure ticket system issues contain:
+**The workflow assumes well-groomed issues.** Users must ensure issues contain:
 - Clear problem definition and business context
 - Detailed feature requirements and acceptance criteria
 - Proposed solution approach or architecture direction
@@ -182,7 +181,7 @@ In this repository:
 ```
 .claude/
 ├── commands/
-│   ├── feature.md                      # Main orchestrator
+│   ├── feature.md                          # Main orchestrator
 │   ├── create-state-management-file.md
 │   ├── read-issue.md
 │   ├── define-implementation-plan.md
@@ -195,12 +194,13 @@ In this repository:
 │   ├── code-review.md
 │   ├── create-pull-request.md
 │   ├── review-pull-request.md
-│   ├── ticket-get-issue.md             # Ticket system: Get issue details
-│   ├── ticket-update-issue.md          # Ticket system: Update status
-│   ├── ticket-create-comment.md        # Ticket system: Add comments
-│   ├── ticket-list-issue-statuses.md   # Ticket system: List statuses
-│   └── ticket-operations.md            # Ticket system abstraction (reference)
-└── settings.claude-constructor.json     # Ticket system configuration
+│   ├── issue/
+│   │   ├── get-issue.md                    # Issue tracking system: Get issue details
+│   │   ├── update-issue.md                 # Issue tracking system: Update status
+│   │   ├── create-comment.md               # Issue tracking system: Add comments
+│   │   ├── list-issue-statuses.md          # Issue tracking system: List statuses
+│   │   ├── operations.md                   # Issue tracking system abstraction (reference)
+└── settings.claude-constructor.json        # Issue tracking system configuration
 
 docs/
 └── git-commit.md

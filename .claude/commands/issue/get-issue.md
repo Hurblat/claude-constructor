@@ -1,8 +1,8 @@
-# Ticket Get Issue Command
+# Get Issue Command
 
 ## Purpose
 
-Retrieve issue details from the configured ticket system for a given ticket number.
+Retrieve issue details from the configured issue tracking system for a given issue key.
 This command is called by other orchestrating commands, and is one of the steps in a larger workflow.
 You MUST follow all workflow steps below, not skipping any step and doing all steps in order.
 
@@ -11,19 +11,19 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 This command expects $ARGUMENTS in the following format:
 
 ```
-Ticket Number: [ticket_key_or_id]
+Issue Key: [issue_key]
 ```
 
 ## Workflow Steps
 
-1. **Parse Arguments**: Extract the ticket number from $ARGUMENTS
+1. **Parse Arguments**: Extract the issue key from $ARGUMENTS
 
-2. **Load Configuration**: Read `.claude/settings.claude-constructor.json` to determine the ticket provider
+2. **Load Configuration**: Read `.claude/settings.claude-constructor.json` to determine the issue tracking provider
 
 3. **Execute Get Issue Operation**:
 
 ### For Linear Provider (`"linear"`)
-- Use `linear:get_issue` with the ticket number from $ARGUMENTS
+- Use `linear:get_issue` with the issue key from $ARGUMENTS
 - Retrieve issue key, ID, title, and description
 
 4. **Output Results**: Display the issue information in this format:
@@ -32,7 +32,7 @@ Ticket Number: [ticket_key_or_id]
    - **Title**: Issue title
    - **Description**: Issue description
 
-5. **Error Handling**: If the ticket operation fails, log the error but continue gracefully
+5. **Error Handling**: If the issue operation fails, log the error but continue gracefully
 
 6. **Report DONE** to the orchestrating command
 
@@ -41,6 +41,6 @@ Ticket Number: [ticket_key_or_id]
 From other commands, call this command with:
 
 ```markdown
-run the .claude/commands/ticket_get_issue.md command, passing these arguments:
-Ticket Number: ABC-123
+run the .claude/commands/issue/get_issue.md command, passing these arguments:
+Issue Key: ABC-123
 ```

@@ -21,13 +21,13 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 4. Repeat steps 1 through 3 until the user approves the pull request. You are not allowed to approve the pull request yourself.
 
-5. Add pull request feedback comment - run the .claude/commands/ticket-create-comment.md command, passing the issue key and feedback summary as arguments to it
+5. Add pull request feedback comment - run the .claude/commands/issue/create-comment.md command, passing the issue key and feedback summary as arguments to it
 
 Get the issue key from the state management file in $ARGUMENTS.
 
 Format the arguments as:
 ```
-Ticket Number: [issue key from state management file]
+Issue Key: [issue key from state management file]
 Comment Text: [user feedback summary and changes made in response]
 ```
 
