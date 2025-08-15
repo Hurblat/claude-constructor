@@ -4,7 +4,7 @@
 
 ### Add Standards
 
-Never do `git add .`. Always add individual files, and only the files related to the issue at hand.
+Never do `git add .`. Always add individual files, and only the files related to the current implementation you are working on.
 
 ### Commit Standards
 
