@@ -57,12 +57,54 @@ Notes:
 
 ## Configuration
 
-This repository is a work in progress, and there are things you might want to change to fit your setup better.
-Such as:
+### Issue Tracking System Integration
 
-- Using a different issue tracking system
-- Using different status transitions
-- Adding reference points for your specific way of doing things, e.g. adding documentation on your E2E test principles in docs/ and then reference it in commands/write-end-to-end-tests.md
+The workflow supports multiple issue tracking systems through an abstraction layer. This allows you to use Linear, Jira, GitHub Issues, or any other issue tracking system by configuring the provider.
+
+#### Configuration File
+
+Create or update `.claude/settings.claude-constructor.json` in your repository:
+
+```json
+{
+  "provider": "linear"
+}
+```
+
+#### Supported Providers
+
+**Linear (Default)**
+```json
+{
+  "provider": "linear"
+}
+```
+- Requires Linear MCP integration configured
+- Uses `linear:get_issue`, `linear:update_issue`, `linear:create_comment`, `linear:list_issue_statuses`
+- Supports fuzzy matching for status names
+
+#### Issue Tracking System Requirements
+
+The workflow expects issues to support these standard status transitions:
+- **"In Progress"** - When implementation begins
+- **"Code Review"** - When automated code review is done and pull request has been created  
+
+Your issue tracking system should have statuses that match or can be mapped to these workflow states.
+
+#### Adding New Providers
+
+To add support for additional issue tracking systems (Jira, GitHub Issues, etc.):
+
+1. Update the issue command files (`get-issue.md`, `update-issue.md`, etc.)
+2. Add provider-specific MCP command mappings
+3. Add the new provider option to the configuration
+
+### Other Customizations
+
+This repository is a work in progress, and there are things you might want to change to fit your setup better:
+
+- Using different status transitions within your issue tracking system
+- Adding reference points for your specific way of doing things, e.g. adding documentation on your E2E test principles in `docs/` and then reference it in `commands/write-end-to-end-tests.md`
 - Tweaking your technical guardrails (described in `CLAUDE.md`). I recommend using pre-commit hooks and/or Claude Code hooks and/or CI to make sure the technical guardrails are enforced. TDD is also a great instrument in my opinion.
 - Adapting the git branch and commit guidelines to suit your preferences
 
@@ -108,7 +150,7 @@ I also recommend checking in on the work as it is happening, to gauge if anythin
 ## Prerequisites
 
 ### Technical Requirements
-- Linear MCP integration configured
+- Issue tracking system MCP integration configured (see Issue Tracking System Integration section)
 - GitHub CLI (`gh`) authenticated
 - Git repository with `main` branch
 - Quality gate tools available
@@ -116,13 +158,14 @@ I also recommend checking in on the work as it is happening, to gauge if anythin
 ### Required Configuration Files
 - `/CLAUDE.md` - General principles, quality gates, and development workflow
 - `docs/git-commit.md` - Git commit guidelines
+- `.claude/settings.claude-constructor.json` - Issue tracking system provider configuration
 
 ### Optional Configuration Files
 - `docs/requirements.md` - Domain principles and business rules (can be referenced during implementation planning and code review)
 - ...and any additional context
 
 ### Issue Requirements
-**The workflow assumes well-groomed issues.** Users must ensure Linear issues contain:
+**The workflow assumes well-groomed issues.** Users must ensure issues contain:
 - Clear problem definition and business context
 - Detailed feature requirements and acceptance criteria
 - Proposed solution approach or architecture direction
@@ -136,20 +179,28 @@ The quality of the implementation depends directly on the quality of the issue d
 In this repository:
 
 ```
-.claude/commands/
-├── feature.md                      # Main orchestrator
-├── create-state-management-file.md
-├── read-issue.md
-├── define-implementation-plan.md
-├── write-specification.md
-├── specification-signoff.md
-├── git-checkout.md
-├── implement-increment.md
-├── implement-sub-increment.md
-├── write-end-to-end-tests.md
-├── code-review.md
-├── create-pull-request.md
-└── review-pull-request.md
+.claude/
+├── commands/
+│   ├── feature.md                          # Main orchestrator
+│   ├── create-state-management-file.md
+│   ├── read-issue.md
+│   ├── define-implementation-plan.md
+│   ├── write-specification.md
+│   ├── specification-signoff.md
+│   ├── git-checkout.md
+│   ├── implement-increment.md
+│   ├── implement-sub-increment.md
+│   ├── write-end-to-end-tests.md
+│   ├── code-review.md
+│   ├── create-pull-request.md
+│   ├── review-pull-request.md
+│   ├── issue/
+│   │   ├── get-issue.md                    # Issue tracking system: Get issue details
+│   │   ├── update-issue.md                 # Issue tracking system: Update status
+│   │   ├── create-comment.md               # Issue tracking system: Add comments
+│   │   ├── list-issue-statuses.md          # Issue tracking system: List statuses
+│   │   ├── operations.md                   # Issue tracking system abstraction (reference)
+└── settings.claude-constructor.json        # Issue tracking system configuration
 
 docs/
 └── git-commit.md
