@@ -22,6 +22,14 @@ Issue Key: [issue_key]
 
 3. **Execute Get Issue Operation**:
 
+### For Prompt Issue Provider (`"prompt-issue"`)
+- Prompt the user: "Please provide the following details for your feature/task:"
+- Ask for:
+  - **Title**: What feature or task are you implementing?
+  - **Description**: Provide detailed description of requirements, acceptance criteria, and any technical constraints
+- Use the provided issue key from $ARGUMENTS as both key and ID
+- Continue to step 4 with the user-provided information
+
 ### For Linear Provider (`"linear"`)
 - Use `linear:get_issue` with the issue key from $ARGUMENTS
 - Retrieve issue key, ID, title, and description

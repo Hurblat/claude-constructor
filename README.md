@@ -97,6 +97,18 @@ The workflow supports multiple issue tracking systems through an abstraction lay
 - Uses `jira:get_issue`, `jira:add_comment_to_issue`, `jira:get_transitions_for_issue`, `jira:transition_issue`
 - Supports fuzzy matching for status names
 
+**Prompt Issue (No External Integration)**
+```json
+# .claude/settings.claude-constructor.json
+{
+  "issue-tracking-provider": "prompt-issue"
+}
+```
+- No external issue tracking system required
+- Prompts user for issue title and description during workflow
+- Automatically skips all external API calls (same as silent mode)
+- Perfect for local development and experimentation
+
 #### Silent Mode
 
 Silent mode allows you to run the workflow without making external API calls to issue tracking systems or creating GitHub pull requests. This is useful for:
@@ -119,6 +131,8 @@ When silent mode is enabled:
 - **GitHub pull requests**: Code is committed and pushed, but PR creation is skipped
 - **PR review comments**: Skipped entirely
 - All other operations (git commits, code changes, tests) execute normally
+
+**Note**: The `"prompt-issue"` provider automatically behaves like silent mode, so you don't need to set both.
 
 #### Issue Tracking System Requirements
 

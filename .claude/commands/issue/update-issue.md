@@ -23,8 +23,8 @@ Expected status values: "In Progress", "Code Review"
 
 2. **Load Configuration**: Read `.claude/settings.claude-constructor.json` to determine the issue tracking provider and check silent mode setting
 
-3. **Check Silent Mode**:
-   - If `silent-mode` is `true` in the configuration:
+3. **Check Silent Mode or Prompt Issue Provider**:
+   - If `silent-mode` is `true` OR `issue-tracking-provider` is `"prompt-issue"`:
      - Log the status update operation locally: "Silent mode: Would have updated [issue_key] status to '[new_status]'"
      - Skip the actual API calls (step 4)
      - Continue to step 5
@@ -47,7 +47,7 @@ Expected status values: "In Progress", "Code Review"
    - **Issue**: [issue_key]
    - **Previous Status**: [if available]
    - **New Status**: [updated_status]
-   - **Result**: Success/Failure (or "Skipped - Silent Mode" if applicable)
+   - **Result**: Success/Failure
 
 6. **Error Handling**: If the issue operation fails, log the error but continue gracefully
 

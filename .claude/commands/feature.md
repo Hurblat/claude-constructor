@@ -26,7 +26,7 @@ Create a TODO list for the workflow steps, and follow it.
 4. Define requirements - run the .claude/commands/define-requirements.md command, passing the state management file as argument to it
 5. Get sign-off on requirements. You are not allowed to go to step 6 until the user has signed off on the requirements. Run the .claude/commands/requirements-sign-off.md command, passing the state management file as argument to it
 6. Write specification - run the .claude/commands/write-specification.md command, passing the state management file as argument to it
-7. Get sign-off on specification. You are not allowed to go to step 7 until the user has signed off on the specification. Run the .claude/commands/specification-sign-off.md command, passing the state management file as argument to it
+7. Get sign-off on specification. You are not allowed to go to step 8 until the user has signed off on the specification. Run the .claude/commands/specification-sign-off.md command, passing the state management file as argument to it
 8. Check out new branch - run the .claude/commands/git-checkout.md command, passing the state management file as argument to it
 9. Implement increment - run the .claude/commands/implement-increment.md command, passing the state management file as argument to it
 10. Write end-to-end tests for the increment - run the .claude/commands/write-end-to-end-tests.md command, passing the state management file as argument to it

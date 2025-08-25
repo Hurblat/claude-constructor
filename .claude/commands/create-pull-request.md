@@ -20,16 +20,17 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 5. Read the configuration from .claude/settings.claude-constructor.json to get:
    - The default branch name from the "default-branch" field
    - The silent mode setting from the "silent-mode" field
+   - The issue tracking provider from the "issue-tracking-provider" field
 
-6. **Check Silent Mode for Pull Request Creation**:
-   - If `silent-mode` is `false`:
+6. **Check Silent Mode or Prompt Issue Provider for Pull Request Creation**:
+   - If `silent-mode` is `false` AND `issue-tracking-provider` is NOT `"prompt-issue"`:
      - Create a pull request using `gh pr create --title "feat: [issue key] [brief description from commit]" --base [default branch name] --head $(git branch --show-current)`
-   - If `silent-mode` is `true`:
+   - If `silent-mode` is `true` OR `issue-tracking-provider` is `"prompt-issue"`:
      - Log: "Silent mode: Would have created PR with title 'feat: [issue key] [brief description]'"
      - Skip the actual PR creation
 
-7. **Check Silent Mode for Issue Status Update**:
-   - If `silent-mode` is `false`:
+7. **Check Silent Mode or Prompt Issue Provider for Issue Status Update**:
+   - If `silent-mode` is `false` AND `issue-tracking-provider` is NOT `"prompt-issue"`:
      - Update issue status to "Code Review" - run the .claude/commands/issue/update-issue.md command, passing the issue key and new status as arguments to it
      
      Get the issue key from the state management file in $ARGUMENTS.
@@ -39,12 +40,12 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
      Issue Key: [issue key from state management file]
      New Status: Code Review
      ```
-   - If `silent-mode` is `true`:
+   - If `silent-mode` is `true` OR `issue-tracking-provider` is `"prompt-issue"`:
      - Log: "Silent mode: Would have updated issue [issue key] status to 'Code Review'"
      - Skip the issue update
 
-8. **Legacy Linear Update** (if applicable and silent mode is false):
+8. **Legacy Linear Update** (if applicable and not silent/prompt-issue):
    - Update Linear issue status to "Code Review" using `linear:update_issue`
-   - Skip if silent mode is true
+   - Skip if silent mode is true or provider is prompt-issue
 
-9. Report DONE to the orchestrating command
+9.  Report DONE to the orchestrating command

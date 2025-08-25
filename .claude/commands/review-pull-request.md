@@ -8,14 +8,14 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 ## Workflow Steps
 
-1. **Load Configuration**: Read `.claude/settings.claude-constructor.json` to check the silent mode setting
+1. **Load Configuration**: Read `.claude/settings.claude-constructor.json` to check the silent mode setting and issue tracking provider
 
-2. **Check Silent Mode**:
-   - If `silent-mode` is `true`:
+2. **Check Silent Mode or Prompt Issue Provider**:
+   - If `silent-mode` is `true` OR `issue-tracking-provider` is `"prompt-issue"`:
      - Log: "Silent mode: Skipping PR review monitoring and comments"
-     - Skip to step 7
-   - If `silent-mode` is `false`:
-     - Continue with normal PR review workflow (steps 3-6)
+     - Skip to step 8 (Report DONE)
+   - If `silent-mode` is `false` AND `issue-tracking-provider` is NOT `"prompt-issue"`:
+     - Continue with normal PR review workflow
 
 3. Monitor the pull request for comments and/or reviews. Use `gh api repos/{OWNER}/{REPO}/pulls/{PR_NUMBER}/comments --jq '.[] | {author: .user.login, body: .body, path: .path, line: .line}'`
 
@@ -29,8 +29,8 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 6. Repeat steps 3 through 5 until the user approves the pull request. You are not allowed to approve the pull request yourself.
 
-7. **Add pull request feedback comment** (only if silent mode is false):
-   - If `silent-mode` is `false`:
+7. **Add pull request feedback comment** (only if not silent mode and not prompt-issue):
+   - If `silent-mode` is `false` AND `issue-tracking-provider` is NOT `"prompt-issue"`:
      - Run the .claude/commands/issue/create-comment.md command, passing the issue key and feedback summary as arguments to it
      
      Get the issue key from the state management file in $ARGUMENTS.
@@ -40,7 +40,7 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
      Issue Key: [issue key from state management file]
      Comment Text: [user feedback summary and changes made in response]
      ```
-   - If `silent-mode` is `true`:
+   - If `silent-mode` is `true` OR `issue-tracking-provider` is `"prompt-issue"`:
      - Log: "Silent mode: Would have added PR feedback comment to issue"
 
 8. Report DONE to the orchestrating command
