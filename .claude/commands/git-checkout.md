@@ -1,3 +1,8 @@
+---
+allowed-tools: Bash(git checkout:*), Bash(git pull:*)
+description: Check out a new git branch for implementation
+---
+
 # Git Checkout Command
 
 ## Purpose
@@ -8,10 +13,12 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 ## Workflow Steps
 
-1. Read the default branch name from the "default-branch" field in .claude/settings.claude-constructor.json, use with `git checkout [name]`.
+1. Read the Settings section in $ARGUMENTS to get the default branch name
 
-2. Ensure that you have the latest changes, using `git pull`
+2. Run !`git checkout [default branch name]`
 
-3. Check out a new branch, using `git checkout -b feat/{issue key}`
+3. Ensure that you have the latest changes, using !`git pull`
 
-4. Report DONE to the orchestrating command
+4. Check out a new branch, using !`git checkout -b feat/{issue key}`
+
+5. Report DONE to the orchestrating command

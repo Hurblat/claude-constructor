@@ -1,6 +1,7 @@
 ---
 argument-hint: [issue key]
 description: Implement feature described in [issue key]
+allowed-tools: Bash(python scripts/load_settings.py)
 ---
 
 # Feature Implementation Command
@@ -20,20 +21,21 @@ Create a TODO list for the workflow steps, and follow it.
 
 ## Workflow Steps
 
-1. Read `CLAUDE.md`: General principles, quality gates, and development workflow
+1. Read @CLAUDE.md: General principles, quality gates, and development workflow
 2. Create a state management file for this increment - run the .claude/commands/create-state-management-file.md command, passing $ARGUMENTS as argument to it
-3. Read issue - run the .claude/commands/issue/read-issue.md command, passing the state management file as argument to it
-4. Define requirements - run the .claude/commands/define-requirements.md command, passing the state management file as argument to it
-5. Get sign-off on requirements. You are not allowed to go to step 6 until the user has signed off on the requirements. Run the .claude/commands/requirements-sign-off.md command, passing the state management file as argument to it
-6. Write specification - run the .claude/commands/write-specification.md command, passing the state management file as argument to it
-7. Get sign-off on specification. You are not allowed to go to step 7 until the user has signed off on the specification. Run the .claude/commands/specification-sign-off.md command, passing the state management file as argument to it
-8. Check out new branch - run the .claude/commands/git-checkout.md command, passing the state management file as argument to it
-9. Implement increment - run the .claude/commands/implement-increment.md command, passing the state management file as argument to it
-10. Write end-to-end tests for the increment - run the .claude/commands/write-end-to-end-tests.md command, passing the state management file as argument to it
-11. Perform code review - run the .claude/commands/code-review.md command, passing the state management file as argument to it. If the verdict of the code review is NEEDS_CHANGES, address comments and then run the implement increment step again.
+3. Read settings - run the .claude/commands/read-settings.md command, passing the state management file as argument to it
+4. Read issue - run the .claude/commands/issue/read-issue.md command, passing the state management file as argument to it
+5. Define requirements - run the .claude/commands/define-requirements.md command, passing the state management file as argument to it
+6. Get sign-off on requirements. You are not allowed to go to step 6 until the user has signed off on the requirements. Run the .claude/commands/requirements-sign-off.md command, passing the state management file as argument to it
+7. Write specification - run the .claude/commands/write-specification.md command, passing the state management file as argument to it
+8. Get sign-off on specification. You are not allowed to go to step 7 until the user has signed off on the specification. Run the .claude/commands/specification-sign-off.md command, passing the state management file as argument to it
+9. Check out new branch - run the .claude/commands/git-checkout.md command, passing the state management file as argument to it
+10. Implement increment - run the .claude/commands/implement-increment.md command, passing the state management file as argument to it
+11. Write end-to-end tests for the increment - run the .claude/commands/write-end-to-end-tests.md command, passing the state management file as argument to it
+12. Perform code review - run the .claude/commands/code-review.md command, passing the state management file as argument to it. If the verdict of the code review is NEEDS_CHANGES, address comments and then run the implement increment step again.
 Repeat as needed.
-12. Create pull request - run the .claude/commands/create-pull-request.md command, passing the state management file as argument to it
-13. Review pull request - run the .claude/commands/review-pull-request.md command, passing the state management file as argument to it
+13. Create pull request - run the .claude/commands/create-pull-request.md command, passing the state management file as argument to it
+14. Review pull request - run the .claude/commands/review-pull-request.md command, passing the state management file as argument to it
 
 **If issue tracking system operations fail**:
 - Continue with local specification files

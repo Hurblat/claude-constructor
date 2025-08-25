@@ -44,7 +44,7 @@ Comment Text: Claude Code implementation started for {name of specification file
 - [ ] All subagents report DONE
 - [ ] Single behavior is fully implemented, both on the backend and the frontend
 - [ ] All unit and integration tests pass
-- [ ] All quality gates pass (see `/CLAUDE.md` for commands)
+- [ ] All quality gates pass (see @/CLAUDE.md for commands)
 - [ ] No breaking changes introduced
 - [ ] No test failures introduced in areas of the code unrelated to this increment
 - [ ] Feature works in both development and build modes

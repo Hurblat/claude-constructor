@@ -64,6 +64,9 @@ The workflow supports multiple issue tracking systems through an abstraction lay
 
 #### Configuration File
 
+Similar to `./claude/settings.json` and `.claude/settings.local.json`, there are two ways of using configuration in Claude Constructor.
+`.claude/settings.claude-constructor.json` has default values, but you can override these by creating `.claude/settings.claude-constructor.local.json`.
+
 ```json
 # .claude/settings.claude-constructor.json
 {
@@ -82,6 +85,7 @@ The workflow supports multiple issue tracking systems through an abstraction lay
   "issue-tracking-provider": "linear"
 }
 ```
+
 - Requires Linear MCP integration configured
 - Uses `linear:get_issue`, `linear:update_issue`, `linear:create_comment`, `linear:list_issue_statuses`
 - Supports fuzzy matching for status names
@@ -190,6 +194,7 @@ I also recommend checking in on the work as it is happening, to gauge if anythin
 ## Prerequisites
 
 ### Technical Requirements
+- Python (Python 2 or Python 3)
 - Issue tracking system MCP integration configured (see Issue Tracking System Integration section)
 - GitHub CLI (`gh`) authenticated
 - Git repository
@@ -198,7 +203,7 @@ I also recommend checking in on the work as it is happening, to gauge if anythin
 ### Required Configuration Files
 - `/CLAUDE.md` - General principles, quality gates, and development workflow
 - `docs/git-commit.md` - Git commit guidelines (example available in `docs/git-commit.md` in Claude Constructor)
-- `.claude/settings.claude-constructor.json` - Issue tracking system provider configuration
+- `.claude/settings.claude-constructor.json` - Configuration of issue tracking provider, default git branch name, and silent mode
 
 ### Optional Configuration Files
 - `docs/requirements.md` - Domain principles and business rules (can be referenced during implementation planning and code review)
@@ -237,9 +242,10 @@ In this repository:
 │   ├── review-pull-request.md
 │   ├── issue/
 │   │   ├── get-issue.md                    # Issue tracking system: Get issue details
-│   │   ├── update-issue.md                 # Issue tracking system: Update status
-│   │   ├── create-comment.md               # Issue tracking system: Add comments
-└── settings.claude-constructor.json        # Issue tracking system configuration
+│   │   ├── update-issue.md                 # Issue tracking system: Update issue status
+│   │   ├── create-comment.md               # Issue tracking system: Add comments to issue
+├── settings.claude-constructor.json        # Configuration settings (project level, checked in)
+└── settings.claude-constructor.local.json  # Configuration settings (local, gitignored)
 
 docs/
 └── git-commit.md

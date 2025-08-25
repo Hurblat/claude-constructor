@@ -22,5 +22,5 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 - [ ] Frontend behavior is verified using end-to-end tests
 - [ ] All unit, integration, and end-to-end tests pass (100% coverage of user behavior expected)
-- [ ] All quality gates pass (see `/CLAUDE.md` for commands)
+- [ ] All quality gates pass (see @/CLAUDE.md for commands)
 - [ ] No test failures introduced in areas of the code unrelated to this increment

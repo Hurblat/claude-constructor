@@ -10,7 +10,7 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 ## Workflow Steps
 
-1. Implement the sub-increment, in accordance with `CLAUDE.md`
+1. Implement the sub-increment, in accordance with @CLAUDE.md
 
 2. Keep an updated list of TODOs and update status
 
