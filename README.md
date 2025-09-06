@@ -243,13 +243,14 @@ In this repository:
 
 ```
 .claude/
+├── agents/
+│   ├── requirements-definer.md               # Specialized agent for defining requirements
+│   └── specification-writer.md               # Specialized agent for writing specifications
 ├── commands/
-│   ├── feature.md                          # Main orchestrator
+│   ├── feature.md                            # Main orchestrator
 │   ├── create-state-management-file.md
-│   ├── read-issue.md
-│   ├── define-requirements.md
+│   ├── read-settings.md
 │   ├── requirements-sign-off.md
-│   ├── write-specification.md
 │   ├── specification-sign-off.md
 │   ├── git-checkout.md
 │   ├── implement-increment.md
@@ -258,12 +259,15 @@ In this repository:
 │   ├── code-review.md
 │   ├── create-pull-request.md
 │   ├── review-pull-request.md
-│   ├── issue/
-│   │   ├── get-issue.md                    # Issue tracking system: Get issue details
-│   │   ├── update-issue.md                 # Issue tracking system: Update issue status
-│   │   ├── create-comment.md               # Issue tracking system: Add comments to issue
-├── settings.claude-constructor.example.json # Example configuration file
-└── settings.claude-constructor.local.json  # Configuration settings (local, gitignored)
+│   └── issue/
+│       ├── get-issue.md                      # Issue tracking system: Get issue details
+│       ├── read-issue.md                     # Issue tracking system: Read issue details
+│       ├── update-issue.md                   # Issue tracking system: Update issue status
+│       └── create-comment.md                 # Issue tracking system: Add comments to issue
+├── settings.claude-constructor.example.json  # Example configuration file
+├── settings.claude-constructor.schema.json   # Configuration schema with defaults
+├── settings.json                             # General Claude settings
+└── settings.local.json                       # Local settings (gitignored)
 
 docs/
 └── git-commit.md
@@ -272,9 +276,9 @@ docs/
 In the target repository:
 
 ```
-state_management/                   # Generated during workflow
+state_management/                             # Generated during workflow
 └── {issue_key}.md
 
-specifications/                     # Generated during workflow
+specifications/                               # Generated during workflow
 └── {issue_key}_specification_{timestamp}.md
 ```
