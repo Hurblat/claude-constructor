@@ -33,16 +33,18 @@ Before starting the workflow for user prompts, create an issue key based on $ARG
 3. Read settings - run the .claude/commands/read-settings.md command, passing the state management file as argument to it
 4. Read issue - run the .claude/commands/issue/read-issue.md command, passing the state management file as argument to it
 5. Define requirements - use the Task tool to launch the requirements-definer agent, passing the state management file as the prompt/argument
-6. Get sign-off on requirements. You are not allowed to go to step 7 until the user has signed off on the requirements. Run the .claude/commands/requirements-sign-off.md command, passing the state management file as argument to it
-7. Write specification - use the Task tool to launch the specification-writer agent, passing the state management file as the prompt/argument
-8. Get sign-off on specification. You are not allowed to go to step 9 until the user has signed off on the specification. Run the .claude/commands/specification-sign-off.md command, passing the state management file as argument to it
-9. Check out new branch - run the .claude/commands/git-checkout.md command, passing the state management file as argument to it
-10. Implement increment - run the .claude/commands/implement-increment.md command, passing the state management file as argument to it
-11. Write end-to-end tests for the increment - run the .claude/commands/write-end-to-end-tests.md command, passing the state management file as argument to it
-12. Perform code review - run the .claude/commands/code-review.md command, passing the state management file as argument to it. If the verdict of the code review is NEEDS_CHANGES, address comments and then run the implement increment step again.
+6. Validate requirements - use the Task tool to launch the requirements-validator agent, passing the state management file as the prompt/argument. If validation fails with critical issues, return to step 5 to address them.
+7. Get sign-off on requirements. You are not allowed to go to step 8 until the user has signed off on the requirements. Run the .claude/commands/requirements-sign-off.md command, passing the state management file as argument to it
+8. Write specification - use the Task tool to launch the specification-writer agent, passing the state management file as the prompt/argument
+9. Validate specification - use the Task tool to launch the specification-validator agent, passing the state management file as the prompt/argument. If validation fails with critical issues, return to step 8 to address them.
+10. Get sign-off on specification. You are not allowed to go to step 11 until the user has signed off on the specification. Run the .claude/commands/specification-sign-off.md command, passing the state management file as argument to it
+11. Check out new branch - run the .claude/commands/git-checkout.md command, passing the state management file as argument to it
+12. Implement increment - run the .claude/commands/implement-increment.md command, passing the state management file as argument to it
+13. Write end-to-end tests for the increment - run the .claude/commands/write-end-to-end-tests.md command, passing the state management file as argument to it
+14. Perform code review - run the .claude/commands/code-review.md command, passing the state management file as argument to it. If the verdict of the code review is NEEDS_CHANGES, address comments and then run the implement increment step again.
 Repeat as needed.
-13. Create pull request - run the .claude/commands/create-pull-request.md command, passing the state management file as argument to it
-14. Review pull request - run the .claude/commands/review-pull-request.md command, passing the state management file as argument to it
+15. Create pull request - run the .claude/commands/create-pull-request.md command, passing the state management file as argument to it
+16. Review pull request - run the .claude/commands/review-pull-request.md command, passing the state management file as argument to it
 
 **If issue tracking system operations fail**:
 - Continue with local specification files
