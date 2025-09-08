@@ -29,7 +29,7 @@ Before starting the workflow for user prompts, create an issue key based on $ARG
 ## Workflow Steps
 
 1. Read @CLAUDE.md: General principles, quality gates, and development workflow. If the @CLAUDE.md refers to other @CLAUDE.md files, read those as well.
-2. Create a state management file for this increment - run the .claude/commands/create-state-management-file.md command, passing $ARGUMENTS as argument to it
+2. Create a state management file for this increment - run the .claude/commands/create-state-management-file.md command, passing $ARGUMENTS as argument to it if the workflow was started from an issue, or the issue key if it was started from a prompt
 3. Read settings - run the .claude/commands/read-settings.md command, passing the state management file as argument to it
 4. Read issue - run the .claude/commands/issue/read-issue.md command, passing the state management file as argument to it
 5. Define requirements - use the Task tool to launch the requirements-definer agent, passing the state management file as the prompt/argument
