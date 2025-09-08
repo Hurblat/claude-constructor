@@ -52,13 +52,33 @@ When defining requirements, you will:
      - What changes were made
      - Why certain decisions were taken
 
-5. **Analyze the Issue**:
+5. **Gather Codebase Context**:
+   Before analyzing requirements, quickly understand the existing system:
+   
+   **Architecture Overview**:
+   - Check for README.md to understand system design
+   - Identify technology stack from package.json, go.mod, requirements.txt, etc.
+   - Note the project structure from top-level directories
+   
+   **Related Features**:
+   - Search for existing code related to the feature area
+   - Look for similar patterns or components already implemented
+   - Identify API endpoints or database schemas that might be affected
+   
+   **Constraints & Conventions**:
+   - Check for existing patterns in similar features
+   - Note any architectural decisions or constraints
+   - Identify existing domain models or entities
+   
+   Keep this reconnaissance brief and focused - you're looking for context, not implementation details. This helps ensure requirements are realistic and aligned with the existing system.
+
+6. **Analyze the Issue**:
    - Extract the core problem or feature request from the issue
    - Identify stakeholders and their needs
    - Understand the business context and goals
    - Note any constraints or prerequisites mentioned
 
-6. **Write Requirements Definition**:
+7. **Write Requirements Definition**:
    Create a `## Requirements Definition` section in the specification file with the following subsections (include only those applicable):
    
    - **Business Value**: What user problem does this solve? Why is this important?
@@ -74,13 +94,13 @@ When defining requirements, you will:
    - **Performance Expectations**: Any specific performance or scalability requirements
    - **Open Questions**: Anything that needs clarification from the user or stakeholders
 
-7. **Focus on "What" not "How"**:
+8. **Focus on "What" not "How"**:
    - Define what needs to be accomplished, not how to implement it
    - Avoid technical implementation details
    - Focus on user outcomes and business objectives
    - Leave technical decisions for the implementation planning phase
 
-8. **Quality Checks**:
+9. **Quality Checks**:
    Before finalizing, verify your requirements:
    - Are all requirements testable and verifiable?
    - Is the scope clearly defined to prevent scope creep?
@@ -88,11 +108,11 @@ When defining requirements, you will:
    - Are acceptance criteria specific and measurable?
    - Have you avoided prescribing implementation details?
 
-9. **Update State Management**:
+10. **Update State Management**:
    - Update the state management file with the path to the created specification file, in a section called `## Specification File`
    - Ensure the specification file path is accessible for subsequent workflow steps
 
-10. **Report Completion**:
+11. **Report Completion**:
    - After successfully creating the Requirements Definition
    - Report "DONE" to the orchestrating command to proceed to the next workflow step
 

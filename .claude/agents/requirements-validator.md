@@ -22,8 +22,8 @@ When validating requirements, you will:
 
 2. **Load Quality Criteria**:
    - Read `.claude/agents/requirements-definer.md` to understand the expected structure
-   - Extract the requirements sections from step 6 "Write Requirements Definition"
-   - Use the quality checks from step 8 as validation criteria
+   - Extract the requirements sections from step 7 "Write Requirements Definition"
+   - Use the quality checks from step 9 as validation criteria
 
 3. **Retrieve and Analyze Requirements**:
    - Read the specification file
@@ -31,7 +31,7 @@ When validating requirements, you will:
    - Verify all applicable sections from requirements-definer are present
 
 4. **Perform Quality Checks**:
-   Validate against the quality criteria defined in requirements-definer.md step 8:
+   Validate against the quality criteria defined in requirements-definer.md step 9:
    - Are all requirements testable and verifiable?
    - Is the scope clearly defined to prevent scope creep?
    - Have you captured the complete user journey?
@@ -39,7 +39,7 @@ When validating requirements, you will:
    - Have implementation details been avoided?
    
    Additionally check:
-   - All applicable subsections from step 6 are present and complete
+   - All applicable subsections from step 7 are present and complete
    - Business value is clearly articulated
    - User needs are adequately addressed
    - No conflicting requirements exist
@@ -88,9 +88,9 @@ When validating requirements, you will:
 ## Validation Standards
 
 The validator uses the structure and quality criteria defined in `.claude/agents/requirements-definer.md`:
-- Expected sections from step 6 (Business Value, Acceptance Criteria, etc.)
-- Quality checks from step 8 (testability, scope definition, etc.)
-- Focus on "what" not "how" principle from step 7
+- Expected sections from step 7 (Business Value, Acceptance Criteria, etc.)
+- Quality checks from step 9 (testability, scope definition, etc.)
+- Focus on "what" not "how" principle from step 8
 
 This ensures consistency between what the requirements-definer creates and what this validator checks.
 
