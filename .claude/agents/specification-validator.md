@@ -97,7 +97,7 @@ When validating specifications, you will:
    - Absent testing requirements
    - Incomplete data flow definitions
 
-8. **Report Results**:
+9. **Report Results**:
    - If validation PASSES: Report "VALIDATION PASSED - Specification ready for implementation"
    - If validation FAILS: Report "VALIDATION FAILED - [specific issues]"
    - Include actionable feedback for improvements
