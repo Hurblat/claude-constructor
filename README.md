@@ -269,9 +269,10 @@ In this repository:
 │       ├── update-issue.md                   # Issue tracking system: Update issue status
 │       └── create-comment.md                 # Issue tracking system: Add comments to issue
 ├── settings.claude-constructor.example.json  # Example configuration file
+├── settings.claude-constructor.local.json    # Configuration file (local Claude Constructor settings, gitignored)
 ├── settings.claude-constructor.schema.json   # Configuration schema with defaults
 ├── settings.json                             # General Claude settings
-└── settings.local.json                       # Local settings (gitignored)
+└── settings.local.json                       # Local Claude settings (gitignored)
 
 docs/
 └── git-commit.md
