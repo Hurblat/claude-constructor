@@ -1,11 +1,69 @@
 # Claude Constructor
 
-A systematic workflow engine for implementing functionality with Claude Code, designed with quality-driven development practices and planning at the center.
+A workflow automation system that helps Claude Code implement features systematically in your codebase with built-in planning, validation, and review steps.
 
-## Overview
+## What It Does
 
-This system orchestrates feature development through a structured 16-step workflow that covers complete implementation, comprehensive testing, and automated code review. Each command works together as part of a larger orchestrated process.
-The goal has been to enable Claude Code to work for extended periods of time without deviating from the plan.
+Claude Constructor provides a `/feature` command that guides Claude Code through a complete feature development workflow - from understanding requirements to creating a pull request. Instead of giving Claude Code open-ended instructions, this system ensures it follows a structured process that includes planning, getting your approval, implementing, testing, and self-review.
+
+The workflow prevents common issues like Claude Code losing focus, making unplanned changes, or implementing features differently than intended.
+
+## Quickstart
+
+> **Important:** Claude Constructor will work with you to define requirements and create specifications, but the more detail you provide upfront, the better the results. Whether providing a prompt directly or using issue tracking, include clear requirements, acceptance criteria, and technical constraints when possible. The workflow includes approval gates where you can refine requirements before implementation begins.
+
+### Prerequisites
+
+**Required:**
+- Claude Code CLI installed and configured
+- GitHub CLI (`gh`) authenticated
+- Python 3 installed
+
+**Optional:**
+- Linear MCP or Jira MCP configured (for issue tracking integration)
+
+### Quick Setup (No Configuration Required)
+
+1. **Clone and start using immediately:**
+   ```bash
+   git clone https://github.com/Hurblat/claude-constructor.git
+   cd claude-constructor
+   claude
+   > /add-dir /path/to/your/project
+   > /feature Add dark mode toggle to settings page
+   ```
+
+   That's it! No configuration needed. Just describe your feature and Claude Constructor will guide you through the complete workflow - from requirements to pull request.
+
+### Using with Issue Tracking (Optional)
+
+If you use Linear or Jira for issue tracking:
+
+1. **Create configuration file:**
+   ```bash
+   cp .claude/settings.claude-constructor.example.json .claude/settings.claude-constructor.local.json
+   ```
+
+2. **Edit the configuration:**
+   ```json
+   {
+     "issue-tracking-provider": "linear"  // or "jira"
+   }
+   ```
+
+3. **Run with issue key:**
+   ```bash
+   claude
+   > /add-dir /path/to/your/project
+   > /feature ABC-123
+   ```
+
+### Tips for Success
+
+- **Be specific**: Whether using a feature description (`/feature Add dark mode`) or issue key (`/feature ABC-123`), provide clear requirements
+- **Use silent mode** for testing: Add `"silent-mode": true` to skip issue tracker updates and PR creation
+- **Monitor progress**: Claude Constructor will update you at each step and ask for approval at key points
+- **Check the state file**: Find detailed progress in `state_management/{issue_key}.md` or `state_management/prompt-{number}.md`
 
 ## Core Workflow
 
@@ -15,7 +73,7 @@ The main orchestrator (`feature.md`) follows this sequence:
 1. **Read configuration files** - Load development guidelines, quality gates, and other documentation
 2. **Create state management file** - Used to track workflow progress
 3. **Read settings** - Get issue tracker and other settings
-4. **Read Linear issue** - Fetch issue details via Linear MCP
+4. **Read issue/prompt** - Get feature details (from prompt or issue tracker)
 5. **Define requirements** - Create detailed requirements specification covering business value, user journey, acceptance criteria, and technical constraints (using specialized agent)
 6. **Validate requirements** - Quality assurance check to ensure requirements are complete, clear, and testable
 7. **Get requirements sign-off** - Iterate on the requirements definition until it's ready *(Human Required)*
@@ -33,31 +91,15 @@ The main orchestrator (`feature.md`) follows this sequence:
 15. **Create pull request** - Creating a pull request on GitHub, describing the work
 16. **Review pull request** - Monitor and respond to feedback *(Human Required)*
 
-## Usage
+### Alternative: Install directly in your project
 
-There are two ways of using this workflow.
-
-1. Put the command files in your `.claude/commands` folder (either in your project or your home directory), and docs/ in the root of your project.
-Then run the following:
+If you prefer to have the workflow files in your project repository, you can copy the command files to your project's `.claude/commands` folder and `docs/` to your project root. Then run:
 
 ```bash
-> claude
+cd /your/project
+claude
 > /feature ABC-123
 ```
-
-2. Run the workflow from this directory, to make changes in a different code base.
-This enables you to reuse this workflow with any repository without copying/moving files.
-
-```bash
-> claude
-> /add-dir $path_to_target_repository
-> /feature ABC-123
-```
-
-Documentation for [`/add-dir`](https://docs.anthropic.com/en/docs/claude-code/cli-reference).
-
-Notes:
-- If you want to skip the issue tracking system you could update the workflow to start with a prompt instead
 
 ## Configuration
 
@@ -107,7 +149,7 @@ An example configuration is provided in `.claude/settings.claude-constructor.exa
 - Uses `jira:get_issue`, `jira:add_comment_to_issue`, `jira:get_transitions_for_issue`, `jira:transition_issue`
 - Supports fuzzy matching for status names
 
-**Prompt Issue (No External Integration)**
+**Prompt Mode (No External Integration)**
 ```json
 # .claude/settings.claude-constructor.json
 {
@@ -115,23 +157,22 @@ An example configuration is provided in `.claude/settings.claude-constructor.exa
 }
 ```
 - No external issue tracking system required
-- Prompts user for issue title and description during workflow
-- Automatically skips all external API calls (same as silent mode)
+- Use with: `/feature Your feature description here`
+- Creates local issue keys (prompt-1, prompt-2, etc.)
 - Perfect for local development and experimentation
+- Note: Automatically skips issue tracker API calls (but still creates PRs unless silent mode is also enabled)
 
 #### Silent Mode
 
-Silent mode allows you to run the workflow without making external API calls to issue tracking systems or creating GitHub pull requests. This is useful for:
-- Testing workflows locally without side effects
-- Dry-run scenarios to verify changes
-- Development environments where external integrations are not available
+Silent mode prevents external API calls to issue trackers and GitHub, useful for testing and dry-runs. It works with any provider including prompt mode.
 
 To enable silent mode, set `"silent-mode": true` in your configuration:
 
 ```json
 # .claude/settings.claude-constructor.example.json
 {
-  "silent-mode": true
+  "silent-mode": true,
+  "issue-tracking-provider": "linear"  // or "jira" or "prompt"
 }
 ```
 
@@ -142,7 +183,7 @@ When silent mode is enabled:
 - **PR review comments**: Skipped entirely
 - All other operations (git commits, code changes, tests) execute normally
 
-**Note**: The `"prompt"` provider automatically behaves like silent mode, so you don't need to set both.
+**Note:** The `"prompt"` provider automatically skips issue tracker calls, but you still need `"silent-mode": true` if you want to skip GitHub PR creation.
 
 #### Issue Tracking System Requirements
 
@@ -225,23 +266,67 @@ I also recommend checking in on the work as it is happening, to gauge if anythin
 - `docs/git-commit.md` - Git commit guidelines (example available in `docs/git-commit.md` in Claude Constructor)
 - `.claude/settings.claude-constructor.example.json` - Example configuration file showing available settings
 
-### Optional Configuration Files
-- `docs/requirements.md` - Domain principles and business rules (can be referenced during implementation planning and code review)
-- ...and any additional context
+### Input Requirements
 
-### Issue Requirements
-**The workflow assumes well-groomed issues.** Users must ensure issues contain:
+Claude Constructor will help you refine and validate requirements during the workflow, but providing clear input upfront leads to better results.
+
+**Helpful details to include (when known):**
 - Clear problem definition and business context
 - Detailed feature requirements and acceptance criteria
 - Proposed solution approach or architecture direction
 - Sufficient domain context for implementation decisions
 - Any relevant technical constraints or considerations
 
-The quality of the implementation depends directly on the quality of the issue description and context provided.
+The workflow includes human approval gates where you can iterate on requirements and specifications before implementation begins. For issue tracking systems, well-groomed issues will streamline this process.
+
+### Example: Well-Defined Input
+
+**Good Example (Issue or Prompt):**
+```
+Title: Add user preference for date format display
+
+Description:
+Currently, all dates in the application are displayed in US format (MM/DD/YYYY). International users have requested the ability to choose their preferred date format.
+
+Requirements:
+- Add a date format preference to user settings (options: US, ISO, European)
+- Store preference in user profile database
+- Apply format throughout the application (dashboard, reports, transaction history)
+- Default to US format for existing users to maintain backward compatibility
+
+Technical Notes:
+- Use existing DateFormatter utility class
+- Preference should persist across sessions
+- Consider timezone handling for consistency
+
+Acceptance Criteria:
+- [ ] User can select date format in settings page
+- [ ] Selected format applies immediately without page refresh
+- [ ] Format persists after logout/login
+- [ ] All date displays respect the preference
+```
+
+**Poor Example:**
+```
+Make dates better for international users
+```
+
+The workflow will help refine vague requirements, but starting with detail saves iteration cycles and produces better results.
+
+### Optional Configuration Files
+- `docs/requirements.md` - Domain principles and business rules (can be referenced during implementation planning and code review)
+- ...and any additional context
 
 ## File Structure
 
-In this repository:
+When using Claude Constructor with `/add-dir` (recommended approach), the workflow files stay in the Claude Constructor repository - you don't need to copy any `.claude/` folders or command files to your project. The `/add-dir` command handles the connection between repositories.
+
+The only files you may want to add to your target project are:
+- `/CLAUDE.md` - Your project-specific development guidelines
+- `docs/` folder - Any project-specific documentation referenced by the workflow
+
+### Claude Constructor repository files:
+These files remain in the Claude Constructor repository and define the workflow:
 
 ```
 .claude/
@@ -278,12 +363,13 @@ docs/
 └── git-commit.md
 ```
 
-In the target repository:
+### Generated files in your target repository:
+These files are automatically created in your project during the workflow:
 
 ```
-state_management/                             # Generated during workflow
+state_management/                             # Tracks workflow progress
 └── {issue_key}.md
 
-specifications/                               # Generated during workflow
+specifications/                               # Technical specifications
 └── {issue_key}_specification_{timestamp}.md
 ```
