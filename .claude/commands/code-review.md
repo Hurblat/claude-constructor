@@ -3,14 +3,13 @@
 ## Purpose
 
 Review code changes for the active increment and give a verdict of NEEDS_CHANGES or APPROVED.
-This command is called by an orchestrating command, and is one of the steps in a larger workflow.
+$ARGUMENTS contains the path to the state management file.
+These instructions are read and followed as part of a larger workflow.
 You MUST follow all workflow steps below, not skipping any step and doing all steps in order.
 
 ## Workflow Steps
 
-When this command is run with a state management file as $ARGUMENTS.
-
-1. Read state management file to understand the context for what you need to review
+1. Read state management file (path in $ARGUMENTS) to understand the context for what you need to review
 
 2. Read the specification linked in the state management file
 
@@ -32,7 +31,7 @@ When this command is run with a state management file as $ARGUMENTS.
 
 6. Final verdict: APPROVED or NEEDS_CHANGES with clear reasons
 
-7. Once APPROVED, add code review comment - run the .claude/commands/issue/create-comment.md command, passing the issue key and findings as arguments to it
+7. Once APPROVED, add code review comment - read .claude/commands/issue/create-comment.md and follow the instructions
 
 Format the arguments as:
 ```
@@ -40,7 +39,7 @@ Issue Key: [issue key from state management file]
 Comment Text: [code review findings and verdict]
 ```
 
-8. Report DONE to the orchestrating command.
+8. Report DONE and continue with the next workflow step.
 
 ## Review Process
 
