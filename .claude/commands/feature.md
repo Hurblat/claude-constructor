@@ -31,7 +31,7 @@ Before starting the workflow for user prompts, create an issue key based on $ARG
 1. Read @CLAUDE.md: General principles, quality gates, and development workflow. If the @CLAUDE.md refers to other @CLAUDE.md files, read those as well.
 2. Create a state management file for this increment - read .claude/commands/create-state-management-file.md and follow the instructions, passing $ARGUMENTS as argument to it if the workflow was started from an issue, or the issue key if it was started from a prompt
 3. Read settings - read .claude/commands/read-settings.md and follow the instructions
-4. Read issue - check the issue-tracking-provider in the Settings section of the state management file. If "linear" or "jira", read .claude/commands/issue/read-issue.md and follow the instructions. If "prompt", skip this step as there is no external issue to read.
+4. Read issue - check the issue-tracking-provider in the Settings section of the state management file. If not "prompt", read .claude/commands/issue/read-issue.md and follow the instructions. If "prompt", skip this step as there is no external issue to read.
 5. Define requirements - use the Task tool to launch the requirements-definer agent with the state management file path as the prompt
 6. Validate requirements - use the Task tool to launch the requirements-validator agent with the state management file path as the prompt. If validation fails with critical issues, return to step 5 to address them.
 7. Get sign-off on requirements. You are not allowed to go to step 8 until the user has signed off on the requirements. Read .claude/commands/requirements-sign-off.md and follow the instructions
@@ -41,8 +41,7 @@ Before starting the workflow for user prompts, create an issue key based on $ARG
 11. Check out new branch - read .claude/commands/git-checkout.md and follow the instructions
 12. Implement increment - read .claude/commands/implement-increment.md and follow the instructions
 13. Write end-to-end tests for the increment - read .claude/commands/write-end-to-end-tests.md and follow the instructions
-14. Perform code review - read .claude/commands/code-review.md and follow the instructions. If the verdict of the code review is NEEDS_CHANGES, address comments and then repeat the implement increment step.
-Repeat as needed.
+14. Perform code review - read .claude/commands/code-review.md and follow the instructions. If the verdict of the code review is NEEDS_CHANGES, address comments and then repeat the implement increment step. Repeat as needed.
 15. Create pull request - read .claude/commands/create-pull-request.md and follow the instructions
 16. Review pull request - read .claude/commands/review-pull-request.md and follow the instructions
 
