@@ -2,24 +2,25 @@
 
 ## Purpose
 
-Read issue from the configured issue tracking system for the issue key listed in $ARGUMENTS and note all information in $ARGUMENTS.
-This command is called by an orchestrating command, and is one of the steps in a larger workflow.
+Read issue from the configured issue tracking system and add the information to the state management file.
+$ARGUMENTS contains the path to the state management file.
+These instructions are read and followed as part of a larger workflow.
 You MUST follow all workflow steps below, not skipping any step and doing all steps in order.
 
 ## Workflow Steps
 
-1. Read $ARGUMENTS and extract the issue key
+1. Read the state management file (path in $ARGUMENTS) and extract the issue key
 
-2. Get issue details - run the .claude/commands/issue/get-issue.md command, passing the issue key as argument to it
+2. Get issue details - read .claude/commands/issue/get-issue.md and follow the instructions
 
-The issue key is listed in $ARGUMENTS after `Issue Key:`
+The issue key is listed in the state management file after `Issue Key:`
 
 Format the argument as:
 ```
-Issue Key: [issue key from $ARGUMENTS]
+Issue Key: [issue key from state management file]
 ```
 
-3. Note findings in $ARGUMENTS
+3. Note findings in the state management file
 
 Create a new section called `## Issue Information`, with information on this format:
 - **Key**: Issue key
@@ -27,4 +28,4 @@ Create a new section called `## Issue Information`, with information on this for
 - **Title**: Issue title
 - **Description**: Issue description
 
-4. Report DONE to the orchestrating command
+4. Report DONE and continue with the next workflow step
