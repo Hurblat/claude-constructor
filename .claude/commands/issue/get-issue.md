@@ -31,10 +31,6 @@ Issue Key: [issue_key]
 - Retrieve issue key, ID, title, and description
 
 4. **Output Results**: Display the issue information in this format:
-   ### For Prompt Issue Provider (`"prompt"`)
-   - **Prompt**: User prompt
-
-   ### For Issue Tracking Providers
    - **Key**: Issue key
    - **ID**: Issue ID
    - **Title**: Issue title
@@ -49,6 +45,6 @@ Issue Key: [issue_key]
 From other commands, call this command with:
 
 ```markdown
-run the .claude/commands/issue/get_issue.md command, passing these arguments:
+run the .claude/commands/issue/get-issue.md command, passing these arguments:
 Issue Key: ABC-123
 ```
