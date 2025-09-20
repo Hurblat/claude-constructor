@@ -100,7 +100,7 @@ class TestLoadSettings(unittest.TestCase):
         sys.stdout = old_stdout
         
         self.assertIn("Using SCHEMA defaults:", output)
-        self.assertIn("issue-tracking-provider: linear", output)
+        self.assertIn("issue-tracking-provider: prompt", output)
         
     def test_main_no_settings_files(self):
         """Test main function with no settings files - should use schema defaults"""
@@ -111,7 +111,7 @@ class TestLoadSettings(unittest.TestCase):
         sys.stdout = old_stdout
         
         self.assertIn("Using SCHEMA defaults:", output)
-        self.assertIn("issue-tracking-provider: linear", output)
+        self.assertIn("issue-tracking-provider: prompt", output)
         self.assertIn("default-branch: main", output)
         self.assertIn("silent-mode: False", output)
     
@@ -127,7 +127,7 @@ class TestLoadSettings(unittest.TestCase):
         
         # Check merged result
         self.assertEqual(settings["silent-mode"], True)  # Local override
-        self.assertEqual(settings["issue-tracking-provider"], "linear")  # Default
+        self.assertEqual(settings["issue-tracking-provider"], "prompt")  # Default
         self.assertEqual(settings["default-branch"], "main")  # Default
 
 
