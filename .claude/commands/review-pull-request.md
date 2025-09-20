@@ -11,10 +11,10 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 1. **Load Settings**: Read the Settings section in $ARGUMENTS
 
 2. **Check Silent Mode**:
-   - If `silent-mode` is `true` OR `issue-tracking-provider` is `"prompt"`:
+   - If `silent-mode` is `true`:
      - Log: "Silent mode: Skipping PR review monitoring and comments"
      - Skip to step 7
-   - If `silent-mode` is `false` AND `issue-tracking-provider` is NOT `"prompt"`:
+   - If `silent-mode` is `false`:
      - Continue with normal PR review workflow (steps 3-6)
 
 3. Monitor the pull request for comments and/or reviews. Use `gh api repos/{OWNER}/{REPO}/pulls/{PR_NUMBER}/comments --jq '.[] | {author: .user.login, body: .body, path: .path, line: .line}'`
