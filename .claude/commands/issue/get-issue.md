@@ -49,6 +49,6 @@ Issue Key: [issue_key]
 From other commands, call this command with:
 
 ```markdown
-run the .claude/commands/issue/get_issue.md command, passing these arguments:
+run the .claude/commands/issue/get-issue.md command, passing these arguments:
 Issue Key: ABC-123
 ```

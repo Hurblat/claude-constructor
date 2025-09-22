@@ -50,7 +50,7 @@ def load_schema_defaults():
     except (IOError, OSError, json.JSONDecodeError):
         # If schema doesn't exist or is invalid, return hardcoded defaults
         return {
-            "issue-tracking-provider": "linear",
+            "issue-tracking-provider": "prompt",
             "default-branch": "main",
             "silent-mode": False
         }
