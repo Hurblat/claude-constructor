@@ -1,14 +1,22 @@
+---
+name: review-pull-request
+description: Monitor and respond to PR feedback
+argument-hint: [issue-key] [state-management-file-path]
+model: claude-opus-4-1
+---
+
 # Review Pull Request Command
 
 ## Purpose
 
-Review pull request for the increment implemented to satisfy the issue described in $ARGUMENTS.
+Review pull request for the increment implemented to satisfy the issue.
+$1 contains the issue key, $2 contains the path to the state management file.
 This command is called by an orchestrating command, and is one of the steps in a larger workflow.
 You MUST follow all workflow steps below, not skipping any step and doing all steps in order.
 
 ## Workflow Steps
 
-1. **Load Settings**: Read the Settings section in $ARGUMENTS
+1. **Load Settings**: Read the Settings section in the state management file ($2)
 
 2. **Check Silent Mode**:
    - If `silent-mode` is `true`:
@@ -31,15 +39,7 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 7. **Add pull request feedback comment** (only if silent mode and not prompt):
    - If `silent-mode` is `false` AND `issue-tracking-provider` is NOT `"prompt"`:
-     - Run the .claude/commands/issue/create-comment.md command, passing the issue key and feedback summary as arguments to it
-
-     Get the issue key from the state management file in $ARGUMENTS.
-
-     Format the arguments as:
-     ```
-     Issue Key: [issue key from state management file]
-     Comment Text: [user feedback summary and changes made in response]
-     ```
+     - Use the SlashCommand tool to execute `/create-comment $1 "[user feedback summary and changes made in response]"`
    - If `silent-mode` is `true` OR `issue-tracking-provider` is `"prompt"`:
      - Log: "Silent mode: Would have added PR feedback comment to issue"
 

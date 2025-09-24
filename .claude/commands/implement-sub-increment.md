@@ -1,4 +1,11 @@
-# Implement Increment Command
+---
+name: implement-sub-increment
+description: Implement assigned tasks from specification
+argument-hint: [state-management-file-path] [agent-id]
+model: claude-3-5-sonnet-latest
+---
+
+# Implement Sub-Increment Command
 
 ## Purpose
 

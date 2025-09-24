@@ -1,3 +1,10 @@
+---
+name: specification-sign-off
+description: Get user approval on implementation plan
+argument-hint: [state-management-file-path]
+model: claude-3-5-haiku-latest
+---
+
 # Specification Sign-Off Command
 
 ## Purpose
@@ -28,15 +35,8 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 3. **Add Issue Comment**:
    - Did you get explicit approval on the specification? If not, go back to step 2.
-   - Add specification comment - read .claude/commands/issue/create-comment.md and follow the instructions
-
-    Get the issue key from the state management file.
-
-    Format the arguments as:
-    ```
-    Issue Key: [issue key from state management file]
-    Comment Text: [specification details and assumptions]
-    ```
+   - Read the state management file to get the issue key
+   - Use the SlashCommand tool to execute `/create-comment [issue-key] "[specification details and assumptions]"`
 
 4. **Report Completion**:
    - Report DONE and continue with the next workflow step

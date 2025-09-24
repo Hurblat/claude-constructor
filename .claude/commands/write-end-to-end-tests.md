@@ -1,3 +1,10 @@
+---
+name: write-end-to-end-tests
+description: Write E2E tests for implemented increment
+argument-hint: [state-management-file-path]
+model: claude-sonnet-4-0
+---
+
 # Write End-To-End Tests for Increment Command
 
 ## Purpose

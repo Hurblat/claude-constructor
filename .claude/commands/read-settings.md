@@ -1,3 +1,11 @@
+---
+name: read-settings
+description: Read settings and add to state management file
+argument-hint: [state-management-file-path]
+model: claude-3-5-haiku-latest
+allowed-tools: Bash($(command -v python3 || command -v python) ./scripts/load_settings.py)
+---
+
 # Read Settings Command
 
 ## Purpose

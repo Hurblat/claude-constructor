@@ -1,15 +1,22 @@
+---
+name: code-review
+description: Review implementation against specification
+argument-hint: [state-management-file-path]
+model: claude-3-5-sonnet-latest
+---
+
 # Code Review Command
 
 ## Purpose
 
 Review code changes for the active increment and give a verdict of NEEDS_CHANGES or APPROVED.
-$ARGUMENTS contains the path to the state management file.
+$1 contains the path to the state management file.
 These instructions are read and followed as part of a larger workflow.
 You MUST follow all workflow steps below, not skipping any step and doing all steps in order.
 
 ## Workflow Steps
 
-1. Read state management file (path in $ARGUMENTS) to understand the context for what you need to review
+1. Read state management file ($1) to understand the context for what you need to review
 
 2. Read the specification linked in the state management file
 
@@ -31,13 +38,9 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 6. Final verdict: APPROVED or NEEDS_CHANGES with clear reasons
 
-7. Once APPROVED, add code review comment - read .claude/commands/issue/create-comment.md and follow the instructions
-
-Format the arguments as:
-```
-Issue Key: [issue key from state management file]
-Comment Text: [code review findings and verdict]
-```
+7. Once APPROVED, add code review comment:
+   - Extract issue key from state management file
+   - Use the SlashCommand tool to execute `/create-comment [issue-key] "[code review findings and verdict]"`
 
 8. Report DONE and continue with the next workflow step.
 

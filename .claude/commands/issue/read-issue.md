@@ -1,31 +1,30 @@
+---
+name: read-issue
+description: Fetch issue details from tracking system
+argument-hint: [issue-key] [state-management-file-path]
+model: claude-3-5-haiku-latest
+---
+
 # Read Issue Command
 
 ## Purpose
 
 Read issue from the configured issue tracking system and add the information to the state management file.
-$ARGUMENTS contains the path to the state management file.
+$1 contains the issue key, $2 contains the path to the state management file.
 These instructions are read and followed as part of a larger workflow.
 You MUST follow all workflow steps below, not skipping any step and doing all steps in order.
 
 ## Workflow Steps
 
-1. Read the state management file (path in $ARGUMENTS) and extract the issue key
+1. Get issue details:
+   - Use the SlashCommand tool to execute `/get-issue $1`
 
-2. Get issue details - read .claude/commands/issue/get-issue.md and follow the instructions
-
-The issue key is listed in the state management file after `Issue Key:`
-
-Format the argument as:
-```
-Issue Key: [issue key from state management file]
-```
-
-3. Note findings in the state management file
+2. Note findings in the state management file ($2)
 
 Create a new section called `## Issue Information`, with information on this format:
-- **Key**: Issue key
-- **ID**: Issue ID
-- **Title**: Issue title
-- **Description**: Issue description
+- **Key**: $1
+- **ID**: Issue ID (from get-issue response)
+- **Title**: Issue title (from get-issue response)
+- **Description**: Issue description (from get-issue response)
 
-4. Report DONE and continue with the next workflow step
+3. Report DONE and continue with the next workflow step

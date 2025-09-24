@@ -1,3 +1,11 @@
+---
+name: create-comment
+description: Add comment to issue in tracking system
+argument-hint: [issue-key] "[comment-text]"
+model: claude-3-5-haiku-latest
+allowed-tools: Bash($(command -v python3 || command -v python) ./scripts/load_settings.py)
+---
+
 # Create Issue Comment Command
 
 ## Purpose
@@ -6,52 +14,32 @@ Add a comment to an issue in the configured issue tracking system.
 This command is called by other orchestrating commands, and is one of the steps in a larger workflow.
 You MUST follow all workflow steps below, not skipping any step and doing all steps in order.
 
-## Arguments
-
-This command expects $ARGUMENTS in the following format:
-
-```
-Issue Key: [issue_key]
-Comment Text: [comment_content]
-```
-
 ## Workflow Steps
 
-1. **Parse Arguments**: Extract the issue key and comment text from $ARGUMENTS
+1. **Load Settings**:
+   !$(command -v python3 || command -v python) ./scripts/load_settings.py
 
-2. **Load Settings**: Read the Settings section in $ARGUMENTS
-
-3. **Check Silent Mode or Prompt Issue Provider**: 
+2. **Check Silent Mode or Prompt Issue Provider**:
    - If `silent-mode` is `true` OR `issue-tracking-provider` is `"prompt"`:
-     - Log the comment operation locally: "Silent mode: Would have added comment to [issue_key]: [comment_preview]"
-     - Skip the actual API call (step 4)
-     - Continue to step 5
+     - Log the comment operation locally: "Silent mode: Would have added comment to $1: $2"
+     - Skip the actual API call (step 3)
+     - Continue to step 4
 
-4. **Execute Create Comment Operation** (only if silent mode is false):
+3. **Execute Create Comment Operation** (only if silent mode is false):
 
 ### For Linear Provider (`"linear"`)
-- Use `linear:create_comment` with the issue ID and comment text from $ARGUMENTS
+- Use `linear:create_comment` with $1 (issue ID) and $2 (comment text)
 - Add the comment to the specified issue
 
 ### For Jira Provider (`"jira"`)
-- Use `jira:add_comment_to_issue` with the issue key and comment text from $ARGUMENTS
+- Use `jira:add_comment_to_issue` with $1 (issue key) and $2 (comment text)
 - Add the comment to the specified issue
 
-5. **Output Results**: Display confirmation of the comment creation:
-   - **Issue**: [issue_key]
-   - **Comment Added**: [comment_preview - first 100 characters] 
+4. **Output Results**: Display confirmation of the comment creation:
+   - **Issue**: $1
+   - **Comment Added**: $2
    - **Result**: Success/Failure (or "Skipped - Silent Mode" if applicable)
 
-6. **Error Handling**: If the issue operation fails, log the error but continue gracefully
+5. **Error Handling**: If the issue operation fails, log the error but continue gracefully
 
-7. **Report DONE** to the orchestrating command
-
-## Usage Example
-
-From other commands, call this command with:
-
-```markdown
-run the .claude/commands/issue/create_comment.md command, passing these arguments:
-Issue Key: ABC-123
-Comment Text: Claude Code implementation started for specification_ABC-123_20240101.md
-```
+6. **Report DONE** to the orchestrating command
