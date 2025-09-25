@@ -20,5 +20,3 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 2. Write the following at the top of the empty state management file:
 `Issue Key: {$1}`
-
-3. Report DONE and continue with the next workflow step

@@ -23,8 +23,6 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 3. Write end-to-end tests that cover your plan
 
-4. Report DONE to the orchestrating command
-
 ## This part of the workflow is done when
 
 - [ ] Frontend behavior is verified using end-to-end tests

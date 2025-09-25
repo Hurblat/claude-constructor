@@ -21,5 +21,3 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 2. Add the settings to the state management file ($1), in a new section called `## Settings`, on this format
     - key: value
-
-3. Report DONE and continue with the next workflow step

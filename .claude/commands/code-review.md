@@ -42,8 +42,6 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
    - Extract issue key from state management file
    - Use the SlashCommand tool to execute `/create-comment [issue-key] "[code review findings and verdict]"`
 
-8. Report DONE and continue with the next workflow step.
-
 ## Review Process
 
 ### Specification Alignment

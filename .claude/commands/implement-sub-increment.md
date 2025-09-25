@@ -22,5 +22,3 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 2. Keep an updated list of TODOs and update status
 
 3. The increment is done when all tasks assigned to you are done
-
-4. Report DONE to the orchestrating command

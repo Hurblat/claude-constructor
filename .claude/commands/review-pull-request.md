@@ -42,5 +42,3 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
      - Use the SlashCommand tool to execute `/create-comment $1 "[user feedback summary and changes made in response]"`
    - If `silent-mode` is `true` OR `issue-tracking-provider` is `"prompt"`:
      - Log: "Silent mode: Would have added PR feedback comment to issue"
-
-8. Report DONE to the orchestrating command

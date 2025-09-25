@@ -48,5 +48,3 @@ Expected status values: "In Progress", "Code Review"
    - **Result**: Success/Failure (or "Skipped - Silent Mode" if applicable)
 
 5. **Error Handling**: If the issue operation fails, log the error but continue gracefully
-
-6. **Report DONE** to the orchestrating command

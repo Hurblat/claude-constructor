@@ -26,5 +26,3 @@ Create a new section called `## Issue Information`, with information on this for
 - **ID**: Issue ID (from get-issue response)
 - **Title**: Issue title (from get-issue response)
 - **Description**: Issue description (from get-issue response)
-
-3. Report DONE and continue with the next workflow step

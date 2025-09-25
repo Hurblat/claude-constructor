@@ -36,5 +36,3 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
    - **Description**: Issue description
 
 4. **Error Handling**: If the issue operation fails, log the error but continue gracefully
-
-5. **Report DONE** to the orchestrating command

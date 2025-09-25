@@ -40,5 +40,3 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
    - If `silent-mode` is `true` OR `issue-tracking-provider` is `"prompt"`:
      - Log: "Silent mode: Would have updated issue $1 status to 'Code Review'"
      - Skip the issue update
-
-8. Report DONE to the orchestrating command
