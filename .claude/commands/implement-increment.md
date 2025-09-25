@@ -25,18 +25,16 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
    - Read the state management file ($2) to get the specification file name
    - Use the SlashCommand tool to execute `/create-comment $1 "Claude Code implementation started for [specification-file-name]"`
 
-4. Understand the division of work and spawn subagents:
+4. Understand the division of work and implement tasks:
     - Read specification to identify agent_ids
-    - For each agent_id: spawn a subagent using the Task tool, providing the agent_id and state management file path ($2). For tasks that can be done in parallel, and where dependencies are fulfilled, spawn subagents in parallel.
+    - For each agent_id: Use the implement-sub-increment subagent to implement tasks for [agent_id] in [state-management-file-path] ($2). For tasks that can be done in parallel, and where dependencies are fulfilled, invoke subagents in parallel.
     - Monitor subagent progress
     - Keep an updated list of TODOs in the state management file, including subagent status
-    - When monitoring completes for all agent_ids, proceed to step 5
-
-5. Report DONE and continue with the next workflow step
+    - When all agent_ids are complete, implementation is finished
 
 ## This part of the workflow is done when
 
-- [ ] All subagents report DONE
+- [ ] All subagents are complete
 - [ ] Single behavior is fully implemented, both on the backend and the frontend
 - [ ] All unit and integration tests pass
 - [ ] All quality gates pass (see @CLAUDE.md for commands)

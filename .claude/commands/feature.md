@@ -33,11 +33,11 @@ Before starting the workflow for user prompts, create an issue key based on $1:
 2. Create a state management file for this increment - use the SlashCommand tool to execute `/create-state-management-file $1` if the workflow was started from an issue, or the issue key if it was started from a prompt
 3. Read settings - use the SlashCommand tool to execute `/read-settings [state-management-file-path]`
 4. Read issue - check the issue-tracking-provider in the Settings section of the state management file. If not "prompt", use the SlashCommand tool to execute `/read-issue [issue-key] [state-management-file-path]`. If "prompt", skip this step as there is no external issue to read.
-5. Define requirements - use the Task tool to launch the requirements-definer agent with the state management file path as the prompt
-6. Validate requirements - use the Task tool to launch the requirements-validator agent with the state management file path as the prompt. If validation fails with critical issues, return to step 5 to address them.
+5. Define requirements - Use the requirements-definer subagent to define requirements for [state-management-file-path]
+6. Validate requirements - Use the requirements-validator subagent to validate requirements in [state-management-file-path]. If validation fails with critical issues, return to step 5 to address them.
 7. Get sign-off on requirements. You are not allowed to go to step 8 until the user has signed off on the requirements. Use the SlashCommand tool to execute `/requirements-sign-off [state-management-file-path]`
-8. Write specification - use the Task tool to launch the specification-writer agent with the state management file path as the prompt
-9. Validate specification - use the Task tool to launch the specification-validator agent with the state management file path as the prompt. If validation fails with critical issues, return to step 8 to address them.
+8. Write specification - Use the specification-writer subagent to write specification for [state-management-file-path]
+9. Validate specification - Use the specification-validator subagent to validate specification in [state-management-file-path]. If validation fails with critical issues, return to step 8 to address them.
 10. Get sign-off on specification. You are not allowed to go to step 11 until the user has signed off on the specification. Use the SlashCommand tool to execute `/specification-sign-off [state-management-file-path]`
 11. Check out new branch - use the SlashCommand tool to execute `/git-checkout [issue-key] [state-management-file-path]`
 12. Implement increment - use the SlashCommand tool to execute `/implement-increment [issue-key] [state-management-file-path]`

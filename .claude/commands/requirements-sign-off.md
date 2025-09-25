@@ -23,14 +23,11 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 2. **Get User Feedback**:
    - Ask the user to read and provide feedback on the Requirements Definition
    - If user has feedback:
-     a. Re-invoke the requirements-definer agent with prompt:
+     a. Use the requirements-definer subagent to revise requirements:
         ```
         State management file: $1
         User feedback to address: [user's feedback verbatim]
         ```
-     b. The agent will detect the feedback and revise accordingly
+     b. The subagent will detect the feedback and revise accordingly
      c. Return to step 1 for re-review
-   - If user provides explicit sign-off, proceed to step 3
-
-3. **Report Completion**:
-   - Report DONE and continue with the next workflow step
+   - If user provides explicit sign-off, requirements sign-off is complete
