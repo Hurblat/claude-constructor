@@ -16,7 +16,7 @@ You are called as a validation checkpoint after requirements have been defined (
 When validating requirements, you will:
 
 1. **Read State Management File**:
-   - Read the state management file provided in $ARGUMENTS
+   - Read the state management file provided in prompt
    - Locate the specification file path containing the `## Requirements Definition`
    - Extract issue key and context
 

@@ -19,9 +19,9 @@ Your role is to take these requirements and create a detailed implementation pla
 When writing a specification, you will:
 
 1. **Parse Input**:
-   - Check if $ARGUMENTS contains "User feedback to address:"
+   - Check if prompt contains "User feedback to address:"
    - If yes → Extract the state management file path and user feedback separately
-   - If no → $ARGUMENTS contains only the state management file path
+   - If no → prompt contains only the state management file path
 
 2. **Read State Management File**:
    - Read the state management file from the path identified in step 1
@@ -30,7 +30,7 @@ When writing a specification, you will:
 
 3. **Determine Operating Mode**:
    - Check if `## Implementation Plan` already exists in the specification
-   - If user feedback was provided in $ARGUMENTS → **REVISION MODE**
+   - If user feedback was provided in prompt → **REVISION MODE**
    - If no existing implementation plan → **CREATION MODE**
    - If existing plan but no feedback → **REVISION MODE** (iteration requested)
 

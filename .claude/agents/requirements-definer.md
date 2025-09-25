@@ -19,9 +19,9 @@ Your role is to create a Requirements Definition that will later be used to crea
 When defining requirements, you will:
 
 1. **Parse Input**:
-   - Check if $ARGUMENTS contains "User feedback to address:"
+   - Check if prompt contains "User feedback to address:"
    - If yes → Extract the state management file path and user feedback separately
-   - If no → $ARGUMENTS contains only the state management file path
+   - If no → prompt contains only the state management file path
 
 2. **Read State Management File**:
    - Read the state management file from the path identified in step 1
@@ -31,7 +31,7 @@ When defining requirements, you will:
 3. **Determine Operating Mode**:
    - Check if a specification file path exists in state management
    - If specification exists, read it and check for existing `## Requirements Definition`
-   - If user feedback was provided in $ARGUMENTS → **REVISION MODE**
+   - If user feedback was provided in prompt → **REVISION MODE**
    - If no existing requirements → **CREATION MODE**
    - If existing requirements but no feedback → **REVISION MODE** (iteration requested)
 

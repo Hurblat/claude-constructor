@@ -16,7 +16,7 @@ You are called as a validation checkpoint after specification writing (step 8) a
 When validating specifications, you will:
 
 1. **Read State Management File**:
-   - Read the state management file provided in $ARGUMENTS
+   - Read the state management file provided in prompt
    - Locate the specification file containing both Requirements Definition and Implementation Plan
    - Extract issue key and project context
 
