@@ -26,7 +26,7 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 4. Understand the division of work and implement tasks:
     - Read specification to identify agent_ids
-    - For each agent_id: Use the Task tool to spawn a subagent with prompt: "Implement tasks for agent_id [agent_id] in specification at $2. Only implement tasks assigned to [agent_id]. Follow all guidelines in @CLAUDE.md." For tasks that can be done in parallel where dependencies are fulfilled, spawn subagents in parallel.
+    - For each agent_id: spawn a subagent using the Task tool, providing the agent_id and state management file path. For tasks that can be done in parallel, and where dependencies are fulfilled, spawn subagents in parallel.
     - Monitor subagent progress
     - Keep an updated list of TODOs in the state management file, including subagent status
     - When all agent_ids are complete, implementation is finished
