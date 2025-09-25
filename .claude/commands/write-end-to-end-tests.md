@@ -9,7 +9,7 @@ model: claude-sonnet-4-0
 
 ## Purpose
 
-Write end-to-end tests for the increment for the issue described in $ARGUMENTS, using the specification linked in $ARGUMENTS. The increment has been implemented when your work starts.
+Write end-to-end tests for the implemented increment using the specification linked in the state management file ($1).
 This command is called by an orchestrating command, and is one of the steps in a larger workflow.
 You MUST follow all workflow steps below, not skipping any step and doing all steps in order.
 

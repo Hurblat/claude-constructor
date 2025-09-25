@@ -19,7 +19,7 @@ Expected status values: "In Progress", "Code Review"
 ## Workflow Steps
 
 1. **Load Settings**:
-   !$(command -v python3 || command -v python) ./scripts/load_settings.py
+   !`$(command -v python3 || command -v python) ./scripts/load_settings.py`
 
 2. **Check Silent Mode or Prompt Issue Provider**:
    - If `silent-mode` is `true` OR `issue-tracking-provider` is `"prompt"`:
