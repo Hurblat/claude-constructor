@@ -11,7 +11,6 @@ allowed-tools: Bash($(command -v python3 || command -v python) ./scripts/load_se
 ## Purpose
 
 Read Claude Constructor settings and add them to the state management file.
-$1 contains the path to the state management file.
 These instructions are read and followed as part of a larger workflow.
 You MUST follow all workflow steps below, not skipping any step and doing all steps in order.
 

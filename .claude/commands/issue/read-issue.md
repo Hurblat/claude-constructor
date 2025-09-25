@@ -10,7 +10,6 @@ model: claude-3-5-haiku-latest
 ## Purpose
 
 Read issue from the configured issue tracking system and add the information to the state management file.
-$1 contains the issue key, $2 contains the path to the state management file.
 These instructions are read and followed as part of a larger workflow.
 You MUST follow all workflow steps below, not skipping any step and doing all steps in order.
 

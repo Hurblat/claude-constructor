@@ -10,7 +10,6 @@ model: claude-opus-4-1
 ## Purpose
 
 Review code changes for the active increment and give a verdict of NEEDS_CHANGES or APPROVED.
-$1 contains the path to the state management file.
 These instructions are read and followed as part of a larger workflow.
 You MUST follow all workflow steps below, not skipping any step and doing all steps in order.
 

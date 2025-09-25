@@ -10,7 +10,6 @@ model: claude-opus-4-1
 ## Purpose
 
 Review pull request for the increment implemented to satisfy the issue.
-$1 contains the issue key, $2 contains the path to the state management file.
 This command is called by an orchestrating command, and is one of the steps in a larger workflow.
 You MUST follow all workflow steps below, not skipping any step and doing all steps in order.
 

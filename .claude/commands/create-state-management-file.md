@@ -10,7 +10,6 @@ model: claude-3-5-haiku-latest
 ## Purpose
 
 Create a state management file and add the issue key.
-$1 contains the issue key to use.
 These instructions are read and followed as part of a larger workflow.
 You MUST follow all workflow steps below, not skipping any step and doing all steps in order.
 

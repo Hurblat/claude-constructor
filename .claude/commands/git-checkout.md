@@ -10,7 +10,6 @@ model: claude-3-5-haiku-latest
 ## Purpose
 
 Check out a new git branch to be ready for implementation start.
-$1 contains the issue key, $2 contains the path to the state management file.
 These instructions are read and followed as part of a larger workflow.
 You MUST follow all workflow steps below, not skipping any step and doing all steps in order.
 

@@ -10,7 +10,6 @@ model: claude-sonnet-4-0
 ## Purpose
 
 Implement the increment using the specification in the state management file.
-$1 contains the issue key, $2 contains the path to the state management file.
 These instructions are read and followed as part of a larger workflow.
 You MUST follow all workflow steps below, not skipping any step and doing all steps in order.
 
