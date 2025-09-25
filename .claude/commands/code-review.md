@@ -2,7 +2,7 @@
 name: code-review
 description: Review implementation against specification
 argument-hint: [state-management-file-path]
-model: claude-3-5-sonnet-latest
+model: claude-opus-4-1
 ---
 
 # Code Review Command
