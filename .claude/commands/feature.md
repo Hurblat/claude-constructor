@@ -1,7 +1,7 @@
 ---
 name: feature
 description: Implement feature from issue tracking system or user prompt
-argument-hint: [issue key or prompt]
+argument-hint: [issue-key-or-prompt]
 model: claude-sonnet-4-0
 ---
 
