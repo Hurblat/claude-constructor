@@ -3,7 +3,7 @@ name: get-issue
 description: Retrieve issue details from tracking system
 argument-hint: [issue-key]
 model: claude-3-5-haiku-latest
-allowed-tools: Bash($(command -v python3 || command -v python) ./scripts/load_settings.py)
+allowed-tools: Bash(python3 ./scripts/load_settings.py 2>/dev/null || python ./scripts/load_settings.py)
 ---
 
 # Get Issue Command
@@ -16,7 +16,7 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 ## Workflow Steps
 
-1. **Load Settings** by running !`$(command -v python3 || command -v python) ./scripts/load_settings.py` in the Claude Constructor directory
+1. **Load Settings** by running !`python3 ./scripts/load_settings.py 2>/dev/null || python ./scripts/load_settings.py` in the Claude Constructor directory
 
 2. **Execute Get Issue Operation**:
 

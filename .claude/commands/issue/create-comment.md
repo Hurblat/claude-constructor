@@ -3,7 +3,7 @@ name: create-comment
 description: Add comment to issue in tracking system
 argument-hint: [issue-key] "[comment-text]"
 model: claude-3-5-haiku-latest
-allowed-tools: Bash($(command -v python3 || command -v python) ./scripts/load_settings.py)
+allowed-tools: Bash(python3 ./scripts/load_settings.py 2>/dev/null || python ./scripts/load_settings.py)
 ---
 
 # Create Issue Comment Command
@@ -16,7 +16,7 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 ## Workflow Steps
 
-1. **Load Settings** by running !`$(command -v python3 || command -v python) ./scripts/load_settings.py` in the Claude Constructor directory
+1. **Load Settings** by running !`python3 ./scripts/load_settings.py 2>/dev/null || python ./scripts/load_settings.py` in the Claude Constructor directory
 
 2. **Check Silent Mode or Prompt Issue Provider**:
    - If `silent-mode` is `true` OR `issue-tracking-provider` is `"prompt"`:
