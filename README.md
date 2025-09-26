@@ -343,7 +343,6 @@ These files remain in the Claude Constructor repository and define the workflow:
 │   ├── specification-sign-off.md
 │   ├── git-checkout.md
 │   ├── implement-increment.md
-│   ├── implement-sub-increment.md
 │   ├── write-end-to-end-tests.md
 │   ├── code-review.md
 │   ├── create-pull-request.md
