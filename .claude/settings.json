@@ -12,6 +12,23 @@
       }
     ]
   },
+  "permissions": {
+    "allow": [
+      "SlashCommand(/create-state-management-file:*)",
+      "SlashCommand(/read-settings:*)",
+      "SlashCommand(/requirements-sign-off:*)",
+      "SlashCommand(/specification-sign-off:*)",
+      "SlashCommand(/git-checkout:*)",
+      "SlashCommand(/implement-increment:*)",
+      "SlashCommand(/issue:read-issue:*)",
+      "SlashCommand(/issue:get-issue:*)",
+      "SlashCommand(/issue:update-issue:*)",
+      "SlashCommand(/issue:create-comment:*)",
+      "SlashCommand(/write-end-to-end-tests:*)",
+      "SlashCommand(/create-pull-request:*)",
+      "SlashCommand(/review-pull-request:*)"
+    ]
+  },
   "env": {
     "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1"
   }
