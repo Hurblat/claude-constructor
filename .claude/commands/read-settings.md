@@ -16,7 +16,7 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 ## Workflow Steps
 
-1. Read settings by running `$(command -v python3 || command -v python) ./scripts/load_settings.py`.
+1. Read settings by running `$(command -v python3 || command -v python) ./scripts/load_settings.py` in the Claude Constructor directory
 
 2. Add the settings to the state management file ($1), in a new section called `## Settings`, on this format
     - key: value
