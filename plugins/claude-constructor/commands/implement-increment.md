@@ -2,7 +2,7 @@
 name: implement-increment
 description: Orchestrate implementation of feature increment
 argument-hint: [issue-key] [state-management-file-path]
-model: claude-sonnet-4-5
+model: claude-sonnet-4-0
 ---
 
 # Implement Increment Command
@@ -18,22 +18,20 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 1. Ensure that the specification was explicitly signed off by the user. If not, go back to the specification signoff step in the larger workflow.
 
 2. Update issue status to "In Progress":
-   - Use the SlashCommand tool to execute `/update-issue $1 "In Progress" $2`
+   - Use the SlashCommand tool to execute `/update-issue $1 "In Progress"`
 
 3. Add implementation comment:
    - Read the state management file ($2) to get the specification file name
-   - Use the SlashCommand tool to execute `/create-comment $1 "Claude Code implementation started for [specification-file-name]" $2`
+   - Use the SlashCommand tool to execute `/create-comment $1 "Claude Code implementation started for [specification-file-name]"`
 
 4. Understand the division of work and implement tasks:
     - Read specification to identify agent_ids and Dependency Graph from the Implementation Plan
     - Create "Implementation Agents Status" section in state management file to track progress:
-
-      ```markdown
+      ```
       ## Implementation Agents Status
       - agent-1: pending
       - agent-2: pending
       ```
-
     - Process agents in dependency order:
       a. Identify agents with no dependencies or whose dependencies are complete
       b. Update their status to "in_progress" in Implementation Agents Status
