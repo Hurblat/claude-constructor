@@ -29,8 +29,8 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
     - Create "Implementation Agents Status" section in state management file to track progress:
       ```
       ## Implementation Agents Status
-      - agent-1: pending
-      - agent-2: pending
+      - agent-1: pending (revision: 0)
+      - agent-2: pending (revision: 0)
       ```
     - Process agents in dependency order:
       a. Identify agents with no dependencies or whose dependencies are complete
@@ -42,7 +42,14 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
       g. Pass to auditor: the agent_id and state management file path
       h. Wait for audit result (AUDIT_PASSED/AUDIT_FAILED)
       i. If audit passes, update status to "completed" in Implementation Agents Status
-      j. If audit fails, update status to "failed" and handle as agent failure
+      j. If audit fails:
+         - Update status to "needs_revision" in Implementation Agents Status
+         - Extract specific feedback from audit report
+         - Re-spawn the increment-implementer subagent with the feedback
+         - Pass: agent_id, state management file path, and "Validator/Auditor feedback: [specific issues]"
+         - Increment revision counter for tracking
+         - Repeat audit cycle until pass or max revisions reached (3 attempts)
+         - If max revisions reached, mark as "failed" and handle as agent failure
       k. Repeat until all agents are complete
     - Handle agent failures:
       - If an agent reports failure, mark it as "failed" in Implementation Agents Status
@@ -52,7 +59,8 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 ## This part of the workflow is done when
 
-- [ ] All subagents are complete
+- [ ] All subagents are complete and have passed their audits
+- [ ] All audit feedback has been addressed through the revision process
 - [ ] Single behavior is fully implemented, both on the backend and the frontend
 - [ ] All unit and integration tests pass
 - [ ] All quality gates pass (see @CLAUDE.md for commands)
@@ -60,3 +68,5 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 - [ ] No test failures introduced in areas of the code unrelated to this increment
 - [ ] Feature works in both development and build modes
 - [ ] Business rules are enforced consistently
+- [ ] Implementation strictly adheres to specification without scope creep
+- [ ] No unnecessary code or over-engineering detected in audits
