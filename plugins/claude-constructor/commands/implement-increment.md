@@ -25,10 +25,25 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
    - Use the SlashCommand tool to execute `/create-comment $1 "Claude Code implementation started for [specification-file-name]" $2`
 
 4. Understand the division of work and implement tasks:
-    - Read specification to identify agent_ids
-    - For each agent_id: spawn a subagent using the Task tool, providing the agent_id and state management file path. For tasks that can be done in parallel, and where dependencies are fulfilled, spawn subagents in parallel.
-    - Monitor subagent progress
-    - Keep an updated list of TODOs in the state management file, including subagent status
+    - Read specification to identify agent_ids and Dependency Graph from the Implementation Plan
+    - Create "Implementation Agents Status" section in state management file to track progress:
+      ```
+      ## Implementation Agents Status
+      - agent-1: pending
+      - agent-2: pending
+      ```
+    - Process agents in dependency order:
+      a. Identify agents with no dependencies or whose dependencies are complete
+      b. Update their status to "in_progress" in Implementation Agents Status
+      c. Spawn those agents in parallel using the increment-implementer subagent via Task tool
+      d. Pass to each subagent: the agent_id and state management file path
+      e. Monitor for completion signals ("AGENT_COMPLETE: [agent_id]")
+      f. Update status to "completed" in Implementation Agents Status when agents complete
+      g. Repeat until all agents are complete
+    - Handle agent failures:
+      - If an agent reports failure, mark it as "failed" in Implementation Agents Status
+      - Do not spawn agents that depend on failed agents
+      - Report the failure chain to the user
     - When all agent_ids are complete, implementation is finished
 
 ## This part of the workflow is done when
