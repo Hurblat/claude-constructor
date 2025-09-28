@@ -22,7 +22,7 @@ def read_transcript(transcript_path: str) -> List[Dict]:
         print(f"Error reading transcript: {e}", file=sys.stderr)
         return []
 
-def extract_recent_messages(transcript: List[Dict], limit: int = 10) -> List[Dict]:
+def extract_recent_messages(transcript: List[Dict], limit: int = 20) -> List[Dict]:
     """Extract the most recent messages from the transcript."""
     recent = []
     for entry in reversed(transcript):
@@ -85,20 +85,22 @@ def check_todos_status(messages: List[Dict]) -> Tuple[bool, str]:
 def check_unresolved_errors(messages: List[Dict]) -> Tuple[bool, str]:
     """Check for unresolved errors or failures."""
     error_patterns = [
-        r'error:',
-        r'Error:',
-        r'ERROR',
-        r'failed',
-        r'Failed',
-        r'FAILED',
-        r'exception',
-        r'Exception',
-        r'traceback',
-        r'Traceback',
+        r'^error:\s',  # error: at start of line
+        r'\nerror:\s',  # error: after newline
+        r'^Error:\s',  # Error: at start of line
+        r'\nError:\s',  # Error: after newline
+        r'\bERROR\b',  # Whole word ERROR
+        r'\btest.*failed\b',  # test(s) failed
+        r'\bcommand.*failed\b',  # command failed
+        r'\bFailed to\b',  # Failed to...
+        r'\bFAILED\b',  # Whole word FAILED
+        r'Exception:',  # Exception: (typically at start)
+        r'^Traceback',  # Traceback at start of line
+        r'\nTraceback',  # Traceback after newline
         r'command not found',
         r'permission denied',
         r'cannot find',
-        r'unable to'
+        r'\bunable to\b'  # Word boundaries around 'unable to'
     ]
 
     resolution_patterns = [
@@ -159,10 +161,12 @@ def check_waiting_for_input(messages: List[Dict]) -> Tuple[bool, str]:
                 if re.search(pattern, content):
                     # Check if there's a user response after this
                     has_user_response = False
-                    for subsequent_msg in messages[messages.index(msg)+1:]:
-                        if subsequent_msg.get('type') == 'user_message':
-                            has_user_response = True
-                            break
+                    msg_index = next((i for i, m in enumerate(messages) if m is msg), -1)
+                    if msg_index >= 0:
+                        for subsequent_msg in messages[msg_index+1:]:
+                            if subsequent_msg.get('type') == 'user_message':
+                                has_user_response = True
+                                break
 
                     if not has_user_response:
                         return False, "Waiting for user response to a question."
@@ -176,6 +180,7 @@ def check_mid_task_indicators(messages: List[Dict]) -> Tuple[bool, str]:
         r"I'm going to",
         r"I'll now",
         r"Let me now",
+        r"Let me start",  # Added this pattern
         r"Next,? I",
         r"Now I need to",
         r"I should now",
