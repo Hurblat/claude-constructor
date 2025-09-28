@@ -18,7 +18,7 @@ Expected status values: "In Progress", "Code Review"
 
 ## Workflow Steps
 
-1. **Load Settings** by running !`python3 ./scripts/load_settings.py 2>/dev/null || python ./scripts/load_settings.py` in the Claude Constructor directory
+1. **Load Settings** by running `python3 ./scripts/load_settings.py 2>/dev/null || python ./scripts/load_settings.py` in the Claude Constructor directory
 
 2. **Check Silent Mode or Prompt Issue Provider**:
    - If `silent-mode` is `true` OR `issue-tracking-provider` is `"prompt"`:

@@ -16,7 +16,7 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 ## Workflow Steps
 
-1. **Load Settings** by running !`python3 ./scripts/load_settings.py 2>/dev/null || python ./scripts/load_settings.py` in the Claude Constructor directory
+1. **Load Settings** by running `python3 ./scripts/load_settings.py 2>/dev/null || python ./scripts/load_settings.py` in the Claude Constructor directory
 
 2. **Execute Get Issue Operation**:
 
