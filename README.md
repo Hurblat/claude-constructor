@@ -63,7 +63,7 @@ If you use Linear or Jira for issue tracking:
 - **Be specific**: Whether using a feature description (`/feature Add dark mode`) or issue key (`/feature ABC-123`), provide clear requirements
 - **Use silent mode** for testing: Add `"silent-mode": true` to skip issue tracker updates and PR creation
 - **Monitor progress**: Claude Constructor will update you at each step and ask for approval at key points
-- **Check the state file**: Find detailed progress in `state_management/{issue_key}.md` or `state_management/prompt-{number}.md`
+- **Check workflow files**: Find detailed progress in `workflow_files/{issue_key}/` including state management, specifications, and review logs
 
 ## Core Workflow
 
@@ -221,7 +221,7 @@ This repository is a work in progress, and there are things you might want to ch
 - Agent IDs assigned for parallel work with dependency management
 
 ### State Management
-- Persistent tracking across all workflow steps in `state_management/{issue_key}.md`
+- Persistent tracking across all workflow steps in `workflow_files/{issue_key}/state_management.md`
 - TODO list maintenance and resumable workflows
 
 ### Issue Tracking Integration
@@ -362,13 +362,14 @@ docs/
 └── git-commit.md
 ```
 
-### Generated files in your target repository:
-These files are automatically created in your project during the workflow:
+### Generated files in Claude Constructor repository:
+These files are automatically created during the workflow:
 
 ```
-state_management/                             # Tracks workflow progress
-└── {issue_key}.md
-
-specifications/                               # Technical specifications
-└── {issue_key}_specification_{timestamp}.md
+workflow_files/{issue_key}/
+├── state_management.md                       # Tracks workflow progress
+├── specification.md                          # Requirements and implementation plan
+├── review.md                                 # Code review findings (all rounds)
+└── implementation/                           # Implementation logs (future)
+    └── {agent_id}.md
 ```
