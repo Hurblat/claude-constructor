@@ -1,7 +1,7 @@
 ---
 name: specification-writer
 description: This agent is called as a step in the feature implementation workflow to create detailed implementation plans from existing requirements. It reads the state management file, analyzes the pre-defined requirements, examines the codebase, and produces a comprehensive Implementation Plan with parallelization strategy and agent assignments. The agent transforms approved requirements into actionable, parallelizable work specifications that enable multiple agents to implement features efficiently.
-model: opus
+model: sonnet
 tools: Read, Write, Edit, Glob, Grep, Bash
 color: purple
 ---

@@ -1,7 +1,7 @@
 ---
 name: requirements-definer
 description: This agent is called as a step in the feature implementation workflow to define requirements for a feature increment. It reads the state management file containing issue details and creates a comprehensive Requirements Definition section in a specification file. The agent focuses on capturing business value, acceptance criteria, scope boundaries, and other essential requirements without delving into implementation details.
-model: opus
+model: sonnet
 tools: Read, Write, Edit, Glob, Grep
 color: blue
 ---

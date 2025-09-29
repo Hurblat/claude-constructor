@@ -2,7 +2,7 @@
 name: review-pull-request
 description: Monitor and respond to PR feedback
 argument-hint: [issue-key] [state-management-file-path]
-model: claude-opus-4-1
+model: claude-sonnet-4-5
 ---
 
 # Review Pull Request Command
