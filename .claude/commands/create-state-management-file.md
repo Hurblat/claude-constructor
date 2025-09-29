@@ -15,7 +15,7 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 ## Workflow Steps
 
-1. Create a state management file called `state_management/$1.md`.
+1. Create a state management file called `workflow_files/$1/state_management.md`.
 
 2. Write the following at the top of the empty state management file:
 `Issue Key: {$1}`
