@@ -37,8 +37,34 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 6. Final verdict: APPROVED or NEEDS_CHANGES with clear reasons
 
-7. Once APPROVED, add code review comment:
+7. Write review findings to log file:
    - Extract issue key from state management file
+   - Check if `workflow_files/{issue_key}/review.md` exists
+   - If it exists, read it and count existing rounds to determine next round number
+   - If it doesn't exist, this is Round 1
+   - Append new review round to `workflow_files/{issue_key}/review.md` with format:
+     ```
+     ## Round {N}
+     **Date**: {timestamp}
+     **Verdict**: APPROVED or NEEDS_CHANGES
+
+     ### Summary
+     [Brief status]
+
+     ### Completed
+     [What works correctly]
+
+     ### Issues Found
+     [Specific problems]
+
+     ### Missing
+     [What still needs implementation]
+
+     ### Next Steps
+     [Actionable items if NEEDS_CHANGES]
+     ```
+
+8. Once APPROVED, add code review comment:
    - Use the SlashCommand tool to execute `/create-comment [issue-key] "[code review findings and verdict]"`
 
 ## Review Process
