@@ -49,6 +49,17 @@ def main():
         try:
             common = os.path.commonpath([abs_file_path, current_dir])
             if common == current_dir:
+                # Check if file is in workflow_files directory (allowed)
+                workflow_files_dir = os.path.normpath(os.path.join(current_dir, 'workflow_files'))
+                try:
+                    workflow_common = os.path.commonpath([abs_file_path, workflow_files_dir])
+                    if workflow_common == workflow_files_dir:
+                        # File is in workflow_files, allow it
+                        sys.exit(0)
+                except ValueError:
+                    # Not in workflow_files
+                    pass
+
                 print("Edits are not allowed in this repository. Use external directories added with /add-dir.", file=sys.stderr)
                 sys.exit(2)
         except ValueError:
