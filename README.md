@@ -83,7 +83,11 @@ The main orchestrator (`feature.md`) follows this sequence:
 
 ### Implementation
 11. **Check out new branch** - Create feature branch
-12. **Implement increment** - Execute with parallel subagents if possible
+12. **Implement increment** - Execute with parallel subagents if possible, each followed by comprehensive audit cycle:
+    - Agent completes assigned tasks
+    - Increment-auditor verifies implementation quality and scope adherence
+    - If audit fails, agent receives specific feedback and revises implementation
+    - Process repeats until audit passes or maximum revision attempts reached
 13. **Write end-to-end tests** - Cover user behavior
 
 ### Review
@@ -332,9 +336,11 @@ These files remain in the Claude Constructor repository and define the workflow:
 .claude/
 ├── agents/
 │   ├── requirements-definer.md               # Specialized agent for defining requirements
-│   ├── requirements-validator.md             # Quality assurance for requirements completeness
+│   ├── requirements-auditor.md               # Quality assurance for requirements completeness
 │   ├── specification-writer.md               # Specialized agent for writing specifications
-│   └── specification-validator.md            # Technical validation of implementation plans
+│   ├── specification-validator.md            # Technical validation of implementation plans
+│   ├── increment-implementer.md              # Parallel task execution agent for implementation
+│   └── increment-auditor.md                  # Post-implementation verification and quality control
 ├── commands/
 │   ├── feature.md                            # Main orchestrator
 │   ├── create-state-management-file.md

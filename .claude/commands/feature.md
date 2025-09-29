@@ -34,7 +34,7 @@ Before starting the workflow for user prompts, create an issue key based on $1:
 3. Read settings - use the SlashCommand tool to execute `/read-settings [state-management-file-path]`
 4. Read issue - check the issue-tracking-provider in the Settings section of the state management file. If not "prompt", use the SlashCommand tool to execute `/read-issue [issue-key] [state-management-file-path]`. If "prompt", skip this step as there is no external issue to read.
 5. Define requirements - Use the requirements-definer subagent to define requirements for [state-management-file-path]
-6. Validate requirements - Use the requirements-validator subagent to validate requirements in [state-management-file-path]. If validation fails with critical issues, return to step 5 to address them.
+6. Validate requirements - Use the requirements-auditor subagent to validate requirements in [state-management-file-path]. If validation fails with critical issues, return to step 5 to address them.
 7. Get sign-off on requirements. You are not allowed to go to step 8 until the user has signed off on the requirements. Use the SlashCommand tool to execute `/requirements-sign-off [state-management-file-path]`
 8. Write specification - Use the specification-writer subagent to write specification for [state-management-file-path]
 9. Validate specification - Use the specification-validator subagent to validate specification in [state-management-file-path]. If validation fails with critical issues, return to step 8 to address them.
