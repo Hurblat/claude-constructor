@@ -25,6 +25,7 @@
       "SlashCommand(/issue:update-issue:*)",
       "SlashCommand(/issue:create-comment:*)",
       "SlashCommand(/write-end-to-end-tests:*)",
+      "SlashCommand(/security-review:*)",
       "SlashCommand(/code-review:*)",
       "SlashCommand(/create-pull-request:*)",
       "SlashCommand(/review-pull-request:*)"
