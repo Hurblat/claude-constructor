@@ -24,8 +24,9 @@ Create a TODO list for the workflow steps, and follow it.
 
 Before starting the workflow for user prompts, create an issue key based on $1:
 - List the contents of `state_management` in the additional directories
-- If there are no filenames using the format `prompt-{number}`, use issue key `prompt-1`
-- If there is at least one filename using the format `prompt-{number}`, use issue key `prompt-{number+1}`
+- If there are no filenames using the format `prompt-{number}`, use issue key `prompt-1-{short-description}`
+- If there is at least one filename using the format `prompt-{number}`, use issue key `prompt-{number+1}-{short-description}`
+- The short description should be a kebab-case summary of the prompt (e.g., `prompt-1-implement-cli`, `prompt-2-add-auth`)
 
 ## Workflow Steps
 
