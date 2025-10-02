@@ -38,7 +38,7 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
       c. Spawn those agents in parallel using the increment-implementer subagent via Task tool
       d. Pass to each subagent: the agent_id and state management file path
       e. Monitor for completion signals ("AGENT_COMPLETE: [agent_id]")
-      f. When an agent reports completion, invoke increment-auditor subagent via Task tool
+      f. When an agent reports completion, invoke increment-implementer-auditor subagent via Task tool
       g. Pass to auditor: the agent_id and state management file path
       h. Wait for audit result (AUDIT_PASSED/AUDIT_FAILED)
       i. If audit passes, update status to "completed" in Implementation Agents Status
