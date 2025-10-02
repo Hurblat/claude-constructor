@@ -75,10 +75,10 @@ The main orchestrator (`feature.md`) follows this sequence:
 3. **Read settings** - Get issue tracker and other settings
 4. **Read issue/prompt** - Get feature details (from prompt or issue tracker)
 5. **Define requirements** - Create detailed requirements specification covering business value, user journey, acceptance criteria, and technical constraints (using specialized agent)
-6. **Validate requirements** - Quality assurance check to ensure requirements are complete, clear, and testable
+6. **Audit requirements** - Quality assurance check to ensure requirements are complete, clear, and testable
 7. **Get requirements sign-off** - Iterate on the requirements definition until it's ready *(Human Required)*
 8. **Write specification** - Technical spec with parallelization plan (using specialized agent)
-9. **Validate specification** - Technical validation to ensure implementation plan is actionable and properly parallelized
+9. **Audit specification** - Technical audit to ensure implementation plan is actionable and properly parallelized
 10. **Get specification sign-off** - Iterate on the specification until it's ready *(Human Required)*
 
 ### Implementation
@@ -237,11 +237,11 @@ This repository is a work in progress, and there are things you might want to ch
 The workflow includes critical human approval gates:
 
 ### 1. Requirements Sign-off (Step 7)
-- **Process**: Claude Constructor presents assumptions and detailed understanding of requirements after validation
+- **Process**: Claude Constructor presents assumptions and detailed understanding of requirements after audit
 - **Human Required**: Must approve definition of requirements
 
 ### 2. Specification Sign-off (Step 10)
-- **Process**: Claude Constructor presents assumptions and detailed specification for review after validation
+- **Process**: Claude Constructor presents assumptions and detailed specification for review after audit
 - **Human Required**: Must approve technical specification before implementation begins
 
 ### 3. Pull Request Review (Step 16)
@@ -272,7 +272,7 @@ I also recommend checking in on the work as it is happening, to gauge if anythin
 
 ### Input Requirements
 
-Claude Constructor will help you refine and validate requirements during the workflow, but providing clear input upfront leads to better results.
+Claude Constructor will help you refine and audit requirements during the workflow, but providing clear input upfront leads to better results.
 
 **Helpful details to include (when known):**
 - Clear problem definition and business context
@@ -336,11 +336,11 @@ These files remain in the Claude Constructor repository and define the workflow:
 .claude/
 ├── agents/
 │   ├── requirements-definer.md               # Specialized agent for defining requirements
-│   ├── requirements-auditor.md               # Quality assurance for requirements completeness
+│   ├── requirements-definer-auditor.md               # Quality assurance for requirements completeness
 │   ├── specification-writer.md               # Specialized agent for writing specifications
-│   ├── specification-validator.md            # Technical validation of implementation plans
+│   ├── specification-writer-auditor.md            # Technical validation of implementation plans
 │   ├── increment-implementer.md              # Parallel task execution agent for implementation
-│   └── increment-auditor.md                  # Post-implementation verification and quality control
+│   └── increment-implementer-auditor.md                  # Post-implementation verification and quality control
 ├── commands/
 │   ├── feature.md                            # Main orchestrator
 │   ├── create-state-management-file.md
