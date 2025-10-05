@@ -1,7 +1,7 @@
 ---
 name: code-review
 description: Review implementation against specification
-argument-hint: [state-management-file-path]
+argument-hint: [issue-key] [state-management-file-path]
 model: claude-sonnet-4-5
 ---
 
@@ -15,7 +15,7 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 ## Workflow Steps
 
-1. Read state management file ($1) to understand the context for what you need to review
+1. Read state management file ($2) to understand the context for what you need to review
 
 2. Read the specification linked in the state management file
 
@@ -38,11 +38,12 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 6. Final verdict: APPROVED or NEEDS_CHANGES with clear reasons
 
 7. Write review findings to log file:
-   - Extract issue key from state management file
-   - Check if `workflow_files/{issue_key}/review.md` exists
-   - If it exists, read it and count existing rounds to determine next round number
-   - If it doesn't exist, this is Round 1
-   - Append new review round to `workflow_files/{issue_key}/review.md` with format:
+   - Check if `workflow_files/$1/review.md` exists using: `ls workflow_files/$1/review.md 2>/dev/null || echo "not found"`
+   - Determine round number:
+     - If review.md exists: Read it and count occurrences of "## Round" to determine next round number
+     - If review.md doesn't exist: This is Round 1
+   - Generate timestamp using: `date -u '+%Y-%m-%d %H:%M UTC'`
+   - Create the review entry with your findings:
      ```
      ## Round {N}
      **Date**: {timestamp}
@@ -61,11 +62,14 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
      [What still needs implementation]
 
      ### Next Steps
-     [Actionable items if NEEDS_CHANGES]
+     [Actionable items if NEEDS_CHANGES, or "None - ready for PR" if APPROVED]
      ```
+   - Write to file:
+     - If review.md exists: Use Edit tool to append the new round at the end
+     - If review.md doesn't exist: Use Write tool to create it with the round content
 
 8. Once APPROVED, add code review comment:
-   - Use the SlashCommand tool to execute `/create-comment [issue-key] "[code review findings and verdict]"`
+   - Use the SlashCommand tool to execute `/create-comment $1 "[code review findings and verdict]"`
 
 ## Review Process
 

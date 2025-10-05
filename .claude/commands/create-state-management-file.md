@@ -15,7 +15,9 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 ## Workflow Steps
 
-1. Create a state management file called `workflow_files/$1/state_management.md`.
+1. Create the workflow directory for this issue using `mkdir -p workflow_files/$1`
 
-2. Write the following at the top of the empty state management file:
+2. Create a state management file called `workflow_files/$1/state_management.md`.
+
+3. Write the following content to the newly created state management file:
 `Issue Key: {$1}`

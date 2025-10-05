@@ -18,7 +18,7 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 1. List unstaged changes using `git status`
 
-2. Read the specification linked in the state management file ($2) and compare with unstaged changes to understand how the increment has been implemented and which unstaged changes are relevant to the increment. Ignore the workflow_files folder.
+2. Read the specification linked in the state management file ($2) and compare with unstaged changes to understand how the increment has been implemented and which unstaged changes are relevant to the increment.
 
 3. Create a git commit using the guidelines in @docs/git-commit.md
 
