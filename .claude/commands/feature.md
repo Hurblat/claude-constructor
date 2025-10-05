@@ -23,9 +23,9 @@ Create a TODO list for the workflow steps, and follow it.
 ## Pre-Processing
 
 Before starting the workflow for user prompts, create an issue key based on $1:
-- List the contents of `state_management` in the additional directories
-- If there are no filenames using the format `prompt-{number}`, use issue key `prompt-1-{short-description}`
-- If there is at least one filename using the format `prompt-{number}`, use issue key `prompt-{number+1}-{short-description}`
+- List the contents of `workflow_files` in the additional directories
+- If there are no directories using the format `prompt-{number}`, use issue key `prompt-1-{short-description}`
+- If there is at least one directory using the format `prompt-{number}`, use issue key `prompt-{number+1}-{short-description}`
 - The short description should be a kebab-case summary of the prompt (e.g., `prompt-1-implement-cli`, `prompt-2-add-auth`)
 
 ## Workflow Steps
@@ -44,7 +44,7 @@ Before starting the workflow for user prompts, create an issue key based on $1:
 12. Implement increment - use the SlashCommand tool to execute `/implement-increment [issue-key] [state-management-file-path]`
 13. Perform security review - use the SlashCommand tool to execute `/security-review`. If security vulnerabilities are found, address them and repeat the implement increment step as needed.
 14. Write end-to-end tests for the increment - use the SlashCommand tool to execute `/write-end-to-end-tests [state-management-file-path]`
-15. Perform code review - use the SlashCommand tool to execute `/code-review [state-management-file-path]`. If the verdict of the code review is NEEDS_CHANGES, address comments and then repeat the implement increment step. Repeat as needed.
+15. Perform code review - use the SlashCommand tool to execute `/code-review [issue-key] [state-management-file-path]`. If the verdict of the code review is NEEDS_CHANGES, address comments and then repeat the implement increment step. Repeat as needed.
 16. Create pull request - use the SlashCommand tool to execute `/create-pull-request [issue-key] [state-management-file-path]`
 17. Review pull request - use the SlashCommand tool to execute `/review-pull-request [issue-key] [state-management-file-path]`
 
