@@ -93,6 +93,15 @@ If you want to develop or modify Claude Constructor locally:
 
 Now any changes you make to the plugin files will be immediately available in Claude Code.
 
+**Recommended VS Code Extension:**
+
+For a better development experience with markdown files, install the [markdownlint extension](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint):
+
+- Provides real-time linting as you type
+- Auto-fixes issues on save (configured in `.vscode/settings.json`)
+- Quick fixes with `Ctrl+.` or light bulb icon
+- Uses the project's `.markdownlint.json` configuration automatically
+
 ### Configuration (Optional)
 
 Claude Constructor works out of the box with sensible defaults, but you can customize behavior via environment variables in your project's `.claude/settings.json` (not in the plugin directory):
