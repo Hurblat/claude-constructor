@@ -3,8 +3,8 @@
   "description": "A workflow automation system that helps Claude Code implement features systematically with built-in planning, validation, and review steps",
   "version": "1.0.0",
   "author": {
-    "name": "Jonas Martinsson",
-    "url": "https://github.com/Hurblat"
+    "name": "Jonas Martinsson & Anders Hassis",
+    "url": "https://github.com/Hurblat/claude-constructor/graphs/contributors"
   },
   "homepage": "https://github.com/Hurblat/claude-constructor#readme",
   "repository": "https://github.com/Hurblat/claude-constructor",

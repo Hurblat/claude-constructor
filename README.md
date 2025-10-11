@@ -395,35 +395,36 @@ The plugin provides these components:
 
 ```
 .claude-plugin/
-├── plugin.json                               # Plugin manifest
 └── marketplace.json                          # Marketplace definition
 
-agents/
-├── requirements-definer.md                   # Specialized agent for defining requirements
-├── requirements-validator.md                 # Quality assurance for requirements completeness
-├── specification-writer.md                   # Specialized agent for writing specifications
-└── specification-validator.md                # Technical validation of implementation plans
-
-commands/
-├── feature.md                                # Main orchestrator
-├── create-state-management-file.md
-├── read-settings.md
-├── requirements-sign-off.md
-├── specification-sign-off.md
-├── git-checkout.md
-├── implement-increment.md
-├── write-end-to-end-tests.md
-├── code-review.md
-├── create-pull-request.md
-├── review-pull-request.md
-└── issue/
-    ├── get-issue.md                          # Issue tracking system: Get issue details
-    ├── read-issue.md                         # Issue tracking system: Read issue details
-    ├── update-issue.md                       # Issue tracking system: Update issue status
-    └── create-comment.md                     # Issue tracking system: Add comments to issue
-
-docs/
-└── git-commit.md                             # Example git commit guidelines
+plugins/
+└── claude-constructor/                       # Plugin directory
+    ├── .claude-plugin/
+    │   └── plugin.json                       # Plugin manifest
+    ├── agents/
+    │   ├── requirements-definer.md           # Specialized agent for defining requirements
+    │   ├── requirements-validator.md         # Quality assurance for requirements completeness
+    │   ├── specification-writer.md           # Specialized agent for writing specifications
+    │   └── specification-validator.md        # Technical validation of implementation plans
+    ├── commands/
+    │   ├── feature.md                        # Main orchestrator
+    │   ├── create-state-management-file.md
+    │   ├── read-settings.md
+    │   ├── requirements-sign-off.md
+    │   ├── specification-sign-off.md
+    │   ├── git-checkout.md
+    │   ├── implement-increment.md
+    │   ├── write-end-to-end-tests.md
+    │   ├── code-review.md
+    │   ├── create-pull-request.md
+    │   ├── review-pull-request.md
+    │   └── issue/
+    │       ├── get-issue.md                  # Issue tracking system: Get issue details
+    │       ├── read-issue.md                 # Issue tracking system: Read issue details
+    │       ├── update-issue.md               # Issue tracking system: Update issue status
+    │       └── create-comment.md             # Issue tracking system: Add comments to issue
+    └── docs/
+        └── git-commit.md                     # Example git commit guidelines
 ```
 
 ### Generated files in your project:
