@@ -9,7 +9,7 @@
     {
       "name": "claude-constructor",
       "source": {
-        "type": "github",
+        "source": "github",
         "repo": "Hurblat/claude-constructor"
       },
       "description": "A workflow automation system that helps Claude Code implement features systematically with built-in planning, validation, and review steps",
