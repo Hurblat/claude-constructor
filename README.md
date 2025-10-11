@@ -12,35 +12,41 @@ The workflow prevents common issues like Claude Code losing focus, making unplan
 
 > **Important:** Claude Constructor will work with you to define requirements and create specifications, but the more detail you provide upfront, the better the results. Whether providing a prompt directly or using issue tracking, include clear requirements, acceptance criteria, and technical constraints when possible. The workflow includes approval gates where you can refine requirements before implementation begins.
 
-### Prerequisites
+### Installation Prerequisites
 
 **Required:**
+
 - Claude Code CLI installed and configured
 - GitHub CLI (`gh`) authenticated
 
 **Optional:**
+
 - Linear MCP or Jira MCP configured (for issue tracking integration)
 
 ### Installation
 
 1. **Navigate to your project:**
+
    ```bash
    cd /path/to/your/project
    claude
    ```
 
 2. **Add the plugin marketplace:**
-   ```
+
+   ```console
    > /plugin marketplace add github Hurblat/claude-constructor
    ```
 
 3. **Install the plugin:**
-   ```
+
+   ```console
    > /plugin install claude-constructor@hurblat-plugins
    ```
 
 4. **Start using it:**
-   ```
+
+   ```console
    > /feature Add dark mode toggle to settings page
    ```
 
@@ -51,6 +57,7 @@ The workflow prevents common issues like Claude Code losing focus, making unplan
 If you want to develop or modify Claude Constructor locally:
 
 1. **Clone the repository:**
+
    ```bash
    git clone https://github.com/Hurblat/claude-constructor.git
    cd claude-constructor
@@ -58,6 +65,7 @@ If you want to develop or modify Claude Constructor locally:
 
 2. **Update marketplace.json:**
    In `.claude-plugin/marketplace.json`, change the source from:
+
    ```json
    "source": {
      "source": "github",
@@ -66,17 +74,20 @@ If you want to develop or modify Claude Constructor locally:
    ```
 
    to:
+
    ```json
    "source": "./plugins/claude-constructor"
    ```
 
 3. **Add the local marketplace:**
-   ```
+
+   ```console
    > /plugin marketplace add ./
    ```
 
 4. **Install the plugin:**
-   ```
+
+   ```console
    > /plugin install claude-constructor@hurblat-plugins
    ```
 
@@ -112,6 +123,7 @@ Claude Constructor works out of the box with sensible defaults, but you can cust
 ```
 
 **Configuration options:**
+
 - `CLAUDE_CONSTRUCTOR_PROVIDER`: Issue tracking system (`"linear"`, `"jira"`, or `"prompt"`). Auto-detected if not set.
 - `CLAUDE_CONSTRUCTOR_SILENT_MODE`: Set to `"true"` to skip external API calls (useful for testing)
 
@@ -127,6 +139,7 @@ Claude Constructor works out of the box with sensible defaults, but you can cust
 The main orchestrator (`feature.md`) follows this sequence:
 
 ### Planning
+
 1. **Read configuration files** - Load development guidelines, quality gates, and other documentation
 2. **Create state management file** - Used to track workflow progress
 3. **Read settings** - Get issue tracker and other settings
@@ -139,11 +152,13 @@ The main orchestrator (`feature.md`) follows this sequence:
 10. **Get specification sign-off** - Iterate on the specification until it's ready *(Human Required)*
 
 ### Implementation
+
 11. **Check out new branch** - Create feature branch
 12. **Implement increment** - Execute with parallel subagents if possible
 13. **Write end-to-end tests** - Cover user behavior
 
 ### Review
+
 14. **Perform code review** - Self-review, addressing findings automatically
 15. **Create pull request** - Creating a pull request on GitHub, describing the work
 16. **Review pull request** - Monitor and respond to feedback *(Human Required)*
@@ -199,6 +214,7 @@ The workflow supports multiple issue tracking systems through auto-detection and
 
 **Auto-Detection (Default)**
 Claude Constructor automatically detects your issue tracking system:
+
 - If Linear MCP is configured → uses Linear
 - If Jira MCP is configured → uses Jira
 - Otherwise → uses "prompt" mode (no external integration)
@@ -248,6 +264,7 @@ Enable by setting the environment variable:
 ```
 
 When silent mode is enabled:
+
 - **Issue comments**: Logged locally but not posted to issue tracker
 - **Issue status updates**: Logged locally but not updated in the issue tracker
 - **GitHub pull requests**: Code is committed and pushed, but PR creation is skipped
@@ -257,6 +274,7 @@ When silent mode is enabled:
 #### Issue Tracking System Requirements
 
 The workflow expects issues to support these standard status transitions:
+
 - **"In Progress"** - When implementation begins
 - **"Code Review"** - When automated code review is done and pull request has been created
 
@@ -282,18 +300,22 @@ This repository is a work in progress, and there are things you might want to ch
 ## Key Features
 
 ### Extensive Planning
+
 - Focus on creating a solid plan before starting any work
 - Transparent description of Claude Code's understanding of the work to be done, and assumptions made
 
 ### Parallel Execution
+
 - Specifications identify independent components (backend APIs, frontend components, database migrations)
 - Agent IDs assigned for parallel work with dependency management
 
 ### State Management
+
 - Persistent tracking across all workflow steps in `state_management/{issue_key}.md`
 - TODO list maintenance and resumable workflows
 
 ### Issue Tracking Integration
+
 - Issue status updates at each workflow stage
 - Progress comments with implementation details
 
@@ -302,19 +324,23 @@ This repository is a work in progress, and there are things you might want to ch
 The workflow includes critical human approval gates:
 
 ### 1. Requirements Sign-off (Step 7)
+
 - **Process**: Claude Constructor presents assumptions and detailed understanding of requirements after validation
 - **Human Required**: Must approve definition of requirements
 
 ### 2. Specification Sign-off (Step 10)
+
 - **Process**: Claude Constructor presents assumptions and detailed specification for review after validation
 - **Human Required**: Must approve technical specification before implementation begins
 
 ### 3. Pull Request Review (Step 16)
+
 - **Human Required**: Reviewing and approving pull request on GitHub
 - **Process**: Human adds comments/feedback directly in GitHub PR interface as part of a Review
 - **Workflow**: Claude Constructor monitors for new comments but must be asked to check for updates, and the Review needs to be submitted
 
 ### 4. Merging Pull Request (After Step 16)
+
 - **Human Required**: Must merge the pull request manually
 
 These gates ensure human oversight of decisions and final code quality before delivery.
@@ -324,6 +350,7 @@ I also recommend checking in on the work as it is happening, to gauge if anythin
 ## Prerequisites
 
 ### Technical Requirements
+
 - Claude Code CLI installed and configured
 - Issue tracking system MCP integration configured (optional - see Issue Tracking System Integration section)
 - GitHub CLI (`gh`) authenticated
@@ -331,6 +358,7 @@ I also recommend checking in on the work as it is happening, to gauge if anythin
 - Quality gate tools available
 
 ### Recommended Project Configuration Files
+
 - `/CLAUDE.md` - General principles, quality gates, and development workflow
 - `docs/git-commit.md` - Git commit guidelines (example available in `docs/git-commit.md` in Claude Constructor)
 
@@ -339,6 +367,7 @@ I also recommend checking in on the work as it is happening, to gauge if anythin
 Claude Constructor will help you refine and validate requirements during the workflow, but providing clear input upfront leads to better results.
 
 **Helpful details to include (when known):**
+
 - Clear problem definition and business context
 - Detailed feature requirements and acceptance criteria
 - Proposed solution approach or architecture direction
@@ -350,7 +379,8 @@ The workflow includes human approval gates where you can iterate on requirements
 ### Example: Well-Defined Input
 
 **Good Example (Issue or Prompt):**
-```
+
+```text
 Title: Add user preference for date format display
 
 Description:
@@ -375,13 +405,15 @@ Acceptance Criteria:
 ```
 
 **Poor Example:**
-```
+
+```text
 Make dates better for international users
 ```
 
 The workflow will help refine vague requirements, but starting with detail saves iteration cycles and produces better results.
 
 ### Optional Configuration Files
+
 - `docs/requirements.md` - Domain principles and business rules (can be referenced during implementation planning and code review)
 - ...and any additional context
 
@@ -393,7 +425,7 @@ When you install Claude Constructor as a plugin, the workflow files are managed 
 
 The plugin provides these components:
 
-```
+```text
 .claude-plugin/
 └── marketplace.json                          # Marketplace definition
 
@@ -427,10 +459,11 @@ plugins/
         └── git-commit.md                     # Example git commit guidelines
 ```
 
-### Generated files in your project:
+### Generated files in your project
+
 These files are automatically created in your project during the workflow:
 
-```
+```text
 state_management/                             # Tracks workflow progress
 └── {issue_key}.md
 
@@ -438,10 +471,11 @@ specifications/                               # Technical specifications
 └── {issue_key}_specification_{timestamp}.md
 ```
 
-### Recommended project files:
+### Recommended project files
+
 Add these to your project for best results:
 
-```
+```text
 /CLAUDE.md                                    # Project-specific development guidelines
 docs/                                         # Project-specific documentation
 └── git-commit.md                             # Your git commit conventions

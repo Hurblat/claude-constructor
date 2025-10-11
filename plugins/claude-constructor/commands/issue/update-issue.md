@@ -42,12 +42,14 @@ Expected status values: "In Progress", "Code Review"
 3. **Execute Update Status Operation** (only if silent mode is false):
 
 ### For Linear Provider (`"linear"`)
+
 - First, use `linear:list_issue_statuses` to get all available statuses for $1
 - Find the best match for $2 (handles typos/variations)
 - Use `linear:update_issue` with $1 to set the issue to the matched status
 - If no exact match is found, use the closest matching status name
 
 ### For Jira Provider (`"jira"`)
+
 - First, use `jira:get_transitions_for_issue` with $1 to get all available columns
 - Find the best match for $2 (handles typos/variations)
 - Use `jira:transition_issue` with $1 to move the issue to the matched transition

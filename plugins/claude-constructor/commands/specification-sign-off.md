@@ -24,10 +24,12 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
    - Ask the user to read and provide feedback on the Implementation Plan
    - If user has feedback:
      a. Use the specification-writer subagent to revise specification:
-        ```
+
+        ```text
         State management file: $1
         User feedback to address: [user's feedback verbatim]
         ```
+
      b. The subagent will detect the feedback and revise accordingly
      c. Return to step 1 for re-review
    - If user provides explicit sign-off, proceed to step 3

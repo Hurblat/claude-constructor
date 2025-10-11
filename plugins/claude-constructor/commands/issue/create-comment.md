@@ -40,10 +40,12 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 3. **Execute Create Comment Operation** (only if silent mode is false):
 
 ### For Linear Provider (`"linear"`)
+
 - Use `linear:create_comment` with $1 (issue ID) and $2 (comment text)
 - Add the comment to the specified issue
 
 ### For Jira Provider (`"jira"`)
+
 - Use `jira:add_comment_to_issue` with $1 (issue key) and $2 (comment text)
 - Add the comment to the specified issue
 

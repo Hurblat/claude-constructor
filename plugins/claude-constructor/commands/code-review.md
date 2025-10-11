@@ -44,17 +44,20 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 ## Review Process
 
 ### Specification Alignment
+
 - Compare implemented behavior vs. specified behavior
 - Verify no scope creep beyond the minimal increment
 - Check adherence to domain principles
 
 ### Code Quality
+
 - Review test coverage and quality
 - Check domain model consistency
 - Verify error handling
 - Assess code organization
 
 ### Integration
+
 - Verify frontend/backend integration if applicable
 - Check build pipeline success
 - Validate development/production compatibility
@@ -66,6 +69,7 @@ Run all quality gates and verify that they pass.
 ## Output Format
 
 Provide structured feedback:
+
 - **Summary**: Brief status
 - **Completed**: What works correctly
 - **Issues Found**: Specific problems

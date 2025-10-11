@@ -21,6 +21,7 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 2. Note findings in the state management file ($2)
 
 Create a new section called `## Issue Information`, with information on this format:
+
 - **Key**: $1
 - **ID**: Issue ID (from get-issue response)
 - **Title**: Issue title (from get-issue response)

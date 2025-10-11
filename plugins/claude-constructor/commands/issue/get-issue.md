@@ -27,10 +27,12 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 2. **Execute Get Issue Operation**:
 
 ### For Linear Provider (`"linear"`)
+
 - Use `linear:get_issue` with $1 (issue key)
 - Retrieve issue key, ID, title, and description
 
 ### For Jira Provider (`"jira"`)
+
 - Use `jira:get_issue` with $1 (issue key)
 - Retrieve issue key, ID, title, and description
 
