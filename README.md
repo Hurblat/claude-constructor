@@ -17,51 +17,72 @@ The workflow prevents common issues like Claude Code losing focus, making unplan
 **Required:**
 - Claude Code CLI installed and configured
 - GitHub CLI (`gh`) authenticated
-- Python 3 installed
 
 **Optional:**
 - Linear MCP or Jira MCP configured (for issue tracking integration)
 
-### Quick Setup (No Configuration Required)
+### Installation
 
-1. **Clone and start using immediately:**
+1. **Navigate to your project:**
    ```bash
-   git clone https://github.com/Hurblat/claude-constructor.git
-   cd claude-constructor
+   cd /path/to/your/project
    claude
-   > /add-dir /path/to/your/project
+   ```
+
+2. **Add the plugin marketplace:**
+   ```
+   > /plugin marketplace add github Hurblat/claude-constructor
+   ```
+
+3. **Install the plugin:**
+   ```
+   > /plugin install claude-constructor@hurblat-plugins
+   ```
+
+4. **Start using it:**
+   ```
    > /feature Add dark mode toggle to settings page
    ```
 
-   That's it! No configuration needed. Just describe your feature and Claude Constructor will guide you through the complete workflow - from requirements to pull request.
+   That's it! No additional configuration needed. Claude Constructor will auto-detect your git branch and available issue tracking systems.
 
-### Using with Issue Tracking (Optional)
+### Configuration (Optional)
 
-If you use Linear or Jira for issue tracking:
+Claude Constructor works out of the box with sensible defaults, but you can customize behavior via environment variables in `.claude/settings.json`:
 
-1. **Create configuration file:**
-   ```bash
-   cp .claude/settings.claude-constructor.example.json .claude/settings.claude-constructor.local.json
-   ```
+```json
+{
+  "env": {
+    "CLAUDE_CONSTRUCTOR_PROVIDER": "linear",
+    "CLAUDE_CONSTRUCTOR_SILENT_MODE": "false"
+  },
+  "permissions": {
+    "allow": [
+      "SlashCommand(/feature:*)",
+      "SlashCommand(/create-state-management-file:*)",
+      "SlashCommand(/requirements-sign-off:*)",
+      "SlashCommand(/specification-sign-off:*)",
+      "SlashCommand(/git-checkout:*)",
+      "SlashCommand(/implement-increment:*)",
+      "SlashCommand(/issue:*)",
+      "SlashCommand(/write-end-to-end-tests:*)",
+      "SlashCommand(/security-review:*)",
+      "SlashCommand(/code-review:*)",
+      "SlashCommand(/create-pull-request:*)",
+      "SlashCommand(/review-pull-request:*)"
+    ]
+  }
+}
+```
 
-2. **Edit the configuration:**
-   ```json
-   {
-     "issue-tracking-provider": "linear"  // or "jira"
-   }
-   ```
-
-3. **Run with issue key:**
-   ```bash
-   claude
-   > /add-dir /path/to/your/project
-   > /feature ABC-123
-   ```
+**Configuration options:**
+- `CLAUDE_CONSTRUCTOR_PROVIDER`: Issue tracking system (`"linear"`, `"jira"`, or `"prompt"`). Auto-detected if not set.
+- `CLAUDE_CONSTRUCTOR_SILENT_MODE`: Set to `"true"` to skip external API calls (useful for testing)
 
 ### Tips for Success
 
 - **Be specific**: Whether using a feature description (`/feature Add dark mode`) or issue key (`/feature ABC-123`), provide clear requirements
-- **Use silent mode** for testing: Add `"silent-mode": true` to skip issue tracker updates and PR creation
+- **Use silent mode** for testing: Set `CLAUDE_CONSTRUCTOR_SILENT_MODE=true` to skip issue tracker updates and PR creation
 - **Monitor progress**: Claude Constructor will update you at each step and ask for approval at key points
 - **Check the state file**: Find detailed progress in `state_management/{issue_key}.md` or `state_management/prompt-{number}.md`
 
@@ -91,88 +112,102 @@ The main orchestrator (`feature.md`) follows this sequence:
 15. **Create pull request** - Creating a pull request on GitHub, describing the work
 16. **Review pull request** - Monitor and respond to feedback *(Human Required)*
 
-### Alternative: Install directly in your project
+### Team Setup
 
-If you prefer to have the workflow files in your project repository, you can copy the command files to your project's `.claude/commands` folder and `docs/` to your project root. Then run:
+For team-wide adoption, add Claude Constructor configuration to your project's `.claude/settings.json`:
 
-```bash
-cd /your/project
-claude
-> /feature ABC-123
+```json
+{
+  "enabledPlugins": {
+    "claude-constructor@hurblat-plugins": true
+  },
+  "extraKnownMarketplaces": {
+    "hurblat-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "Hurblat/claude-constructor"
+      }
+    }
+  },
+  "env": {
+    "CLAUDE_CONSTRUCTOR_PROVIDER": "linear"
+  },
+  "permissions": {
+    "allow": [
+      "SlashCommand(/feature:*)",
+      "SlashCommand(/create-state-management-file:*)",
+      "SlashCommand(/requirements-sign-off:*)",
+      "SlashCommand(/specification-sign-off:*)",
+      "SlashCommand(/git-checkout:*)",
+      "SlashCommand(/implement-increment:*)",
+      "SlashCommand(/issue:*)",
+      "SlashCommand(/write-end-to-end-tests:*)",
+      "SlashCommand(/security-review:*)",
+      "SlashCommand(/code-review:*)",
+      "SlashCommand(/create-pull-request:*)",
+      "SlashCommand(/review-pull-request:*)"
+    ]
+  }
+}
 ```
+
+Team members will automatically be prompted to install the plugin when they trust the repository folder.
 
 ## Configuration
 
 ### Issue Tracking System Integration
 
-The workflow supports multiple issue tracking systems through an abstraction layer. This allows you to use Linear, Jira, GitHub Issues, or any other issue tracking system by configuring the provider.
-
-#### Configuration File
-
-Configuration in Claude Constructor works with schema defaults and optional local overrides.
-
-The defaults are defined in `.claude/settings.claude-constructor.schema.json`. You can override these defaults by creating `.claude/settings.claude-constructor.local.json`. If no local settings file exists, the schema defaults will be used automatically.
-
-An example configuration is provided in `.claude/settings.claude-constructor.example.json` for reference.
-
-```json
-# .claude/settings.claude-constructor.example.json
-{
-  "issue-tracking-provider": "linear",
-  "default-branch": "main",
-  "silent-mode": false
-}
-```
+The workflow supports multiple issue tracking systems through auto-detection and optional configuration.
 
 #### Supported Providers
 
-**Linear (Default)**
+**Auto-Detection (Default)**
+Claude Constructor automatically detects your issue tracking system:
+- If Linear MCP is configured → uses Linear
+- If Jira MCP is configured → uses Jira
+- Otherwise → uses "prompt" mode (no external integration)
+
+**Manual Configuration**
+Override auto-detection by setting the environment variable in `.claude/settings.json`:
+
 ```json
-# .claude/settings.claude-constructor.example.json
 {
-  "issue-tracking-provider": "linear"
+  "env": {
+    "CLAUDE_CONSTRUCTOR_PROVIDER": "linear"
+  }
 }
 ```
 
-- Requires Linear MCP integration configured
-- Uses `linear:get_issue`, `linear:update_issue`, `linear:create_comment`, `linear:list_issue_statuses`
-- Supports fuzzy matching for status names
+**Provider Options:**
 
-**Jira**
-```json
-# .claude/settings.claude-constructor.example.json
-{
-  "issue-tracking-provider": "jira"
-}
-```
-- Requires Jira MCP integration configured
-- Uses `jira:get_issue`, `jira:add_comment_to_issue`, `jira:get_transitions_for_issue`, `jira:transition_issue`
-- Supports fuzzy matching for status names
+1. **Linear**
+   - Requires Linear MCP integration configured
+   - Uses `linear:get_issue`, `linear:update_issue`, `linear:create_comment`, `linear:list_issue_statuses`
+   - Supports fuzzy matching for status names
 
-**Prompt Mode (No External Integration)**
-```json
-# .claude/settings.claude-constructor.json
-{
-  "issue-tracking-provider": "prompt"
-}
-```
-- No external issue tracking system required
-- Use with: `/feature Your feature description here`
-- Creates local issue keys (prompt-1, prompt-2, etc.)
-- Perfect for local development and experimentation
-- Note: Automatically skips issue tracker API calls (but still creates PRs unless silent mode is also enabled)
+2. **Jira**
+   - Requires Jira MCP integration configured
+   - Uses `jira:get_issue`, `jira:add_comment_to_issue`, `jira:get_transitions_for_issue`, `jira:transition_issue`
+   - Supports fuzzy matching for status names
+
+3. **Prompt Mode**
+   - No external issue tracking system required
+   - Use with: `/feature Your feature description here`
+   - Creates local issue keys (prompt-1, prompt-2, etc.)
+   - Perfect for local development and experimentation
+   - Automatically skips issue tracker API calls
 
 #### Silent Mode
 
-Silent mode prevents external API calls to issue trackers and GitHub, useful for testing and dry-runs. It works with any provider including prompt mode.
+Silent mode prevents external API calls to issue trackers and GitHub, useful for testing and dry-runs.
 
-To enable silent mode, set `"silent-mode": true` in your configuration:
+Enable by setting the environment variable:
 
 ```json
-# .claude/settings.claude-constructor.example.json
 {
-  "silent-mode": true,
-  "issue-tracking-provider": "linear"  // or "jira" or "prompt"
+  "env": {
+    "CLAUDE_CONSTRUCTOR_SILENT_MODE": "true"
+  }
 }
 ```
 
@@ -182,8 +217,6 @@ When silent mode is enabled:
 - **GitHub pull requests**: Code is committed and pushed, but PR creation is skipped
 - **PR review comments**: Skipped entirely
 - All other operations (git commits, code changes, tests) execute normally
-
-**Note:** The `"prompt"` provider automatically skips issue tracker calls, but you still need `"silent-mode": true` if you want to skip GitHub PR creation.
 
 #### Issue Tracking System Requirements
 
@@ -199,7 +232,7 @@ To add support for additional issue tracking systems (GitHub Issues, etc.):
 
 1. Update the issue command files (`get-issue.md`, `update-issue.md`, `create-comment.md` etc.)
 2. Add provider-specific MCP command mappings
-3. Add the new provider option to the configuration
+3. Submit a pull request!
 
 ### Other Customizations
 
@@ -255,16 +288,15 @@ I also recommend checking in on the work as it is happening, to gauge if anythin
 ## Prerequisites
 
 ### Technical Requirements
-- Python (python3)
-- Issue tracking system MCP integration configured (see Issue Tracking System Integration section)
+- Claude Code CLI installed and configured
+- Issue tracking system MCP integration configured (optional - see Issue Tracking System Integration section)
 - GitHub CLI (`gh`) authenticated
 - Git repository
 - Quality gate tools available
 
-### Required Configuration Files
+### Recommended Project Configuration Files
 - `/CLAUDE.md` - General principles, quality gates, and development workflow
 - `docs/git-commit.md` - Git commit guidelines (example available in `docs/git-commit.md` in Claude Constructor)
-- `.claude/settings.claude-constructor.example.json` - Example configuration file showing available settings
 
 ### Input Requirements
 
@@ -319,16 +351,17 @@ The workflow will help refine vague requirements, but starting with detail saves
 
 ## File Structure
 
-When using Claude Constructor with `/add-dir` (recommended approach), the workflow files stay in the Claude Constructor repository - you don't need to copy any `.claude/` folders or command files to your project. The `/add-dir` command handles the connection between repositories.
+When you install Claude Constructor as a plugin, the workflow files are managed by Claude Code's plugin system. You don't need to copy any files - just install the plugin and configure it in your project's `.claude/settings.json`.
 
-The only files you may want to add to your target project are:
-- `/CLAUDE.md` - Your project-specific development guidelines
-- `docs/` folder - Any project-specific documentation referenced by the workflow
+### Plugin Structure
 
-### Claude Constructor repository files:
-These files remain in the Claude Constructor repository and define the workflow:
+The plugin provides these components:
 
 ```
+.claude-plugin/
+├── plugin.json                               # Plugin manifest
+└── marketplace.json                          # Marketplace definition
+
 .claude/
 ├── agents/
 │   ├── requirements-definer.md               # Specialized agent for defining requirements
@@ -352,17 +385,13 @@ These files remain in the Claude Constructor repository and define the workflow:
 │       ├── read-issue.md                     # Issue tracking system: Read issue details
 │       ├── update-issue.md                   # Issue tracking system: Update issue status
 │       └── create-comment.md                 # Issue tracking system: Add comments to issue
-├── settings.claude-constructor.example.json  # Example configuration file
-├── settings.claude-constructor.local.json    # Configuration file (local Claude Constructor settings, gitignored)
-├── settings.claude-constructor.schema.json   # Configuration schema with defaults
-├── settings.json                             # General Claude settings
-└── settings.local.json                       # Local Claude settings (gitignored)
+└── settings.json                             # Plugin-level settings
 
 docs/
-└── git-commit.md
+└── git-commit.md                             # Example git commit guidelines
 ```
 
-### Generated files in your target repository:
+### Generated files in your project:
 These files are automatically created in your project during the workflow:
 
 ```
@@ -371,4 +400,13 @@ state_management/                             # Tracks workflow progress
 
 specifications/                               # Technical specifications
 └── {issue_key}_specification_{timestamp}.md
+```
+
+### Recommended project files:
+Add these to your project for best results:
+
+```
+/CLAUDE.md                                    # Project-specific development guidelines
+docs/                                         # Project-specific documentation
+└── git-commit.md                             # Your git commit conventions
 ```

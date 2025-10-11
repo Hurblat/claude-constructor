@@ -1,0 +1,15 @@
+{
+  "name": "claude-constructor",
+  "description": "A workflow automation system that helps Claude Code implement features systematically with built-in planning, validation, and review steps",
+  "version": "1.0.0",
+  "author": {
+    "name": "Jonas Martinsson",
+    "url": "https://github.com/Hurblat"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hurblat/claude-constructor"
+  },
+  "keywords": ["workflow", "automation", "feature-development", "code-review", "testing"],
+  "license": "MIT"
+}

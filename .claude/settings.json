@@ -1,17 +1,4 @@
 {
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Edit|MultiEdit|Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$(command -v python3 || command -v python) ./scripts/check_path.py"
-          }
-        ]
-      }
-    ]
-  },
   "permissions": {
     "allow": [
       "SlashCommand(/create-state-management-file:*)",

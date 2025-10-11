@@ -1,6 +1,0 @@
-{
-  "$schema": "./settings.claude-constructor.schema.json",
-  "issue-tracking-provider": "linear",
-  "default-branch": "main",
-  "silent-mode": false
-}

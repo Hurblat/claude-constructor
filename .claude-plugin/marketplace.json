@@ -1,0 +1,19 @@
+{
+  "name": "hurblat-plugins",
+  "description": "Claude Constructor and related workflow automation plugins",
+  "owner": {
+    "name": "Jonas Martinsson",
+    "url": "https://github.com/Hurblat"
+  },
+  "plugins": [
+    {
+      "name": "claude-constructor",
+      "source": {
+        "type": "github",
+        "repo": "Hurblat/claude-constructor"
+      },
+      "description": "A workflow automation system that helps Claude Code implement features systematically with built-in planning, validation, and review steps",
+      "version": "1.0.0"
+    }
+  ]
+}

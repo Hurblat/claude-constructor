@@ -3,7 +3,7 @@ name: create-comment
 description: Add comment to issue in tracking system
 argument-hint: [issue-key] "[comment-text]"
 model: claude-3-5-haiku-latest
-allowed-tools: Bash(python3 ./scripts/load_settings.py 2>/dev/null || python ./scripts/load_settings.py)
+allowed-tools: Bash(echo:*)
 ---
 
 # Create Issue Comment Command
@@ -16,10 +16,12 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 ## Workflow Steps
 
-1. **Load Settings** by running !`python3 ./scripts/load_settings.py 2>/dev/null || python ./scripts/load_settings.py` in the Claude Constructor directory
+1. **Check Settings from Environment Variables**:
+   - Check `CLAUDE_CONSTRUCTOR_SILENT_MODE` environment variable (defaults to false if not set)
+   - Check `CLAUDE_CONSTRUCTOR_PROVIDER` environment variable (defaults to auto-detected provider if not set)
 
 2. **Check Silent Mode or Prompt Issue Provider**:
-   - If `silent-mode` is `true` OR `issue-tracking-provider` is `"prompt"`:
+   - If `CLAUDE_CONSTRUCTOR_SILENT_MODE` is `"true"` or `"1"` OR `CLAUDE_CONSTRUCTOR_PROVIDER` is `"prompt"`:
      - Log the comment operation locally: "Silent mode: Would have added comment to $1: $2"
      - Skip the actual API call (step 3)
      - Continue to step 4
