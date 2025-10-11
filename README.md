@@ -46,6 +46,42 @@ The workflow prevents common issues like Claude Code losing focus, making unplan
 
    That's it! No additional configuration needed. Claude Constructor will auto-detect your git branch and available issue tracking systems.
 
+### Local Development
+
+If you want to develop or modify Claude Constructor locally:
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Hurblat/claude-constructor.git
+   cd claude-constructor
+   ```
+
+2. **Update marketplace.json:**
+   In `.claude-plugin/marketplace.json`, change the source from:
+   ```json
+   "source": {
+     "source": "github",
+     "repo": "Hurblat/claude-constructor"
+   }
+   ```
+
+   to:
+   ```json
+   "source": "./plugins/claude-constructor"
+   ```
+
+3. **Add the local marketplace:**
+   ```
+   > /plugin marketplace add ./
+   ```
+
+4. **Install the plugin:**
+   ```
+   > /plugin install claude-constructor@hurblat-plugins
+   ```
+
+Now any changes you make to the plugin files will be immediately available in Claude Code.
+
 ### Configuration (Optional)
 
 Claude Constructor works out of the box with sensible defaults, but you can customize behavior via environment variables in your project's `.claude/settings.json` (not in the plugin directory):
