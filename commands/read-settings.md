@@ -21,14 +21,16 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
    **Issue Tracking Provider:**
    - Check environment variable `CLAUDE_CONSTRUCTOR_PROVIDER`
-   - If not set, auto-detect:
+   - Validate it's one of: "linear", "jira", "prompt"
+   - If not set or invalid, auto-detect:
      - If Linear MCP tools are available → "linear"
      - If Jira MCP tools are available → "jira"
      - Otherwise → "prompt"
 
    **Default Branch:**
-   - Auto-detect using: `git symbolic-ref refs/remotes/origin/HEAD --short | sed 's@^origin/@@'`
-   - If that fails, try: `git rev-parse --abbrev-ref origin/HEAD | sed 's@^origin/@@'`
+   - Auto-detect by running: `git symbolic-ref refs/remotes/origin/HEAD --short`
+   - Parse the output to extract the branch name after "origin/" (e.g., "origin/main" → "main")
+   - If that fails, try: `git rev-parse --abbrev-ref origin/HEAD` and parse similarly
    - If both fail, default to "main"
 
    **Silent Mode:**

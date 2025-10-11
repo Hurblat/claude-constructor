@@ -48,7 +48,7 @@ The workflow prevents common issues like Claude Code losing focus, making unplan
 
 ### Configuration (Optional)
 
-Claude Constructor works out of the box with sensible defaults, but you can customize behavior via environment variables in `.claude/settings.json`:
+Claude Constructor works out of the box with sensible defaults, but you can customize behavior via environment variables in your project's `.claude/settings.json` (not in the plugin directory):
 
 ```json
 {
@@ -168,7 +168,7 @@ Claude Constructor automatically detects your issue tracking system:
 - Otherwise → uses "prompt" mode (no external integration)
 
 **Manual Configuration**
-Override auto-detection by setting the environment variable in `.claude/settings.json`:
+Override auto-detection by setting the environment variable in your project's `.claude/settings.json`:
 
 ```json
 {
@@ -195,11 +195,11 @@ Override auto-detection by setting the environment variable in `.claude/settings
    - Use with: `/feature Your feature description here`
    - Creates local issue keys (prompt-1, prompt-2, etc.)
    - Perfect for local development and experimentation
-   - Automatically skips issue tracker API calls
+   - Automatically skips issue tracker API calls and PR creation
 
 #### Silent Mode
 
-Silent mode prevents external API calls to issue trackers and GitHub, useful for testing and dry-runs.
+Silent mode prevents external API calls to issue trackers and GitHub, useful for testing and dry-runs with real issue tracking systems.
 
 Enable by setting the environment variable:
 
@@ -351,7 +351,7 @@ The workflow will help refine vague requirements, but starting with detail saves
 
 ## File Structure
 
-When you install Claude Constructor as a plugin, the workflow files are managed by Claude Code's plugin system. You don't need to copy any files - just install the plugin and configure it in your project's `.claude/settings.json`.
+When you install Claude Constructor as a plugin, the workflow files are managed by Claude Code's plugin system. You don't need to copy any files - just install the plugin and optionally configure it in your project's `.claude/settings.json` (separate from the plugin).
 
 ### Plugin Structure
 
@@ -362,30 +362,29 @@ The plugin provides these components:
 ├── plugin.json                               # Plugin manifest
 └── marketplace.json                          # Marketplace definition
 
-.claude/
-├── agents/
-│   ├── requirements-definer.md               # Specialized agent for defining requirements
-│   ├── requirements-validator.md             # Quality assurance for requirements completeness
-│   ├── specification-writer.md               # Specialized agent for writing specifications
-│   └── specification-validator.md            # Technical validation of implementation plans
-├── commands/
-│   ├── feature.md                            # Main orchestrator
-│   ├── create-state-management-file.md
-│   ├── read-settings.md
-│   ├── requirements-sign-off.md
-│   ├── specification-sign-off.md
-│   ├── git-checkout.md
-│   ├── implement-increment.md
-│   ├── write-end-to-end-tests.md
-│   ├── code-review.md
-│   ├── create-pull-request.md
-│   ├── review-pull-request.md
-│   └── issue/
-│       ├── get-issue.md                      # Issue tracking system: Get issue details
-│       ├── read-issue.md                     # Issue tracking system: Read issue details
-│       ├── update-issue.md                   # Issue tracking system: Update issue status
-│       └── create-comment.md                 # Issue tracking system: Add comments to issue
-└── settings.json                             # Plugin-level settings
+agents/
+├── requirements-definer.md                   # Specialized agent for defining requirements
+├── requirements-validator.md                 # Quality assurance for requirements completeness
+├── specification-writer.md                   # Specialized agent for writing specifications
+└── specification-validator.md                # Technical validation of implementation plans
+
+commands/
+├── feature.md                                # Main orchestrator
+├── create-state-management-file.md
+├── read-settings.md
+├── requirements-sign-off.md
+├── specification-sign-off.md
+├── git-checkout.md
+├── implement-increment.md
+├── write-end-to-end-tests.md
+├── code-review.md
+├── create-pull-request.md
+├── review-pull-request.md
+└── issue/
+    ├── get-issue.md                          # Issue tracking system: Get issue details
+    ├── read-issue.md                         # Issue tracking system: Read issue details
+    ├── update-issue.md                       # Issue tracking system: Update issue status
+    └── create-comment.md                     # Issue tracking system: Add comments to issue
 
 docs/
 └── git-commit.md                             # Example git commit guidelines

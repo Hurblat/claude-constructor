@@ -6,10 +6,8 @@
     "name": "Jonas Martinsson",
     "url": "https://github.com/Hurblat"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Hurblat/claude-constructor"
-  },
+  "homepage": "https://github.com/Hurblat/claude-constructor#readme",
+  "repository": "https://github.com/Hurblat/claude-constructor",
   "keywords": ["workflow", "automation", "feature-development", "code-review", "testing"],
   "license": "MIT"
 }

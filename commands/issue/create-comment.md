@@ -16,12 +16,23 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 ## Workflow Steps
 
-1. **Check Settings from Environment Variables**:
-   - Check `CLAUDE_CONSTRUCTOR_SILENT_MODE` environment variable (defaults to false if not set)
-   - Check `CLAUDE_CONSTRUCTOR_PROVIDER` environment variable (defaults to auto-detected provider if not set)
+1. **Determine Settings**:
+
+   **Silent Mode:**
+   - Check `CLAUDE_CONSTRUCTOR_SILENT_MODE` environment variable
+   - If not set or "false" → silent mode is false
+   - If "true" or "1" → silent mode is true
+
+   **Issue Tracking Provider:**
+   - Check `CLAUDE_CONSTRUCTOR_PROVIDER` environment variable
+   - Validate it's one of: "linear", "jira", "prompt"
+   - If not set or invalid, auto-detect:
+     - If Linear MCP tools are available → use "linear"
+     - If Jira MCP tools are available → use "jira"
+     - Otherwise → use "prompt"
 
 2. **Check Silent Mode or Prompt Issue Provider**:
-   - If `CLAUDE_CONSTRUCTOR_SILENT_MODE` is `"true"` or `"1"` OR `CLAUDE_CONSTRUCTOR_PROVIDER` is `"prompt"`:
+   - If silent mode is true OR provider is "prompt":
      - Log the comment operation locally: "Silent mode: Would have added comment to $1: $2"
      - Skip the actual API call (step 3)
      - Continue to step 4

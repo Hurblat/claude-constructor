@@ -16,8 +16,13 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 ## Workflow Steps
 
-1. **Check Settings from Environment Variables**:
-   - Check `CLAUDE_CONSTRUCTOR_PROVIDER` environment variable (defaults to auto-detected provider if not set)
+1. **Determine Issue Tracking Provider**:
+   - Check `CLAUDE_CONSTRUCTOR_PROVIDER` environment variable
+   - Validate it's one of: "linear", "jira", "prompt"
+   - If not set or invalid, auto-detect:
+     - If Linear MCP tools are available → use "linear"
+     - If Jira MCP tools are available → use "jira"
+     - Otherwise → use "prompt"
 
 2. **Execute Get Issue Operation**:
 
