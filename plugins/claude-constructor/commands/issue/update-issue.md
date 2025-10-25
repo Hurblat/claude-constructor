@@ -1,9 +1,9 @@
 ---
 name: update-issue
 description: Update issue status in tracking system
-argument-hint: [issue-key] [status]
-model: claude-3-5-haiku-latest
-allowed-tools: Bash(echo:*)
+argument-hint: [issue-key] [status] [state-management-file-path]
+model: claude-haiku-4-5
+allowed-tools: Read, Bash(echo:*)
 ---
 
 # Update Issue Command
@@ -16,30 +16,34 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 Expected status values: "In Progress", "Code Review"
 
+## Arguments
+
+- `$1`: Issue key (required)
+- `$2`: Status to set (required)
+- `$3`: Path to state management file (required)
+
 ## Workflow Steps
 
-1. **Determine Settings**:
+1. **Read Settings from State Management File**:
+   - Read the Settings section from the state management file ($3)
+   - Extract `issueTrackingProvider` and `silentMode` values
+   - If Settings section is missing, fail with error: "Settings not found in state management file. Run /read-settings first."
 
-   **Silent Mode:**
-   - Check `CLAUDE_CONSTRUCTOR_SILENT_MODE` environment variable
-   - If not set or "false" → silent mode is false
-   - If "true" or "1" → silent mode is true
+2. **Validate Provider Configuration**:
+   - If issueTrackingProvider is "linear":
+     - Check that Linear MCP tools are available
+     - If NOT available: **FAIL with error**: "Provider is 'linear' but Linear MCP tools are not configured. Please configure Linear MCP or update settings with /read-settings --provider=prompt"
+   - If issueTrackingProvider is "jira":
+     - Check that Jira MCP tools are available
+     - If NOT available: **FAIL with error**: "Provider is 'jira' but Jira MCP tools are not configured. Please configure Jira MCP or update settings with /read-settings --provider=prompt"
 
-   **Issue Tracking Provider:**
-   - Check `CLAUDE_CONSTRUCTOR_PROVIDER` environment variable
-   - Validate it's one of: "linear", "jira", "prompt"
-   - If not set or invalid, auto-detect:
-     - If Linear MCP tools are available → use "linear"
-     - If Jira MCP tools are available → use "jira"
-     - Otherwise → use "prompt"
-
-2. **Check Silent Mode or Prompt Issue Provider**:
-   - If silent mode is true OR provider is "prompt":
+3. **Check Silent Mode or Prompt Issue Provider**:
+   - If silentMode is true OR issueTrackingProvider is "prompt":
      - Log the status update operation locally: "Silent mode: Would have updated $1 status to '$2'"
-     - Skip the actual API calls (step 3)
-     - Continue to step 4
+     - Skip the actual API calls (step 4)
+     - Continue to step 5
 
-3. **Execute Update Status Operation** (only if silent mode is false):
+4. **Execute Update Status Operation** (only if silentMode is false and issueTrackingProvider is not "prompt"):
 
 ### For Linear Provider (`"linear"`)
 
@@ -55,10 +59,10 @@ Expected status values: "In Progress", "Code Review"
 - Use `jira:transition_issue` with $1 to move the issue to the matched transition
 - If no exact match is found, use the closest matching status name
 
-4. **Output Results**: Display confirmation of the status update:
+5. **Output Results**: Display confirmation of the status update:
    - **Issue**: $1
    - **Previous Status**: [if available]
    - **New Status**: $2
    - **Result**: Success/Failure (or "Skipped - Silent Mode" if applicable)
 
-5. **Error Handling**: If the issue operation fails, log the error but continue gracefully
+6. **Error Handling**: If the issue operation fails, log the error but continue gracefully

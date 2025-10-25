@@ -52,9 +52,15 @@ The workflow prevents common issues like Claude Code losing focus, making unplan
 
    That's it! No additional configuration needed. Claude Constructor will auto-detect your git branch and available issue tracking systems.
 
+   You can also override settings with command arguments:
+
+   ```console
+   > /feature Add dark mode --provider=prompt --silent=true
+   ```
+
 ### Local Development
 
-If you want to develop or modify Claude Constructor locally:
+To develop Claude Constructor locally:
 
 1. **Clone the repository:**
 
@@ -63,20 +69,10 @@ If you want to develop or modify Claude Constructor locally:
    cd claude-constructor
    ```
 
-2. **Update marketplace.json:**
-   In `.claude-plugin/marketplace.json`, change the source from:
+2. **Start Claude Code from the repository directory:**
 
-   ```json
-   "source": {
-     "source": "github",
-     "repo": "Hurblat/claude-constructor"
-   }
-   ```
-
-   to:
-
-   ```json
-   "source": "./plugins/claude-constructor"
+   ```bash
+   claude
    ```
 
 3. **Add the local marketplace:**
@@ -85,13 +81,22 @@ If you want to develop or modify Claude Constructor locally:
    > /plugin marketplace add ./
    ```
 
+   This adds the current directory (the cloned repo) as a plugin marketplace.
+
 4. **Install the plugin:**
 
    ```console
    > /plugin install claude-constructor@hurblat-plugins
    ```
 
-Now any changes you make to the plugin files will be immediately available in Claude Code.
+Now any changes you make to the plugin files will be immediately available in Claude Code. You can test changes without reinstalling.
+
+**Note:** If you make changes to `plugin.json` or `marketplace.json`, you may need to remove and reinstall the plugin:
+
+```console
+> /plugin uninstall claude-constructor@hurblat-plugins
+> /plugin install claude-constructor@hurblat-plugins
+```
 
 **Recommended VS Code Extension:**
 
@@ -104,14 +109,21 @@ For a better development experience with markdown files, install the [markdownli
 
 ### Configuration (Optional)
 
-Claude Constructor works out of the box with sensible defaults, but you can customize behavior via environment variables in your project's `.claude/settings.json` (not in the plugin directory):
+Claude Constructor works out of the box with sensible defaults and auto-detects your setup. You can override settings using command arguments when calling `/feature`:
+
+```console
+> /feature ABC-123 --provider=prompt --silent=true
+```
+
+**Available arguments:**
+
+- `--provider=<linear|jira|prompt>`: Override issue tracking system (auto-detected if not specified)
+- `--silent=<true|false>`: Skip external API calls for testing (default: false)
+
+To configure permissions in your project's `.claude/settings.json`:
 
 ```json
 {
-  "env": {
-    "CLAUDE_CONSTRUCTOR_PROVIDER": "linear",
-    "CLAUDE_CONSTRUCTOR_SILENT_MODE": "false"
-  },
   "permissions": {
     "allow": [
       "SlashCommand(/feature:*)",
@@ -131,15 +143,11 @@ Claude Constructor works out of the box with sensible defaults, but you can cust
 }
 ```
 
-**Configuration options:**
-
-- `CLAUDE_CONSTRUCTOR_PROVIDER`: Issue tracking system (`"linear"`, `"jira"`, or `"prompt"`). Auto-detected if not set.
-- `CLAUDE_CONSTRUCTOR_SILENT_MODE`: Set to `"true"` to skip external API calls (useful for testing)
-
 ### Tips for Success
 
 - **Be specific**: Whether using a feature description (`/feature Add dark mode`) or issue key (`/feature ABC-123`), provide clear requirements
-- **Use silent mode** for testing: Set `CLAUDE_CONSTRUCTOR_SILENT_MODE=true` to skip issue tracker updates and PR creation
+- **Use silent mode** for testing: Add `--silent=true` to skip write operations to issue tracker and GitHub (e.g., `/feature ABC-123 --silent=true`). Note: Issue details are still fetched.
+- **Use prompt mode** for isolated testing: Add `--provider=prompt` to skip all external integrations (e.g., `/feature test-feature --provider=prompt`)
 - **Monitor progress**: Claude Constructor will update you at each step and ask for approval at key points
 - **Check the state file**: Find detailed progress in `state_management/{issue_key}.md` or `state_management/prompt-{number}.md`
 
@@ -189,9 +197,6 @@ For team-wide adoption, add Claude Constructor configuration to your project's `
       }
     }
   },
-  "env": {
-    "CLAUDE_CONSTRUCTOR_PROVIDER": "linear"
-  },
   "permissions": {
     "allow": [
       "SlashCommand(/feature:*)",
@@ -213,6 +218,8 @@ For team-wide adoption, add Claude Constructor configuration to your project's `
 
 Team members will automatically be prompted to install the plugin when they trust the repository folder.
 
+Settings like issue tracking provider can be specified per-invocation using command arguments (e.g., `/feature ABC-123 --provider=linear`).
+
 ## Configuration
 
 ### Issue Tracking System Integration
@@ -228,15 +235,11 @@ Claude Constructor automatically detects your issue tracking system:
 - If Jira MCP is configured → uses Jira
 - Otherwise → uses "prompt" mode (no external integration)
 
-**Manual Configuration**
-Override auto-detection by setting the environment variable in your project's `.claude/settings.json`:
+**Manual Override**
+Override auto-detection using command arguments:
 
-```json
-{
-  "env": {
-    "CLAUDE_CONSTRUCTOR_PROVIDER": "linear"
-  }
-}
+```console
+> /feature ABC-123 --provider=prompt
 ```
 
 **Provider Options:**
@@ -260,25 +263,24 @@ Override auto-detection by setting the environment variable in your project's `.
 
 #### Silent Mode
 
-Silent mode prevents external API calls to issue trackers and GitHub, useful for testing and dry-runs with real issue tracking systems.
+Silent mode prevents external **write operations** to issue trackers and GitHub, useful for testing and dry-runs with real issue tracking systems. Read operations (like fetching issue details) still execute normally.
 
-Enable by setting the environment variable:
+Enable using command arguments:
 
-```json
-{
-  "env": {
-    "CLAUDE_CONSTRUCTOR_SILENT_MODE": "true"
-  }
-}
+```console
+> /feature ABC-123 --silent=true
 ```
 
 When silent mode is enabled:
 
-- **Issue comments**: Logged locally but not posted to issue tracker
-- **Issue status updates**: Logged locally but not updated in the issue tracker
-- **GitHub pull requests**: Code is committed and pushed, but PR creation is skipped
-- **PR review comments**: Skipped entirely
+- **Issue details**: Still fetched from issue tracker (read operation continues)
+- **Issue comments**: Logged locally but not posted to issue tracker (write skipped)
+- **Issue status updates**: Logged locally but not updated in the issue tracker (write skipped)
+- **GitHub pull requests**: Code is committed and pushed, but PR creation is skipped (write skipped)
+- **PR review comments**: Skipped entirely (write skipped)
 - All other operations (git commits, code changes, tests) execute normally
+
+**Note**: If you use `--provider=linear` or `--provider=jira`, the corresponding MCP tools must still be configured even in silent mode, since issue details are read from the tracker.
 
 #### Issue Tracking System Requirements
 

@@ -2,7 +2,7 @@
 name: requirements-sign-off
 description: Get user approval on requirements
 argument-hint: [state-management-file-path]
-model: claude-3-5-haiku-latest
+model: claude-haiku-4-5
 ---
 
 # Requirements Sign-Off Command

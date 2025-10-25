@@ -2,7 +2,7 @@
 name: create-state-management-file
 description: Create state management file for feature workflow
 argument-hint: [issue-key]
-model: claude-3-5-haiku-latest
+model: claude-haiku-4-5
 ---
 
 # Create State Management File Command

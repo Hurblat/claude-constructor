@@ -18,11 +18,11 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 1. Ensure that the specification was explicitly signed off by the user. If not, go back to the specification signoff step in the larger workflow.
 
 2. Update issue status to "In Progress":
-   - Use the SlashCommand tool to execute `/update-issue $1 "In Progress"`
+   - Use the SlashCommand tool to execute `/update-issue $1 "In Progress" $2`
 
 3. Add implementation comment:
    - Read the state management file ($2) to get the specification file name
-   - Use the SlashCommand tool to execute `/create-comment $1 "Claude Code implementation started for [specification-file-name]"`
+   - Use the SlashCommand tool to execute `/create-comment $1 "Claude Code implementation started for [specification-file-name]" $2`
 
 4. Understand the division of work and implement tasks:
     - Read specification to identify agent_ids

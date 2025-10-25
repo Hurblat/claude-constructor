@@ -1,9 +1,9 @@
 ---
 name: read-settings
 description: Read settings and add to state management file
-argument-hint: [state-management-file-path]
-model: claude-3-5-haiku-latest
-allowed-tools: Read, Bash(git symbolic-ref:*), Bash(git rev-parse:*)
+argument-hint: [state-management-file-path] [--provider=<linear|jira|prompt>] [--silent=<true|false>]
+model: claude-haiku-4-5
+allowed-tools: Read, Edit, Bash(git symbolic-ref:*), Bash(git rev-parse:*)
 ---
 
 # Read Settings Command
@@ -11,18 +11,33 @@ allowed-tools: Read, Bash(git symbolic-ref:*), Bash(git rev-parse:*)
 ## Purpose
 
 Read Claude Constructor settings and add them to the state management file.
-Settings are determined by environment variables (from .claude/settings.json env section) and auto-detection.
+Settings are determined by command arguments or auto-detection.
 These instructions are read and followed as part of a larger workflow.
 You MUST follow all workflow steps below, not skipping any step and doing all steps in order.
 
+## Arguments
+
+- `$1`: Path to state management file (required)
+- `$2+`: Optional settings in format `--provider=<value>` or `--silent=<value>`
+
 ## Workflow Steps
 
-1. Determine settings in this priority order:
+1. Parse optional arguments ($2, $3, etc.) to extract settings overrides:
+   - Look for `--provider=<value>` (valid: "linear", "jira", "prompt")
+   - Look for `--silent=<value>` (valid: "true", "false")
+
+2. Determine settings in this priority order:
 
    **Issue Tracking Provider:**
-   - Check environment variable `CLAUDE_CONSTRUCTOR_PROVIDER`
-   - Validate it's one of: "linear", "jira", "prompt"
-   - If not set or invalid, auto-detect:
+   - If `--provider=<value>` argument provided:
+     - Validate it's one of: "linear", "jira", "prompt"
+     - If "linear": Check that Linear MCP tools are available (try calling `linear:list_teams` or similar)
+       - If NOT available: **FAIL with error**: "Provider set to 'linear' but Linear MCP tools are not configured. Please configure Linear MCP or use --provider=prompt"
+     - If "jira": Check that Jira MCP tools are available (try calling `jira:get_projects` or similar)
+       - If NOT available: **FAIL with error**: "Provider set to 'jira' but Jira MCP tools are not configured. Please configure Jira MCP or use --provider=prompt"
+     - If "prompt": No validation needed
+     - Use the validated provider value
+   - Otherwise, auto-detect:
      - If Linear MCP tools are available → "linear"
      - If Jira MCP tools are available → "jira"
      - Otherwise → "prompt"
@@ -34,11 +49,22 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
    - If both fail, default to "main"
 
    **Silent Mode:**
-   - Check environment variable `CLAUDE_CONSTRUCTOR_SILENT_MODE`
-   - If not set or "false" → false
-   - If "true" or "1" → true
+   - If `--silent=<value>` argument provided, use it
+   - Otherwise, default to "false"
 
-2. Add the settings to the state management file ($1), in a new section called `## Settings`, on this format:
-   - issueTrackingProvider: [value]
-   - defaultBranch: [value]
-   - silentMode: [value]
+3. Read the state management file ($1) to check if Settings section already exists
+
+4. If Settings section exists:
+   - Update the existing Settings section with the determined values
+   - Use Edit tool to replace the Settings section
+
+5. If Settings section does not exist:
+   - Add a new Settings section to the state management file using Edit tool
+   - Format:
+
+     ```markdown
+     ## Settings
+     - issueTrackingProvider: [value]
+     - defaultBranch: [value]
+     - silentMode: [value]
+     ```

@@ -1,7 +1,7 @@
 ---
 name: feature
 description: Implement feature from issue tracking system or user prompt
-argument-hint: [issue-key-or-prompt]
+argument-hint: [issue-key-or-prompt] [--provider=<linear|jira|prompt>] [--silent=<true|false>]
 model: claude-sonnet-4-5
 ---
 
@@ -20,6 +20,13 @@ The issue key or prompt for the feature to implement is $1.
 IMPORTANT: The workflow steps will report to you when they're done, and only then can the next step start. Do not stop until the workflow is completed.
 Create a TODO list for the workflow steps, and follow it.
 
+## Arguments
+
+- `$1`: Issue key or feature prompt (required)
+- `$2+`: Optional settings in format `--provider=<value>` or `--silent=<value>`
+  - `--provider`: Override issue tracking provider (`linear`, `jira`, or `prompt`)
+  - `--silent`: Override silent mode (`true` or `false`)
+
 ## Pre-Processing
 
 Before starting the workflow for user prompts, create an issue key based on $1:
@@ -29,12 +36,14 @@ Before starting the workflow for user prompts, create an issue key based on $1:
 - If there is at least one filename using the format `prompt-{number}`, use issue key `prompt-{number+1}-{short-description}`
 - The short description should be a kebab-case summary of the prompt (e.g., `prompt-1-implement-cli`, `prompt-2-add-auth`)
 
+Parse optional settings arguments ($2, $3, etc.) to extract provider and silent overrides for passing to `/read-settings`.
+
 ## Workflow Steps
 
 1. Read @CLAUDE.md: General principles, quality gates, and development workflow. If the @CLAUDE.md refers to other @CLAUDE.md files, read those as well.
 2. Create a state management file for this increment - use the SlashCommand tool to execute `/create-state-management-file $1` if the workflow was started from an issue, or the issue key if it was started from a prompt
-3. Read settings - use the SlashCommand tool to execute `/read-settings [state-management-file-path]`
-4. Read issue - check the issue-tracking-provider in the Settings section of the state management file. If not "prompt", use the SlashCommand tool to execute `/read-issue [issue-key] [state-management-file-path]`. If "prompt", skip this step as there is no external issue to read.
+3. Read settings - use the SlashCommand tool to execute `/read-settings [state-management-file-path]` with any optional settings arguments from $2+ (e.g., `/read-settings [path] --provider=prompt --silent=true`)
+4. Read issue - check the issueTrackingProvider in the Settings section of the state management file. If not "prompt", use the SlashCommand tool to execute `/read-issue [issue-key] [state-management-file-path]`. If "prompt", skip this step as there is no external issue to read.
 5. Define requirements - Use the requirements-definer subagent to define requirements for [state-management-file-path]
 6. Validate requirements - Use the requirements-validator subagent to validate requirements in [state-management-file-path]. If validation fails with critical issues, return to step 5 to address them.
 7. Get sign-off on requirements. You are not allowed to go to step 8 until the user has signed off on the requirements. Use the SlashCommand tool to execute `/requirements-sign-off [state-management-file-path]`

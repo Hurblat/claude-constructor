@@ -2,7 +2,7 @@
 name: read-issue
 description: Fetch issue details from tracking system
 argument-hint: [issue-key] [state-management-file-path]
-model: claude-3-5-haiku-latest
+model: claude-haiku-4-5
 ---
 
 # Read Issue Command
@@ -16,7 +16,7 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 ## Workflow Steps
 
 1. Get issue details:
-   - Use the SlashCommand tool to execute `/get-issue $1`
+   - Use the SlashCommand tool to execute `/get-issue $1 $2`
 
 2. Note findings in the state management file ($2)
 
