@@ -1,3 +1,4 @@
 .claude/settings.local.json
 .claude/settings.claude-constructor.local.json
 __pycache__
+node_modules/

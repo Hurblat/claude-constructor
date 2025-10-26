@@ -1,0 +1,14 @@
+{
+  "name": "claude-constructor",
+  "version": "1.0.0",
+  "description": "A workflow automation plugin for Claude Code",
+  "private": true,
+  "scripts": {
+    "lint:md": "markdownlint-cli2 \"**/*.md\" \"#node_modules\"",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "markdownlint-cli2": "^0.17.1"
+  }
+}
