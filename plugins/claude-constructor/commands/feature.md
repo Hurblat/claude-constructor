@@ -45,10 +45,10 @@ Parse optional settings arguments ($2, $3, etc.) to extract provider and silent 
 3. Read settings - use the SlashCommand tool to execute `/read-settings [state-management-file-path]` with any optional settings arguments from $2+ (e.g., `/read-settings [path] --provider=prompt --silent=true`)
 4. Read issue - check the issueTrackingProvider in the Settings section of the state management file. If not "prompt", use the SlashCommand tool to execute `/read-issue [issue-key] [state-management-file-path]`. If "prompt", skip this step as there is no external issue to read.
 5. Define requirements - Use the requirements-definer subagent to define requirements for [state-management-file-path]
-6. Validate requirements - Use the requirements-validator subagent to validate requirements in [state-management-file-path]. If validation fails with critical issues, return to step 5 to address them.
+6. Audit requirements - Use the requirements-definer-auditor subagent to audit requirements in [state-management-file-path]. If audit fails with critical issues, return to step 5 to address them.
 7. Get sign-off on requirements. You are not allowed to go to step 8 until the user has signed off on the requirements. Use the SlashCommand tool to execute `/requirements-sign-off [state-management-file-path]`
 8. Write specification - Use the specification-writer subagent to write specification for [state-management-file-path]
-9. Validate specification - Use the specification-validator subagent to validate specification in [state-management-file-path]. If validation fails with critical issues, return to step 8 to address them.
+9. Audit specification - Use the specification-writer-auditor subagent to audit specification in [state-management-file-path]. If audit fails with critical issues, return to step 8 to address them.
 10. Get sign-off on specification. You are not allowed to go to step 11 until the user has signed off on the specification. Use the SlashCommand tool to execute `/specification-sign-off [state-management-file-path]`
 11. Check out new branch - use the SlashCommand tool to execute `/git-checkout [issue-key] [state-management-file-path]`
 12. Implement increment - use the SlashCommand tool to execute `/implement-increment [issue-key] [state-management-file-path]`

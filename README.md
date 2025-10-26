@@ -12,67 +12,56 @@ The workflow prevents common issues like Claude Code losing focus, making unplan
 
 > **Important:** Claude Constructor will work with you to define requirements and create specifications, but the more detail you provide upfront, the better the results. Whether providing a prompt directly or using issue tracking, include clear requirements, acceptance criteria, and technical constraints when possible. The workflow includes approval gates where you can refine requirements before implementation begins.
 
-### Installation Prerequisites
+### Prerequisites
 
 **Required:**
 
 - Claude Code CLI installed and configured
 - GitHub CLI (`gh`) authenticated
+- Python 3 installed
 
 **Optional:**
 
 - Linear MCP or Jira MCP configured (for issue tracking integration)
 
-### Installation
+### Quick Setup (No Configuration Required)
 
-1. **Navigate to your project:**
-
-   ```bash
-   cd /path/to/your/project
-   claude
-   ```
-
-2. **Add the plugin marketplace:**
-
-   ```console
-   > /plugin marketplace add github Hurblat/claude-constructor
-   ```
-
-3. **Install the plugin:**
-
-   ```console
-   > /plugin install claude-constructor@hurblat-plugins
-   ```
-
-4. **Start using it:**
-
-   ```console
-   > /feature Add dark mode toggle to settings page
-   ```
-
-   That's it! No additional configuration needed. Claude Constructor will auto-detect your git branch and available issue tracking systems.
-
-   You can also override settings with command arguments:
-
-   ```console
-   > /feature Add dark mode --provider=prompt --silent=true
-   ```
-
-### Local Development
-
-To develop Claude Constructor locally:
-
-1. **Clone the repository:**
+1. **Clone and start using immediately:**
 
    ```bash
    git clone https://github.com/Hurblat/claude-constructor.git
    cd claude-constructor
+   claude
+   > /add-dir /path/to/your/project
+   > /feature Add dark mode toggle to settings page
    ```
 
-2. **Start Claude Code from the repository directory:**
+   That's it! No configuration needed. Just describe your feature and Claude Constructor will guide you through the complete workflow - from requirements to pull request.
+
+### Using with Issue Tracking (Optional)
+
+If you use Linear or Jira for issue tracking:
+
+1. **Create configuration file:**
+
+   ```bash
+   cp .claude/settings.claude-constructor.example.json .claude/settings.claude-constructor.local.json
+   ```
+
+2. **Edit the configuration:**
+
+   ```json
+   {
+     "issue-tracking-provider": "linear"  // or "jira"
+   }
+   ```
+
+3. **Run with issue key:**
 
    ```bash
    claude
+   > /add-dir /path/to/your/project
+   > /feature ABC-123
    ```
 
 3. **Add the local marketplace:**
@@ -145,8 +134,7 @@ To configure permissions in your project's `.claude/settings.json`:
 ### Tips for Success
 
 - **Be specific**: Whether using a feature description (`/feature Add dark mode`) or issue key (`/feature ABC-123`), provide clear requirements
-- **Use silent mode** for testing: Add `--silent=true` to skip write operations to issue tracker and GitHub (e.g., `/feature ABC-123 --silent=true`). Note: Issue details are still fetched.
-- **Use prompt mode** for isolated testing: Add `--provider=prompt` to skip all external integrations (e.g., `/feature test-feature --provider=prompt`)
+- **Use silent mode** for testing: Add `"silent-mode": true` to skip issue tracker updates and PR creation
 - **Monitor progress**: Claude Constructor will update you at each step and ask for approval at key points
 - **Check the state file**: Find detailed progress in `state_management/{issue_key}.md` or `state_management/prompt-{number}.md`
 
@@ -161,16 +149,20 @@ The main orchestrator (`feature.md`) follows this sequence:
 3. **Read settings** - Get issue tracker and other settings
 4. **Read issue/prompt** - Get feature details (from prompt or issue tracker)
 5. **Define requirements** - Create detailed requirements specification covering business value, user journey, acceptance criteria, and technical constraints (using specialized agent)
-6. **Validate requirements** - Quality assurance check to ensure requirements are complete, clear, and testable
+6. **Audit requirements** - Quality assurance check to ensure requirements are complete, clear, and testable
 7. **Get requirements sign-off** - Iterate on the requirements definition until it's ready *(Human Required)*
 8. **Write specification** - Technical spec with parallelization plan (using specialized agent)
-9. **Validate specification** - Technical validation to ensure implementation plan is actionable and properly parallelized
+9. **Audit specification** - Technical audit to ensure implementation plan is actionable and properly parallelized
 10. **Get specification sign-off** - Iterate on the specification until it's ready *(Human Required)*
 
 ### Implementation
 
 11. **Check out new branch** - Create feature branch
-12. **Implement increment** - Execute with parallel subagents if possible
+12. **Implement increment** - Execute with parallel subagents if possible, each followed by comprehensive audit cycle:
+    - Agent completes assigned tasks
+    - Increment-auditor verifies implementation quality and scope adherence
+    - If audit fails, agent receives specific feedback and revises implementation
+    - Process repeats until audit passes or maximum revision attempts reached
 13. **Write end-to-end tests** - Cover user behavior
 
 ### Review
@@ -181,7 +173,7 @@ The main orchestrator (`feature.md`) follows this sequence:
 
 ### Team Setup
 
-For team-wide adoption, add Claude Constructor configuration to your project's `.claude/settings.json`:
+For team adoption, add this to your project's `.claude/settings.json`:
 
 ```json
 {
@@ -214,71 +206,95 @@ For team-wide adoption, add Claude Constructor configuration to your project's `
 }
 ```
 
-Team members will automatically be prompted to install the plugin when they trust the repository folder.
-
-Settings like issue tracking provider can be specified per-invocation using command arguments (e.g., `/feature ABC-123 --provider=linear`).
-
 ## Configuration
 
 ### Issue Tracking System Integration
 
-The workflow supports multiple issue tracking systems through auto-detection and optional configuration.
+The workflow supports multiple issue tracking systems through an abstraction layer. This allows you to use Linear, Jira, GitHub Issues, or any other issue tracking system by configuring the provider.
+
+#### Configuration File
+
+Configuration in Claude Constructor works with schema defaults and optional local overrides.
+
+The defaults are defined in `.claude/settings.claude-constructor.schema.json`. You can override these defaults by creating `.claude/settings.claude-constructor.local.json`. If no local settings file exists, the schema defaults will be used automatically.
+
+An example configuration is provided in `.claude/settings.claude-constructor.example.json` for reference.
+
+```json
+# .claude/settings.claude-constructor.example.json
+{
+  "issue-tracking-provider": "linear",
+  "default-branch": "main",
+  "silent-mode": false
+}
+```
 
 #### Supported Providers
 
-**Auto-Detection (Default)**
-Claude Constructor automatically detects your issue tracking system:
+##### Linear (Default)
 
-- If Linear MCP is configured → uses Linear
-- If Jira MCP is configured → uses Jira
-- Otherwise → uses "prompt" mode (no external integration)
-
-**Manual Override**
-Override auto-detection using command arguments:
-
-```console
-> /feature ABC-123 --provider=prompt
+```json
+# .claude/settings.claude-constructor.example.json
+{
+  "issue-tracking-provider": "linear"
+}
 ```
 
-**Provider Options:**
+- Requires Linear MCP integration configured
+- Uses `linear:get_issue`, `linear:update_issue`, `linear:create_comment`, `linear:list_issue_statuses`
+- Supports fuzzy matching for status names
 
-1. **Linear**
-   - Requires Linear MCP integration configured
-   - Uses `linear:get_issue`, `linear:update_issue`, `linear:create_comment`, `linear:list_issue_statuses`
-   - Supports fuzzy matching for status names
+##### Jira
 
-2. **Jira**
-   - Requires Jira MCP integration configured
-   - Uses `jira:get_issue`, `jira:add_comment_to_issue`, `jira:get_transitions_for_issue`, `jira:transition_issue`
-   - Supports fuzzy matching for status names
+```json
+# .claude/settings.claude-constructor.example.json
+{
+  "issue-tracking-provider": "jira"
+}
+```
 
-3. **Prompt Mode**
-   - No external issue tracking system required
-   - Use with: `/feature Your feature description here`
-   - Creates local issue keys (prompt-1, prompt-2, etc.)
-   - Perfect for local development and experimentation
-   - Automatically skips issue tracker API calls and PR creation
+- Requires Jira MCP integration configured
+- Uses `jira:get_issue`, `jira:add_comment_to_issue`, `jira:get_transitions_for_issue`, `jira:transition_issue`
+- Supports fuzzy matching for status names
+
+##### Prompt Mode (No External Integration)
+
+```json
+# .claude/settings.claude-constructor.json
+{
+  "issue-tracking-provider": "prompt"
+}
+```
+
+- No external issue tracking system required
+- Use with: `/feature Your feature description here`
+- Creates local issue keys (prompt-1, prompt-2, etc.)
+- Perfect for local development and experimentation
+- Note: Automatically skips issue tracker API calls (but still creates PRs unless silent mode is also enabled)
 
 #### Silent Mode
 
-Silent mode prevents external **write operations** to issue trackers and GitHub, useful for testing and dry-runs with real issue tracking systems. Read operations (like fetching issue details) still execute normally.
+Silent mode prevents external API calls to issue trackers and GitHub, useful for testing and dry-runs. It works with any provider including prompt mode.
 
-Enable using command arguments:
+To enable silent mode, set `"silent-mode": true` in your configuration:
 
-```console
-> /feature ABC-123 --silent=true
+```json
+# .claude/settings.claude-constructor.example.json
+{
+  "silent-mode": true,
+  "issue-tracking-provider": "linear"  // or "jira" or "prompt"
+}
 ```
 
 When silent mode is enabled:
 
-- **Issue details**: Still fetched from issue tracker (read operation continues)
-- **Issue comments**: Logged locally but not posted to issue tracker (write skipped)
-- **Issue status updates**: Logged locally but not updated in the issue tracker (write skipped)
-- **GitHub pull requests**: Code is committed and pushed, but PR creation is skipped (write skipped)
-- **PR review comments**: Skipped entirely (write skipped)
+- **Issue comments**: Logged locally but not posted to issue tracker
+- **Issue status updates**: Logged locally but not updated in the issue tracker
+- **GitHub pull requests**: Code is committed and pushed, but PR creation is skipped
+- **PR review comments**: Skipped entirely
 - All other operations (git commits, code changes, tests) execute normally
 
-**Note**: If you use `--provider=linear` or `--provider=jira`, the corresponding MCP tools must still be configured even in silent mode, since issue details are read from the tracker.
+**Note:** The `"prompt"` provider automatically skips issue tracker calls, but you still need `"silent-mode": true` if you want to skip GitHub PR creation.
 
 #### Issue Tracking System Requirements
 
@@ -295,7 +311,7 @@ To add support for additional issue tracking systems (GitHub Issues, etc.):
 
 1. Update the issue command files (`get-issue.md`, `update-issue.md`, `create-comment.md` etc.)
 2. Add provider-specific MCP command mappings
-3. Submit a pull request!
+3. Add the new provider option to the configuration
 
 ### Other Customizations
 
@@ -334,12 +350,12 @@ The workflow includes critical human approval gates:
 
 ### 1. Requirements Sign-off (Step 7)
 
-- **Process**: Claude Constructor presents assumptions and detailed understanding of requirements after validation
+- **Process**: Claude Constructor presents assumptions and detailed understanding of requirements after audit
 - **Human Required**: Must approve definition of requirements
 
 ### 2. Specification Sign-off (Step 10)
 
-- **Process**: Claude Constructor presents assumptions and detailed specification for review after validation
+- **Process**: Claude Constructor presents assumptions and detailed specification for review after audit
 - **Human Required**: Must approve technical specification before implementation begins
 
 ### 3. Pull Request Review (Step 16)
@@ -356,24 +372,25 @@ These gates ensure human oversight of decisions and final code quality before de
 
 I also recommend checking in on the work as it is happening, to gauge if anything was missed in the specification or otherwise not going according to plan.
 
-## Prerequisites
+## Additional Prerequisites
 
 ### Technical Requirements
 
-- Claude Code CLI installed and configured
-- Issue tracking system MCP integration configured (optional - see Issue Tracking System Integration section)
+- Python (python3)
+- Issue tracking system MCP integration configured (see Issue Tracking System Integration section)
 - GitHub CLI (`gh`) authenticated
 - Git repository
 - Quality gate tools available
 
-### Recommended Project Configuration Files
+### Required Configuration Files
 
 - `/CLAUDE.md` - General principles, quality gates, and development workflow
 - `docs/git-commit.md` - Git commit guidelines (example available in `docs/git-commit.md` in Claude Constructor)
+- `.claude/settings.claude-constructor.example.json` - Example configuration file showing available settings
 
 ### Input Requirements
 
-Claude Constructor will help you refine and validate requirements during the workflow, but providing clear input upfront leads to better results.
+Claude Constructor will help you refine and audit requirements during the workflow, but providing clear input upfront leads to better results.
 
 **Helpful details to include (when known):**
 
@@ -428,15 +445,48 @@ The workflow will help refine vague requirements, but starting with detail saves
 
 ## File Structure
 
-When you install Claude Constructor as a plugin, the workflow files are managed by Claude Code's plugin system. You don't need to copy any files - just install the plugin and optionally configure it in your project's `.claude/settings.json` (separate from the plugin).
+When using Claude Constructor with `/add-dir` (recommended approach), the workflow files stay in the Claude Constructor repository - you don't need to copy any `.claude/` folders or command files to your project. The `/add-dir` command handles the connection between repositories.
 
-### Plugin Structure
+The only files you may want to add to your target project are:
 
-The plugin provides these components:
+- `/CLAUDE.md` - Your project-specific development guidelines
+- `docs/` folder - Any project-specific documentation referenced by the workflow
+
+### Claude Constructor repository files
+
+These files remain in the Claude Constructor repository and define the workflow:
 
 ```text
-.claude-plugin/
-└── marketplace.json                          # Marketplace definition
+.claude/
+├── agents/
+│   ├── requirements-definer.md               # Specialized agent for defining requirements
+│   ├── requirements-definer-auditor.md               # Quality assurance for requirements completeness
+│   ├── specification-writer.md               # Specialized agent for writing specifications
+│   ├── specification-writer-auditor.md            # Technical validation of implementation plans
+│   ├── increment-implementer.md              # Parallel task execution agent for implementation
+│   └── increment-implementer-auditor.md                  # Post-implementation verification and quality control
+├── commands/
+│   ├── feature.md                            # Main orchestrator
+│   ├── create-state-management-file.md
+│   ├── read-settings.md
+│   ├── requirements-sign-off.md
+│   ├── specification-sign-off.md
+│   ├── git-checkout.md
+│   ├── implement-increment.md
+│   ├── write-end-to-end-tests.md
+│   ├── code-review.md
+│   ├── create-pull-request.md
+│   ├── review-pull-request.md
+│   └── issue/
+│       ├── get-issue.md                      # Issue tracking system: Get issue details
+│       ├── read-issue.md                     # Issue tracking system: Read issue details
+│       ├── update-issue.md                   # Issue tracking system: Update issue status
+│       └── create-comment.md                 # Issue tracking system: Add comments to issue
+├── settings.claude-constructor.example.json  # Example configuration file
+├── settings.claude-constructor.local.json    # Configuration file (local Claude Constructor settings, gitignored)
+├── settings.claude-constructor.schema.json   # Configuration schema with defaults
+├── settings.json                             # General Claude settings
+└── settings.local.json                       # Local Claude settings (gitignored)
 
 plugins/
 └── claude-constructor/                       # Plugin directory
@@ -445,10 +495,12 @@ plugins/
     ├── agents/
     │   ├── code-reviewer.md                  # Reviews implementation against specification requirements
     │   ├── increment-implementer.md          # Implements specific tasks from feature specification
+    │   ├── increment-implementer-auditor.md  # Post-implementation verification and quality control
     │   ├── requirements-definer.md           # Specialized agent for defining requirements
-    │   ├── requirements-validator.md         # Quality assurance for requirements completeness
+    │   ├── requirements-definer-auditor.md   # Quality assurance for requirements completeness
+    │   ├── security-reviewer.md              # Performs security analysis
     │   ├── specification-writer.md           # Specialized agent for writing specifications
-    │   └── specification-validator.md        # Technical validation of implementation plans
+    │   └── specification-writer-auditor.md   # Technical validation of implementation plans
     ├── commands/
     │   ├── feature.md                        # Main orchestrator
     │   ├── create-state-management-file.md
@@ -469,7 +521,7 @@ plugins/
         └── git-commit.md                     # Example git commit guidelines
 ```
 
-### Generated files in your project
+### Generated files in your target repository
 
 These files are automatically created in your project during the workflow:
 
@@ -482,14 +534,4 @@ specifications/                               # Technical specifications
 
 code_reviews/                                 # Review history across iterations
 └── {issue_key}.md
-```
-
-### Recommended project files
-
-Add these to your project for best results:
-
-```text
-/CLAUDE.md                                    # Project-specific development guidelines
-docs/                                         # Project-specific documentation
-└── git-commit.md                             # Your git commit conventions
 ```
