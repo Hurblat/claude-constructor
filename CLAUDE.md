@@ -1,7 +1,3 @@
-# CLAUDE.md
-
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
 ## Repository Purpose
 
 Claude Constructor is a workflow automation plugin for Claude Code that guides feature development through structured planning, validation, implementation, and review steps. This repository contains the plugin's orchestration commands and specialized agents.
@@ -57,7 +53,7 @@ The `/feature` command (in `commands/feature.md`) orchestrates a sequential work
 2. **Implementation phase**: Checkout branch → Implement → Security review → Write E2E tests
 3. **Review phase**: Code review → Create PR → Review PR
 
-Each step is a separate command that reports "DONE" when complete. The orchestrator blocks until user sign-off at the **requirements sign-off** and **specification sign-off** steps.
+Each step is a separate command. The orchestrator blocks until user sign-off at the **requirements sign-off** and **specification sign-off** steps.
 
 ### Issue Tracking Integration
 
@@ -79,7 +75,6 @@ Specialized agents (in `agents/`) follow this pattern:
 4. **Gather context**: Explore codebase briefly to understand existing patterns
 5. **Execute task**: Define requirements, write spec, or validate
 6. **Update state**: Write outputs to specification file and update state management
-7. **Report completion**: Return "DONE" to orchestrator
 
 ## Settings
 
@@ -107,7 +102,6 @@ Markdown files use strict linting via markdownlint:
 Commands are called sequentially by the orchestrator. Each command:
 
 - Must complete all steps without skipping
-- Must report "DONE" when finished
 - Should update the state management file with its outputs
 - Should fail gracefully and log errors without blocking workflow
 
@@ -115,7 +109,7 @@ Commands are called sequentially by the orchestrator. Each command:
 
 When modifying workflow commands or agents:
 
-1. Use `--silent=true` argument to skip external API calls (e.g., `/feature test-feature --silent=true`)
+1. Use `--silent=true` argument to skip external API calls (e.g., `/feature ABC-123 --silent=true`)
 2. Test with `/feature prompt-test-description` to avoid needing real issues
 3. Check `state_management/` and `specifications/` outputs in target project
-4. Verify each step reports "DONE" and orchestrator proceeds to next step
+4. Verify all workflow steps complete in sequence without hanging or skipping steps

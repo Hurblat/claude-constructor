@@ -115,11 +115,6 @@ When defining requirements, you will:
 - Update the state management file with the path to the created specification file, in a section called `## Specification File`
 - Ensure the specification file path is accessible for subsequent workflow steps
 
-11. **Report Completion**:
-
-- After successfully creating the Requirements Definition
-- Report "DONE" to the orchestrating command to proceed to the next workflow step
-
 ## Output Format
 
 Create a well-structured markdown document with clear headers and subsections. Use bullet points and numbered lists for clarity. Focus on completeness and clarity while avoiding implementation details.

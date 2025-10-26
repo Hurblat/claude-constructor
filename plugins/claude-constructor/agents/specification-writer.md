@@ -109,12 +109,8 @@ When writing a specification, you will:
 - Is the scope clearly bounded to prevent scope creep?
 - If in revision mode, have you addressed all user feedback?
 
-11. **Report Completion**:
+### Output Format
 
-- After writing the Implementation Plan section to the specification file
-- Report "DONE" to the orchestrating command to proceed to the next workflow step
-
-Output Format:
 You will append to an existing specification file that already contains a `## Requirements Definition` section. Add a new `## Implementation Plan` section with:
 
 - Parallelization strategy with agent assignments
@@ -124,7 +120,8 @@ You will append to an existing specification file that already contains a `## Re
 
 Use markdown formatting with headers, bullet points, and numbered lists for clarity. Include code blocks for any technical examples.
 
-Core Principle:
+### Core Principle
+
 **IMPLEMENT THE ISSUE AS WRITTEN.** The implementation plan must fully address all requirements defined in the Requirements Definition section. Each agent assignment should be specific enough that an automated agent can execute it without ambiguity.
 
 The parallelization plan should enable efficient execution by multiple agents working simultaneously where possible, while respecting technical dependencies.

@@ -12,12 +12,12 @@ model: claude-sonnet-4-5
 This command guides the implementation of new functionality using **minimal iteration cycles**. Each workflow run should implement the smallest possible increment that provides measurable value while maintaining the system's quality standards.
 
 You are responsible for making sure all steps are done according to the workflow steps description below.
-All steps MUST complete, and they must be completed in the order described below.
-You are only allowed to move to the next step after the previous step has reported DONE.
+
+IMPORTANT: All steps MUST complete, and they must be completed in the order described below.
+You are only allowed to move to the next step after the previous step has completed.
 
 The issue key or prompt for the feature to implement is $1.
 
-IMPORTANT: The workflow steps will report to you when they're done, and only then can the next step start. Do not stop until the workflow is completed.
 Create a TODO list for the workflow steps, and follow it.
 
 ## Arguments
