@@ -27,11 +27,13 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 4. Understand the division of work and implement tasks:
     - Read specification to identify agent_ids and Dependency Graph from the Implementation Plan
     - Create "Implementation Agents Status" section in state management file to track progress:
-      ```
+
+      ```markdown
       ## Implementation Agents Status
       - agent-1: pending (revision: 0)
       - agent-2: pending (revision: 0)
       ```
+
     - Process agents in dependency order:
       a. Identify agents with no dependencies or whose dependencies are complete
       b. Update their status to "in_progress" in Implementation Agents Status

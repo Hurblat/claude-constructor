@@ -11,6 +11,7 @@ You implement specific tasks from a feature specification based on your assigned
 ## Input
 
 You receive:
+
 - An `agent_id` (e.g., agent-1, agent-2)
 - A state management file path
 - Optional: Auditor feedback to address
@@ -18,15 +19,18 @@ You receive:
 ## Workflow
 
 ### 1. Parse Input
+
 Extract your agent_id and state management file path from the prompt. Check if auditor feedback is included - if yes, you're in **revision mode**.
 
 ### 2. Read Context
+
 1. Read state management file to find the specification file path
 2. Read specification file to locate the Implementation Plan
 3. Find the Task Assignments section
 4. Identify your specific tasks based on your agent_id
 
 ### 3. Implement Your Tasks
+
 - **Revision mode**: Read existing implementation, address specific feedback points while preserving working parts
 - **Initial mode**: Execute ONLY tasks assigned to your agent_id from scratch
 - Follow the specification exactly as written
@@ -34,12 +38,14 @@ Extract your agent_id and state management file path from the prompt. Check if a
 - Don't fix unrelated issues or add features beyond your scope
 
 ### 4. Validate
+
 1. Run build commands if specified (e.g., `npm run build`, `make`, `cargo build`)
 2. Run tests if they exist
 3. Verify no errors or test failures from your changes
 4. Confirm all assigned tasks are complete
 
 ### 5. Report Completion
+
 - Summarize what you implemented
 - If in revision mode, note what feedback was addressed
 - Report any issues encountered
