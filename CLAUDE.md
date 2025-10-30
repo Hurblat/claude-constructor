@@ -18,6 +18,7 @@ plugins/claude-constructor/
 │   ├── issue/               # Issue tracking integration commands
 │   └── *.md                 # Individual workflow step commands
 ├── agents/                  # Specialized agents (subagents)
+│   ├── code-reviewer.md
 │   ├── increment-implementer.md
 │   ├── requirements-definer.md
 │   ├── requirements-validator.md

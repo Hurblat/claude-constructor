@@ -1,8 +1,9 @@
 ---
 name: code-reviewer
 description: Reviews implementation against specification requirements and provides APPROVED or NEEDS_CHANGES verdict
-model: claude-sonnet-4-5
+model: sonnet
 tools: Read, Grep, Glob, Bash
+color: cyan
 ---
 
 You review code changes for the active increment and provide a verdict of NEEDS_CHANGES or APPROVED.
