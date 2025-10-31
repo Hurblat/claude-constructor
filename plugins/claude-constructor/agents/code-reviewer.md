@@ -2,7 +2,7 @@
 name: code-reviewer
 description: Reviews implementation against specification requirements and provides APPROVED or NEEDS_CHANGES verdict
 model: sonnet
-tools: Read, Grep, Glob, Bash
+tools: Read, Write, Grep, Glob, Bash
 color: cyan
 ---
 
@@ -25,7 +25,9 @@ Extract the state management file path from the prompt.
 1. Read state management file to understand the context for what you need to review
 2. Extract the specification file path from the state management file
 3. Read the specification to understand requirements
-4. Extract the issue key from the state management file (needed for reporting)
+4. Extract the issue key from the state management file (needed for reporting and file naming)
+5. Determine code-review file path: `code_reviews/{issue_key}.md`
+6. If code-review file exists, read it to count existing reviews (for review iteration number)
 
 ### 3. Gather Review Context
 
@@ -115,7 +117,69 @@ Ultrathink about your findings and provide detailed feedback:
 - Any issues found
 - Specific next steps if changes needed
 
-### 8. Final Verdict
+### 8. Write Review Findings to File
+
+Write your review findings to `code_reviews/{issue_key}.md`:
+
+**If this is the first review** (file doesn't exist):
+
+1. Create the `code_reviews/` directory if it doesn't exist
+2. Create the file with header metadata:
+
+```markdown
+# Code Review History
+
+**Issue**: {issue_key}
+**Specification**: {spec_file_path}
+
+---
+
+## Review #1 - {timestamp}
+
+{review content}
+```
+
+**If this is a subsequent review** (file exists):
+
+1. Read the existing file content
+2. Append a new review section:
+
+```markdown
+
+---
+
+## Review #{n} - {timestamp}
+
+{review content}
+```
+
+**Review Content Format**:
+
+```markdown
+**Decision**: APPROVED / NEEDS_CHANGES
+
+**Summary**: {brief status}
+
+**Completed**:
+- {what works correctly}
+
+**Issues Found**:
+- {specific problems}
+
+**Missing**:
+- {what still needs implementation}
+
+**Next Steps**:
+1. {actionable items if NEEDS_CHANGES}
+
+**Quality Gates**:
+- ✓ {command}: PASSED
+- ✗ {command}: FAILED ({details})
+```
+
+Use the current timestamp in ISO format (YYYY-MM-DD HH:MM:SS).
+
+### 9. Final Verdict
 
 Provide your decision using the exact format below:
 
@@ -141,6 +205,7 @@ or
 
 **IMPORTANT**: The decision must be clearly stated as either "**Decision**: APPROVED" or "**Decision**: NEEDS_CHANGES" so the orchestrator can parse it correctly.
 
-If you approve the implementation, your work is complete. The orchestrator will create an issue comment with your findings.
+**Workflow continuation**:
 
-If you require changes, provide specific, actionable feedback so the implementation team can address the issues.
+- If APPROVED: The orchestrator will create an issue comment with your findings and proceed to create a pull request
+- If NEEDS_CHANGES: The orchestrator will loop back to the implementation step. The implementation team will read `code_reviews/{issue_key}.md` to understand what needs to be fixed

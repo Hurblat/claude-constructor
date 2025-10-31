@@ -479,6 +479,9 @@ state_management/                             # Tracks workflow progress
 
 specifications/                               # Technical specifications
 └── {issue_key}_specification_{timestamp}.md
+
+code_reviews/                                 # Review history across iterations
+└── {issue_key}.md
 ```
 
 ### Recommended project files

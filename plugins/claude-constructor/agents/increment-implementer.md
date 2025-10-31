@@ -22,10 +22,14 @@ Extract your agent_id and state management file path from the prompt.
 
 ### 2. Read Context
 
-1. Read state management file to find the specification file path
+1. Read state management file to find the specification file path and issue key
 2. Read specification file to locate the Implementation Plan
 3. Find the Task Assignments section
 4. Identify your specific tasks based on your agent_id
+5. Check for code review feedback:
+   - Determine code-review file path: `code_reviews/{issue_key}.md`
+   - If file exists: Read the latest review to understand what needs fixing
+   - If review feedback is relevant to your tasks, prioritize addressing those issues
 
 ### 3. Implement Your Tasks
 
