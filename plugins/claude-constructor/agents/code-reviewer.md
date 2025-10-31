@@ -181,6 +181,8 @@ Use the current timestamp in ISO format (YYYY-MM-DD HH:MM:SS).
 
 ### 9. Final Verdict
 
+**CRITICAL CONTRACT**: The orchestrator in `feature.md` depends on this exact output format for parsing. Do not modify the section heading "## Code Review Summary" or the decision format "**Decision**: APPROVED/NEEDS_CHANGES". Breaking this contract will prevent the orchestrator from correctly routing the workflow.
+
 Provide your decision using the exact format below:
 
 ## Code Review Summary

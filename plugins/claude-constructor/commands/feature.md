@@ -60,7 +60,11 @@ Parse optional settings arguments ($2, $3, etc.) to extract provider and silent 
     - Parse the verdict from the agent's output (look for "**Decision**: APPROVED" or "**Decision**: NEEDS_CHANGES")
     - If APPROVED:
       a. Extract issue key from state management file
-      b. Extract code review summary from agent output (the full Code Review Summary section)
+      b. Extract code review summary from agent output:
+         - Look for the section starting with "## Code Review Summary"
+         - Extract everything from that heading through the end of the output
+         - This section must include Decision, Summary, Completed, and other details
+         - Format contract: The agent outputs this in a specific format (see code-reviewer.md section 9)
       c. Use SlashCommand tool to execute `/issue:create-comment [issue-key] "[code review summary]" [state-management-file-path]`
       d. Proceed to next step
     - If NEEDS_CHANGES:
