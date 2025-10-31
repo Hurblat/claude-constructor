@@ -135,7 +135,6 @@ To configure permissions in your project's `.claude/settings.json`:
       "SlashCommand(/issue:*)",
       "SlashCommand(/write-end-to-end-tests:*)",
       "SlashCommand(/security-review:*)",
-      "SlashCommand(/code-review:*)",
       "SlashCommand(/create-pull-request:*)",
       "SlashCommand(/review-pull-request:*)"
     ]
@@ -208,7 +207,6 @@ For team-wide adoption, add Claude Constructor configuration to your project's `
       "SlashCommand(/issue:*)",
       "SlashCommand(/write-end-to-end-tests:*)",
       "SlashCommand(/security-review:*)",
-      "SlashCommand(/code-review:*)",
       "SlashCommand(/create-pull-request:*)",
       "SlashCommand(/review-pull-request:*)"
     ]
@@ -445,6 +443,8 @@ plugins/
     ├── .claude-plugin/
     │   └── plugin.json                       # Plugin manifest
     ├── agents/
+    │   ├── code-reviewer.md                  # Reviews implementation against specification requirements
+    │   ├── increment-implementer.md          # Implements specific tasks from feature specification
     │   ├── requirements-definer.md           # Specialized agent for defining requirements
     │   ├── requirements-validator.md         # Quality assurance for requirements completeness
     │   ├── specification-writer.md           # Specialized agent for writing specifications
@@ -458,7 +458,6 @@ plugins/
     │   ├── git-checkout.md
     │   ├── implement-increment.md
     │   ├── write-end-to-end-tests.md
-    │   ├── code-review.md
     │   ├── create-pull-request.md
     │   ├── review-pull-request.md
     │   └── issue/
@@ -480,6 +479,9 @@ state_management/                             # Tracks workflow progress
 
 specifications/                               # Technical specifications
 └── {issue_key}_specification_{timestamp}.md
+
+code_reviews/                                 # Review history across iterations
+└── {issue_key}.md
 ```
 
 ### Recommended project files

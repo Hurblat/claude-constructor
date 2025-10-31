@@ -18,6 +18,7 @@ plugins/claude-constructor/
 │   ├── issue/               # Issue tracking integration commands
 │   └── *.md                 # Individual workflow step commands
 ├── agents/                  # Specialized agents (subagents)
+│   ├── code-reviewer.md
 │   ├── increment-implementer.md
 │   ├── requirements-definer.md
 │   ├── requirements-validator.md
@@ -45,6 +46,12 @@ plugins/claude-constructor/
 - Created in `specifications/{issue_key}_specification_{timestamp}.md` (in target projects)
 - Contains Requirements Definition and Implementation Plan sections
 - Used throughout implementation and review phases
+
+**Code Reviews:**
+
+- Review history tracked in `code_reviews/{issue_key}.md` files (created in target projects)
+- Each review iteration appends findings, verdict, and quality gate results
+- Implementation team reads latest review when addressing feedback
 
 ### Workflow Orchestration
 
@@ -112,5 +119,5 @@ When modifying workflow commands or agents:
 
 1. Use `--silent=true` argument to skip external API calls (e.g., `/feature ABC-123 --silent=true`)
 2. Test with `/feature prompt-test-description` to avoid needing real issues
-3. Check `state_management/` and `specifications/` outputs in target project
+3. Check `state_management/`, `specifications/`, and `code_reviews/` outputs in target project
 4. Verify all workflow steps complete in sequence without hanging or skipping steps

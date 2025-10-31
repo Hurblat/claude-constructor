@@ -26,6 +26,11 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 4. Understand the division of work and implement tasks:
     - Read specification to identify agent_ids and Dependency Graph from the Implementation Plan
+    - Check for code review feedback:
+      - Determine code-review file path: `code_reviews/{issue-key}.md` (where issue-key is $1)
+      - If file exists: Read the latest review (most recent "Review #N" section) to understand what needs fixing
+      - If this is a revision (code-review file exists), prioritize addressing review issues over spec additions
+      - Note: Subagents will automatically check for and read code_reviews/{issue-key}.md if it exists - no need to pass review content explicitly
     - Create "Implementation Agents Status" section in state management file to track progress:
 
       ```markdown

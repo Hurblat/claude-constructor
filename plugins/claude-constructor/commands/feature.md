@@ -54,7 +54,23 @@ Parse optional settings arguments ($2, $3, etc.) to extract provider and silent 
 12. Implement increment - use the SlashCommand tool to execute `/implement-increment [issue-key] [state-management-file-path]`
 13. Perform security review - use the SlashCommand tool to execute `/security-review`. If security vulnerabilities are found, address them and repeat the implement increment step as needed.
 14. Write end-to-end tests for the increment - use the SlashCommand tool to execute `/write-end-to-end-tests [state-management-file-path]`
-15. Perform code review - use the SlashCommand tool to execute `/code-review [state-management-file-path]`. If the verdict of the code review is NEEDS_CHANGES, address comments and then repeat the implement increment step. Repeat as needed.
+15. Perform code review:
+    - Use the Task tool with subagent_type="code-reviewer" to review the implementation
+    - Pass prompt: "Review the implementation for [state-management-file-path]"
+    - Parse the verdict from the agent's output (look for "**Decision**: APPROVED" or "**Decision**: NEEDS_CHANGES")
+    - If APPROVED:
+      a. Extract issue key from state management file
+      b. Extract code review summary from agent output:
+         - Look for the section starting with "## Code Review Summary"
+         - Extract everything from that heading through the end of the output
+         - This section must include Decision, Summary, Completed, and other details
+         - Format contract: The agent outputs this in a specific format (see code-reviewer.md section 9)
+      c. Use SlashCommand tool to execute `/issue:create-comment [issue-key] "[code review summary]" [state-management-file-path]`
+      d. Proceed to next step
+    - If NEEDS_CHANGES:
+      a. Inform the user that code review returned NEEDS_CHANGES and implementation will be revised
+      b. Return to step 12 (implement increment) where implementation agents will read code_reviews/{issue-key}.md and address the issues
+      c. Continue through steps 12-15 again until APPROVED
 16. Create pull request - use the SlashCommand tool to execute `/create-pull-request [issue-key] [state-management-file-path]`
 17. Review pull request - use the SlashCommand tool to execute `/review-pull-request [issue-key] [state-management-file-path]`
 
