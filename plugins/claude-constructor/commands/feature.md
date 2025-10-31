@@ -64,10 +64,9 @@ Parse optional settings arguments ($2, $3, etc.) to extract provider and silent 
       c. Use SlashCommand tool to execute `/issue:create-comment [issue-key] "[code review summary]" [state-management-file-path]`
       d. Proceed to next step
     - If NEEDS_CHANGES:
-      a. Log the feedback from the code review
-      b. Address the issues identified in the review
-      c. Return to step 12 (implement increment) to make necessary changes
-      d. Continue through steps 12-15 again until APPROVED
+      a. Inform the user that code review returned NEEDS_CHANGES and implementation will be revised
+      b. Return to step 12 (implement increment) where implementation agents will read code_reviews/{issue-key}.md and address the issues
+      c. Continue through steps 12-15 again until APPROVED
 16. Create pull request - use the SlashCommand tool to execute `/create-pull-request [issue-key] [state-management-file-path]`
 17. Review pull request - use the SlashCommand tool to execute `/review-pull-request [issue-key] [state-management-file-path]`
 
