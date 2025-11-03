@@ -52,7 +52,15 @@ Parse optional settings arguments ($2, $3, etc.) to extract provider and silent 
 10. Get sign-off on specification. You are not allowed to go to step 11 until the user has signed off on the specification. Use the SlashCommand tool to execute `/specification-sign-off [state-management-file-path]`
 11. Check out new branch - use the SlashCommand tool to execute `/git-checkout [issue-key] [state-management-file-path]`
 12. Implement increment - use the SlashCommand tool to execute `/implement-increment [issue-key] [state-management-file-path]`
-13. Perform security review - use the SlashCommand tool to execute `/security-review`. If security vulnerabilities are found, address them and repeat the implement increment step as needed.
+13. Perform security review:
+    - Use the Task tool with subagent_type="security-reviewer" to perform security analysis
+    - Pass prompt: "Perform security review for [state-management-file-path]"
+    - Parse the verdict from the agent's output (look for "**Decision**: APPROVED" or "**Decision**: NEEDS_CHANGES")
+    - If APPROVED: proceed to next step
+    - If NEEDS_CHANGES:
+      a. Inform user that security vulnerabilities were found
+      b. Return to step 12 (implement increment) where agents will read security_reviews/{issue-key}.md to understand what needs to be fixed
+      c. Continue through steps 12-13 until APPROVED
 14. Write end-to-end tests for the increment - use the SlashCommand tool to execute `/write-end-to-end-tests [state-management-file-path]`
 15. Perform code review - use the SlashCommand tool to execute `/code-review [state-management-file-path]`. If the verdict of the code review is NEEDS_CHANGES, address comments and then repeat the implement increment step. Repeat as needed.
 16. Create pull request - use the SlashCommand tool to execute `/create-pull-request [issue-key] [state-management-file-path]`
