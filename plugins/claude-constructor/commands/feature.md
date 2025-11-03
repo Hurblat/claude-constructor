@@ -53,9 +53,8 @@ Parse optional settings arguments ($2, $3, etc.) to extract provider and silent 
 11. Check out new branch - use the SlashCommand tool to execute `/git-checkout [issue-key] [state-management-file-path]`
 12. Implement increment - use the SlashCommand tool to execute `/implement-increment [issue-key] [state-management-file-path]`
 13. Perform security review:
-    - Use the Task tool with subagent_type="security-reviewer" to perform security analysis
-    - Pass prompt: "Perform security review for [state-management-file-path]"
-    - Parse the verdict from the agent's output (look for "**Decision**: APPROVED" or "**Decision**: NEEDS_CHANGES")
+    - Use the security-reviewer subagent to analyze the implementation at [state-management-file-path]
+    - Parse the verdict from the subagent's output (look for "**Decision**: APPROVED" or "**Decision**: NEEDS_CHANGES")
     - If APPROVED: proceed to next step
     - If NEEDS_CHANGES:
       a. Inform user that security vulnerabilities were found
