@@ -55,8 +55,7 @@ Parse optional settings arguments ($2, $3, etc.) to extract provider and silent 
 13. Perform security review - use the SlashCommand tool to execute `/security-review`. If security vulnerabilities are found, address them and repeat the implement increment step as needed.
 14. Write end-to-end tests for the increment - use the SlashCommand tool to execute `/write-end-to-end-tests [state-management-file-path]`
 15. Perform code review:
-    - Use the Task tool with subagent_type="code-reviewer" to review the implementation
-    - Pass prompt: "Review the implementation for [state-management-file-path]"
+    - Use the code-reviewer subagent to review the implementation for [state-management-file-path]
     - Parse the verdict from the agent's output (look for "**Decision**: APPROVED" or "**Decision**: NEEDS_CHANGES")
     - If APPROVED:
       a. Extract issue key from state management file
