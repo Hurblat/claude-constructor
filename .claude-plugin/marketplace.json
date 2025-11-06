@@ -10,7 +10,7 @@
       "name": "claude-constructor",
       "source": "./plugins/claude-constructor",
       "description": "A workflow automation system that helps Claude Code implement features systematically with built-in planning, validation, and review steps",
-      "version": "1.0.1"
+      "version": "1.1.0"
     }
   ]
 }
