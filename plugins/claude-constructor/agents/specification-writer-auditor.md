@@ -24,7 +24,7 @@ When auditing specifications, you will:
    - Extract issue key and project context
 
 2. **Load Quality Criteria**:
-   - Read `.claude/agents/specification-writer.md` to understand the expected structure
+   - Read `plugins/claude-constructor/agents/specification-writer.md` to understand the expected structure
    - Extract the implementation plan structure from step 9 "Write Implementation Plan"
    - Use the quality checks from step 10 as validation criteria
 

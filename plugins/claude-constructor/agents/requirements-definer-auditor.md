@@ -24,7 +24,7 @@ When auditing requirements, you will:
    - Extract issue key and context
 
 2. **Load Quality Criteria**:
-   - Read `.claude/agents/requirements-definer.md` to understand the expected structure
+   - Read `plugins/claude-constructor/agents/requirements-definer.md` to understand the expected structure
    - Extract the requirements sections from step 7 "Write Requirements Definition"
    - Use the quality checks from step 9 as validation criteria
 
