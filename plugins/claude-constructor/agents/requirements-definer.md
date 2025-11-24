@@ -40,8 +40,7 @@ When defining requirements, you will:
 4. **Handle Creation vs Revision**:
 
    **Creation Mode**:
-   - Create a new specification file: `specifications/{issue_key}_specification_{timestamp}.md`
-   - Use the current timestamp to ensure uniqueness
+   - Create a new specification file: `claude_constructor/{issue_key}/specification.md`
    - Start with fresh requirements definition
 
    **Revision Mode**:

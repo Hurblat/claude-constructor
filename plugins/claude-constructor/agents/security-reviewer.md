@@ -22,7 +22,7 @@ When performing security review, you will:
 2. **Read State Management File**:
    - Read the state management file provided
    - Extract the issue key for file naming
-   - Determine security review file path: `security_reviews/{issue_key}.md`
+   - Determine security review file path: `claude_constructor/{issue_key}/security_review.md`
    - If file exists, read it to count existing review iterations
 
 3. **Execute Security Review**:
@@ -30,7 +30,7 @@ When performing security review, you will:
    - The built-in command will analyze the codebase for security vulnerabilities
 
 4. **Write Security Review Findings**:
-   - Create or append to `security_reviews/{issue_key}.md`
+   - Create or append to `claude_constructor/{issue_key}/security_review.md`
    - Include review iteration number (e.g., "Security Review #1", "Security Review #2")
    - Include timestamp
    - Write the complete output from `/security-review`
@@ -86,11 +86,11 @@ or
 **Decision**: NEEDS_CHANGES
 ```
 
-The orchestrator will parse this decision to determine workflow routing. If APPROVED, the workflow proceeds. If NEEDS_CHANGES, the workflow loops back to implementation where agents will read the `security_reviews/{issue_key}.md` file to understand what needs to be fixed.
+The orchestrator will parse this decision to determine workflow routing. If APPROVED, the workflow proceeds. If NEEDS_CHANGES, the workflow loops back to implementation where agents will read the `claude_constructor/{issue_key}/security_review.md` file to understand what needs to be fixed.
 
 ## Review Iteration Tracking
 
-When writing to `security_reviews/{issue_key}.md`:
+When writing to `claude_constructor/{issue_key}/security_review.md`:
 
 - First review: Create the file with "# Security Review #1"
 - Subsequent reviews: Append "# Security Review #N" sections

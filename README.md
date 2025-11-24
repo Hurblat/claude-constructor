@@ -136,7 +136,7 @@ To configure permissions in your project's `.claude/settings.json`:
 - **Be specific**: Whether using a feature description (`/feature Add dark mode`) or issue key (`/feature ABC-123`), provide clear requirements
 - **Use silent mode** for testing: Add `"silent-mode": true` to skip issue tracker updates and PR creation
 - **Monitor progress**: Claude Constructor will update you at each step and ask for approval at key points
-- **Check the state file**: Find detailed progress in `state_management/{issue_key}.md` or `state_management/prompt-{number}.md`
+- **Check workflow files**: Find detailed progress in `claude_constructor/{issue_key}/` including state management, specifications, and review logs
 
 ## Core Workflow
 
@@ -336,7 +336,7 @@ This repository is a work in progress, and there are things you might want to ch
 
 ### State Management
 
-- Persistent tracking across all workflow steps in `state_management/{issue_key}.md`
+- Persistent tracking across all workflow steps in `claude_constructor/{issue_key}/state_management.md`
 - TODO list maintenance and resumable workflows
 
 ### Issue Tracking Integration
@@ -526,12 +526,9 @@ plugins/
 These files are automatically created in your project during the workflow:
 
 ```text
-state_management/                             # Tracks workflow progress
-└── {issue_key}.md
-
-specifications/                               # Technical specifications
-└── {issue_key}_specification_{timestamp}.md
-
-code_reviews/                                 # Review history across iterations
-└── {issue_key}.md
+claude_constructor/{issue_key}/
+├── state_management.md                       # Tracks workflow progress
+├── specification.md                          # Requirements and implementation plan
+├── review.md                                 # Code review findings (all rounds)
+└── security_review.md                        # Security review findings
 ```

@@ -29,7 +29,7 @@ Extract your agent_id and state management file path from the prompt. Check if a
 3. Find the Task Assignments section
 4. Identify your specific tasks based on your agent_id
 5. Check for code review feedback:
-   - Determine code-review file path: `code_reviews/{issue_key}.md`
+   - Determine code-review file path: `claude_constructor/{issue_key}/review.md`
    - If file exists: Read the latest review to understand what needs fixing
    - If review feedback is relevant to your tasks, prioritize addressing those issues
 
