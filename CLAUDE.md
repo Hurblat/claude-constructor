@@ -37,19 +37,19 @@ plugins/claude-constructor/
 
 **State Management:**
 
-- Workflow progress tracked in `state_management/{issue_key}.md` files (created in projects that use the plugin)
+- Workflow progress tracked in `claude_constructor/{issue_key}/state_management.md` files (created in projects that use the plugin)
 - Each workflow step updates the state file with its outputs
 - Enables resumable workflows and cross-step communication
 
 **Specifications:**
 
-- Created in `specifications/{issue_key}_specification_{timestamp}.md` (in target projects)
+- Created in `claude_constructor/{issue_key}/specification.md` (in target projects)
 - Contains Requirements Definition and Implementation Plan sections
 - Used throughout implementation and review phases
 
 **Code Reviews:**
 
-- Review history tracked in `code_reviews/{issue_key}.md` files (created in target projects)
+- Review history tracked in `claude_constructor/{issue_key}/review.md` files (created in target projects)
 - Each review iteration appends findings, verdict, and quality gate results
 - Implementation team reads latest review when addressing feedback
 
@@ -119,5 +119,5 @@ When modifying workflow commands or agents:
 
 1. Use `--silent=true` argument to skip external API calls (e.g., `/feature ABC-123 --silent=true`)
 2. Test with `/feature prompt-test-description` to avoid needing real issues
-3. Check `state_management/`, `specifications/`, and `code_reviews/` outputs in target project
+3. Check `claude_constructor/{issue_key}/` directory outputs in target project (state_management.md, specification.md, review.md, security_review.md)
 4. Verify all workflow steps complete in sequence without hanging or skipping steps
