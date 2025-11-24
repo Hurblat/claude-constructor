@@ -1,6 +1,6 @@
 {
   "name": "claude-constructor",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "A workflow automation plugin for Claude Code",
   "private": true,
   "scripts": {
