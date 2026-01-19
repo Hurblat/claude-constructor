@@ -528,7 +528,7 @@ These files are automatically created in your project during the workflow:
 ```text
 claude_constructor/{issue_key}/
 ├── state_management.md                       # Tracks workflow progress
-├── specification.md                          # Requirements and implementation plan
+├── specification_{timestamp}.md              # Requirements and implementation plan
 ├── review.md                                 # Code review findings (all rounds)
 └── security_review.md                        # Security review findings
 ```
