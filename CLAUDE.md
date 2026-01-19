@@ -60,9 +60,9 @@ The `/feature` command (in `commands/feature.md`) orchestrates a sequential work
 
 1. **Planning phase**: Read config → Create state file → Read settings → Read issue → Define requirements → Validate requirements → Requirements sign-off → Write specification → Validate specification → Specification sign-off
 2. **Implementation phase**: Checkout branch → Implement → Security review → Write E2E tests
-3. **Review phase**: Code review → Create PR → Review PR
+3. **Review phase**: Code review → Create PR → Review PR → Generate summary
 
-Each step is a separate command. The orchestrator blocks until user sign-off at the **requirements sign-off** and **specification sign-off** steps.
+Each step is a separate command. The orchestrator blocks until user sign-off at the **requirements sign-off** and **specification sign-off** steps. The workflow concludes with a comprehensive implementation summary.
 
 ### Issue Tracking Integration
 
@@ -120,5 +120,5 @@ When modifying workflow commands or agents:
 
 1. Use `--silent=true` argument to skip external API calls (e.g., `/feature ABC-123 --silent=true`)
 2. Test with `/feature prompt-test-description` to avoid needing real issues
-3. Check `claude_constructor/{issue_key}/` directory outputs in target project (state_management.md, specification_{timestamp}.md, review.md, security_review.md)
+3. Check `claude_constructor/{issue_key}/` directory outputs in target project (state_management.md, specification_{timestamp}.md, review.md, security_review.md, implementation_summary.md)
 4. Verify all workflow steps complete in sequence without hanging or skipping steps

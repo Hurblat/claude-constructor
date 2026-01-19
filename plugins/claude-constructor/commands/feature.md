@@ -81,6 +81,7 @@ Parse optional settings arguments ($2, $3, etc.) to extract provider and silent 
       c. Continue through steps 12-15 again until APPROVED
 16. Create pull request - use the SlashCommand tool to execute `/create-pull-request [issue-key] [state-management-file-path]`
 17. Review pull request - use the SlashCommand tool to execute `/review-pull-request [issue-key] [state-management-file-path]`
+18. Generate implementation summary - use the SlashCommand tool to execute `/implementation-summary [issue-key] [state-management-file-path]`
 
 **If issue tracking system operations fail**:
 

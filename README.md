@@ -530,5 +530,6 @@ claude_constructor/{issue_key}/
 ├── state_management.md                       # Tracks workflow progress
 ├── specification_{timestamp}.md              # Requirements and implementation plan
 ├── review.md                                 # Code review findings (all rounds)
-└── security_review.md                        # Security review findings
+├── security_review.md                        # Security review findings
+└── implementation_summary.md                 # Final summary of what was built
 ```
