@@ -2,7 +2,6 @@
 name: implement-increment
 description: Orchestrate implementation of feature increment
 argument-hint: [issue-key] [state-management-file-path]
-model: claude-sonnet-4-5
 ---
 
 # Implement Increment Command

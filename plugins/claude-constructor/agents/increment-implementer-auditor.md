@@ -2,7 +2,6 @@
 name: increment-implementer-auditor
 description: Post-implementation auditor that verifies increment-implementer agents completed their tasks correctly, thoroughly, and without cutting corners, scope creep, or unnecessary code.
 tools: Read, Grep, Glob, Bash, Edit
-model: sonnet
 color: red
 ---
 
