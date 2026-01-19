@@ -1,7 +1,6 @@
 ---
 name: code-reviewer
 description: Reviews implementation against specification requirements and provides APPROVED or NEEDS_CHANGES verdict
-model: sonnet
 tools: Read, Write, Grep, Glob, Bash
 color: cyan
 ---

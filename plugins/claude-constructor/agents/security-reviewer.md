@@ -2,7 +2,6 @@
 name: security-reviewer
 description: Performs security analysis by calling the built-in /security-review command to identify vulnerabilities and security risks in the implementation
 tools: SlashCommand, Read, Write
-model: sonnet
 color: red
 ---
 

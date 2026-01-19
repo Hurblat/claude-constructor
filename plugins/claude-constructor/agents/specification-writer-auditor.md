@@ -2,7 +2,6 @@
 name: specification-writer-auditor
 description: Technical specification validator that ensures implementation plans are actionable, properly parallelized, and technically sound. Use after specification writing to validate the plan is ready for implementation.
 tools: Read, Grep, Glob, Bash
-model: sonnet
 color: red
 ---
 

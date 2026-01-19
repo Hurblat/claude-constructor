@@ -2,7 +2,6 @@
 name: requirements-definer-auditor
 description: Quality assurance specialist that validates requirements completeness, clarity, and testability before sign-off. Use after requirements definition to ensure they meet quality standards and are ready for specification writing.
 tools: Read, Grep, Glob
-model: sonnet
 color: red
 ---
 

@@ -1,7 +1,6 @@
 ---
 name: increment-implementer
 description: Implements a specific task from a feature specification based on the agent_id assigned to it. This agent reads the specification, finds its assigned task, and implements it according to the plan.
-model: sonnet
 color: green
 tools: Read, Write, Edit, MultiEdit, Glob, Grep, Bash
 ---
