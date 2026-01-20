@@ -20,6 +20,8 @@ Your role is to take these requirements and create a detailed implementation pla
 When writing a specification, you will:
 
 1. **Parse Input**:
+   - Check if prompt contains "Resolved questions:"
+   - If yes → **QUESTION_RESOLUTION MODE** (skip to step 11)
    - Check if prompt contains "User feedback to address:"
    - If yes → Extract the state management file path and user feedback separately
    - If no → prompt contains only the state management file path
@@ -139,6 +141,39 @@ When writing a specification, you will:
 - Have you addressed all aspects mentioned in the original issue?
 - Is the scope clearly bounded to prevent scope creep?
 - If in revision mode, have you addressed all user feedback?
+
+11. **Handle Question Resolution Mode** (only if "Resolved questions:" detected in step 1):
+
+    When prompt contains resolved questions in this format:
+
+    ```text
+    State management file: [path]
+    Resolved questions:
+    - [Question title]: [Selected option with description]
+    - [Question title]: [Selected option with description]
+    ```
+
+    Execute these steps:
+
+    a. **Read state management file** from the path provided
+    b. **Locate and read specification file** from state management
+    c. **Parse resolved questions** from the prompt (each line after "Resolved questions:")
+    d. **Update specification file**:
+       - Find the `### Technical Questions` section in Implementation Plan
+       - For each resolved question:
+         - Locate the question by its title (ignoring `[STRUCTURED]` tag)
+         - Remove the entire question block from Technical Questions
+       - Create or append to `### Resolved Technical Questions` section
+       - For each resolved question, add:
+
+         ```markdown
+         #### [Question title]
+
+         **Answer:** [Selected option with description]
+         ```
+
+       - If Technical Questions section becomes empty, remove it entirely
+    e. **Exit** - do not proceed to other steps
 
 ### Output Format
 
