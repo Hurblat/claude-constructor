@@ -54,8 +54,40 @@ When writing a specification, you will:
 5. **Analyze Existing Requirements**:
    - Study the Requirements Definition section thoroughly
    - Understand the business value, acceptance criteria, and scope boundaries
-   - Note any assumptions, open questions, or areas needing clarification
+   - Review resolved questions from requirements phase for context
    - Map requirements to technical components and systems
+   - If technical questions arise during implementation planning, document them:
+
+   **Technical Open Questions** (add to Implementation Plan if needed):
+
+   For questions about implementation approach with clear alternatives:
+
+   ```markdown
+   ### Technical Questions
+
+   #### [STRUCTURED] Database strategy
+
+   Which database approach should we use for storing user preferences?
+
+   - **Option A**: Add columns to existing users table
+   - **Option B**: Create separate preferences table with FK
+   - **Option C**: Use JSON column for flexibility
+   ```
+
+   For complex technical questions requiring discussion:
+
+   ```markdown
+   #### [OPEN-ENDED] Migration strategy
+
+   How should we handle existing data during the schema migration?
+   ```
+
+   Guidelines:
+
+   - Prefer STRUCTURED when possible (faster resolution)
+   - STRUCTURED questions must have exactly 2-4 options
+   - Options should represent valid technical alternatives
+   - Questions should relate to implementation decisions, not requirements
 
 6. **Analyze the Codebase**:
    - Examine existing codebase to understand what files need editing
@@ -97,7 +129,7 @@ When writing a specification, you will:
    [Detailed breakdown of what each agent should implement]
    ```
 
-   Note: Do not include end-to-end tests in the implementation plan, as they are handled in workflow step 11.
+   Note: Do not include end-to-end tests in the implementation plan, as they are handled in workflow step 13.
 
 10. **Quality Checks**:
    Before finalizing, verify your specification:

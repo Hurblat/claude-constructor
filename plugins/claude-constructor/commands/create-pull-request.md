@@ -18,7 +18,7 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 1. List unstaged changes using `git status`
 
-2. Read the specification linked in the state management file ($2) and compare with unstaged changes to understand how the increment has been implemented and which unstaged changes are relevant to the increment. Ignore the specifications and state_management folders.
+2. Read the specification linked in the state management file ($2) and compare with unstaged changes to understand how the increment has been implemented and which unstaged changes are relevant to the increment. Ignore the claude_constructor folder.
 
 3. Create a git commit using the guidelines in @docs/git-commit.md
 
@@ -33,9 +33,17 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
      - Log: "Silent mode: Would have created PR with title 'feat: [issue key] [brief description]'"
      - Skip the actual PR creation
 
-7. **Check Silent Mode for Issue Status Update**:
+7. **Update Workflow Progress with PR URL**:
+   - If `silentMode` is `false`:
+     - Extract the PR URL from the `gh pr create` output (it outputs the URL on success)
+     - Read the state management file ($2)
+     - Update `pullRequestUrl:` to `pullRequestUrl: [extracted-url]` in the Workflow Progress section
+   - If `silentMode` is `true`:
+     - Update `pullRequestUrl:` to `pullRequestUrl: (silent mode - no PR created)` in the Workflow Progress section
+
+8. **Check Silent Mode for Issue Status Update**:
    - If `silentMode` is `false` AND `issueTrackingProvider` is NOT `"prompt"`:
-     - Use the SlashCommand tool to execute `/update-issue $1 "Code Review" $2`
+     - Use the Skill tool to execute `/update-issue $1 "Code Review" $2`
    - If `silentMode` is `true` OR `issueTrackingProvider` is `"prompt"`:
      - Log: "Silent mode: Would have updated issue $1 status to 'Code Review'"
      - Skip the issue update

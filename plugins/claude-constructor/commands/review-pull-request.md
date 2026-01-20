@@ -35,8 +35,13 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 6. Repeat steps 3 through 5 until the user approves the pull request. You are not allowed to approve the pull request yourself.
 
-7. **Add pull request feedback comment** (only if silent mode and not prompt):
+7. **Add pull request feedback comment** (only if not silent mode and not prompt):
    - If `silentMode` is `false` AND `issueTrackingProvider` is NOT `"prompt"`:
-     - Use the SlashCommand tool to execute `/create-comment $1 "[user feedback summary and changes made in response]" $2`
+     - Generate a concise feedback summary from steps 3-6:
+       - List reviewer comments/feedback received
+       - Describe changes made in response to each
+       - Note any questions answered
+       - Format as a brief markdown summary (e.g., "**PR Feedback Addressed:**\n- Fixed X per reviewer comment\n- Updated Y as requested")
+     - Use the Skill tool to execute `/create-comment $1 "{generated-feedback-summary}" $2`
    - If `silentMode` is `true` OR `issueTrackingProvider` is `"prompt"`:
-     - Log: "Silent mode: Would have added PR feedback comment to issue"
+     - Log: "Skipping PR feedback comment (silent mode or prompt provider)"

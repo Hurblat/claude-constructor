@@ -25,7 +25,7 @@ Extract the state management file path from the prompt.
 2. Extract the specification file path from the state management file
 3. Read the specification to understand requirements
 4. Extract the issue key from the state management file (needed for reporting and file naming)
-5. Determine code-review file path: `code_reviews/{issue_key}.md`
+5. Determine code-review file path: `claude_constructor/{issue_key}/review.md`
 6. If code-review file exists, read it to count existing reviews (for review iteration number)
 
 ### 3. Gather Review Context
@@ -118,12 +118,12 @@ Ultrathink about your findings and provide detailed feedback:
 
 ### 8. Write Review Findings to File
 
-Write your review findings to `code_reviews/{issue_key}.md`:
+Write your review findings to `claude_constructor/{issue_key}/review.md`:
 
 **If this is the first review** (file doesn't exist):
 
-1. Create the `code_reviews/` directory if it doesn't exist
-2. Create the file with header metadata:
+1. Create the file with header metadata (directory should already exist from state management creation):
+2. Use Write tool to create the file with header metadata:
 
 ```markdown
 # Code Review History
@@ -209,4 +209,4 @@ or
 **Workflow continuation**:
 
 - If APPROVED: The orchestrator will create an issue comment with your findings and proceed to create a pull request
-- If NEEDS_CHANGES: The orchestrator will loop back to the implementation step. The implementation team will read `code_reviews/{issue_key}.md` to understand what needs to be fixed
+- If NEEDS_CHANGES: The orchestrator will loop back to the implementation step. The implementation team will read `claude_constructor/{issue_key}/review.md` to understand what needs to be fixed

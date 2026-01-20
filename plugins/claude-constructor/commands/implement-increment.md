@@ -17,26 +17,48 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 1. Ensure that the specification was explicitly signed off by the user. If not, go back to the specification signoff step in the larger workflow.
 
 2. Update issue status to "In Progress":
-   - Use the SlashCommand tool to execute `/update-issue $1 "In Progress"`
+   - Use the Skill tool to execute `/update-issue $1 "In Progress" $2`
 
 3. Add implementation comment:
    - Read the state management file ($2) to get the specification file name
-   - Use the SlashCommand tool to execute `/create-comment $1 "Claude Code implementation started for [specification-file-name]"`
+   - Use the Skill tool to execute `/create-comment $1 "Claude Code implementation started for [specification-file-name]" $2`
 
 4. Understand the division of work and implement tasks:
     - Read specification to identify agent_ids and Dependency Graph from the Implementation Plan
     - Check for code review feedback:
-      - Determine code-review file path: `code_reviews/{issue-key}.md` (where issue-key is $1)
+      - Determine code-review file path: `claude_constructor/{issue_key}/review.md` (where issue-key is $1)
       - If file exists: Read the latest review (most recent "Review #N" section) to understand what needs fixing
       - If this is a revision (code-review file exists), prioritize addressing review issues over spec additions
-      - Note: Subagents will automatically check for and read code_reviews/{issue-key}.md if it exists - no need to pass review content explicitly
-    - Create "Implementation Agents Status" section in state management file to track progress:
+      - Note: Subagents will automatically check for and read claude_constructor/{issue_key}/review.md if it exists - no need to pass review content explicitly
+    - **Check for existing Implementation Agents Status** (resume support):
+      - Read the state management file ($2)
+      - If `## Implementation Agents Status` section already exists:
+        - Parse existing agent statuses and revision counts
+        - Skip agents marked as "completed" - their work is preserved
+        - Resume agents marked as "in_progress" or "needs_revision"
+        - Preserve existing revision counts when resuming
+        - Log: "Resuming implementation - skipping N completed agents"
+      - If section does not exist, create it fresh
 
-      ```markdown
-      ## Implementation Agents Status
-      - agent-1: pending (revision: 0)
-      - agent-2: pending (revision: 0)
-      ```
+    **Agent Status Format**:
+
+    ```markdown
+    ## Implementation Agents Status
+
+    - agent-1: pending (revision: 0)
+    - agent-2: in_progress (revision: 0)
+    - agent-3: needs_revision (revision: 1)
+    - agent-4: completed (revision: 0)
+    - agent-5: failed (revision: 2)
+    ```
+
+    Valid statuses:
+
+    - `pending`: Not yet started
+    - `in_progress`: Currently being worked on
+    - `needs_revision`: Audit failed, awaiting re-implementation
+    - `completed`: Finished and audit passed
+    - `failed`: Max revisions reached or unrecoverable error
 
     - Process agents in dependency order:
       a. Identify agents with no dependencies or whose dependencies are complete

@@ -74,6 +74,31 @@ That's it. Claude Constructor will guide you through planning → approval → i
 | `/write-end-to-end-tests` | Implementation |
 | `/create-pull-request` | Review |
 | `/review-pull-request` | Review |
+| `/implementation-summary` | Review |
+
+## Resuming Workflows
+
+If your session ends mid-workflow, simply run `/feature` with the same issue key. Claude Constructor will detect existing progress and offer to resume:
+
+```text
+Progress for ABC-123:
+- [x] Requirements defined + approved
+- [x] Specification written + approved
+- [ ] Implementation ← Resume point
+
+Existing workflow found for ABC-123. Resume from 'Implementation'?
+> Resume (Recommended)
+> Start Fresh
+```
+
+**What gets preserved:**
+
+- Approved requirements and specifications
+- Completed implementation agents (parallel work)
+- Security and code review history
+- Git branch and PR state
+
+**Start Fresh:** Archives the existing state to `claude_constructor/{issue_key}-archived-{timestamp}/` and begins a new workflow.
 
 ## Agents
 
@@ -119,15 +144,15 @@ Create `.claude/settings.claude-constructor.local.json`:
 Claude Constructor creates these files in your target project:
 
 ```text
-state_management/
-└── {issue_key}.md              # Workflow progress and context
-
-specifications/
-└── {issue_key}_spec_{ts}.md    # Requirements + implementation plan
-
-code_reviews/
-└── {issue_key}.md              # Review history across iterations
+claude_constructor/{issue_key}/
+├── state_management.md           # Workflow progress, context, and resume markers
+├── specification.md              # Requirements + implementation plan
+├── review.md                     # Code review findings (all rounds)
+├── security_review.md            # Security review findings
+└── implementation_summary.md     # Final summary of what was built
 ```
+
+The `state_management.md` file tracks workflow progress including approval states, git branch, and PR URL—enabling seamless workflow resume across sessions.
 
 ## Team Setup
 
@@ -178,7 +203,7 @@ Changes to command/agent files are immediately available. Changes to `plugin.jso
 
 - **Be specific:** Clear requirements upfront = better results
 - **Use silent mode:** `--silent=true` skips external APIs for testing
-- **Check state files:** `state_management/{issue_key}.md` shows detailed progress
+- **Check state files:** `claude_constructor/{issue_key}/state_management.md` shows detailed progress
 - **Stay engaged:** Monitor implementation and provide feedback at checkpoints
 
 ## Plugin Structure
