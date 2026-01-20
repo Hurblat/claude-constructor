@@ -38,13 +38,27 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
         - Resume agents marked as "in_progress" or "needs_revision"
         - Preserve existing revision counts when resuming
         - Log: "Resuming implementation - skipping N completed agents"
-      - If section does not exist, create it fresh:
+      - If section does not exist, create it fresh
 
-        ```markdown
-        ## Implementation Agents Status
-        - agent-1: pending (revision: 0)
-        - agent-2: pending (revision: 0)
-        ```
+    **Agent Status Format**:
+
+    ```markdown
+    ## Implementation Agents Status
+
+    - agent-1: pending (revision: 0)
+    - agent-2: in_progress (revision: 0)
+    - agent-3: needs_revision (revision: 1)
+    - agent-4: completed (revision: 0)
+    - agent-5: failed (revision: 2)
+    ```
+
+    Valid statuses:
+
+    - `pending`: Not yet started
+    - `in_progress`: Currently being worked on
+    - `needs_revision`: Audit failed, awaiting re-implementation
+    - `completed`: Finished and audit passed
+    - `failed`: Max revisions reached or unrecoverable error
 
     - Process agents in dependency order:
       a. Identify agents with no dependencies or whose dependencies are complete
