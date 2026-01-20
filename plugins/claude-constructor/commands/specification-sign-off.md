@@ -104,6 +104,8 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
    - Read the state management file ($1)
    - Update `specificationApproved: false` to `specificationApproved: true` in the Workflow Progress section
 
-8. **Add Issue Comment**:
-   - Read the state management file to get the issue key
-   - Use the Skill tool to execute `/create-comment [issue-key] "[specification details and assumptions]" $1`
+8. **Add Issue Comment** (skip if provider is "prompt"):
+   - Read the state management file to get the issue key and provider
+   - If provider is NOT "prompt": Use the Skill tool to execute `/create-comment [issue-key] "[specification details and assumptions]" $1`
+
+9. Specification sign-off is complete
