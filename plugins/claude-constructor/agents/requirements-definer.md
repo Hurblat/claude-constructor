@@ -20,6 +20,8 @@ Your role is to create a Requirements Definition that will later be used to crea
 When defining requirements, you will:
 
 1. **Parse Input**:
+   - Check if prompt contains "Resolved questions:"
+   - If yes → **QUESTION_RESOLUTION MODE** (skip to step 11)
    - Check if prompt contains "User feedback to address:"
    - If yes → Extract the state management file path and user feedback separately
    - If no → prompt contains only the state management file path
@@ -141,6 +143,39 @@ When defining requirements, you will:
 
 - Update the state management file with the path to the created specification file, in a section called `## Specification File`
 - Ensure the specification file path is accessible for subsequent workflow steps
+
+11. **Handle Question Resolution Mode** (only if "Resolved questions:" detected in step 1):
+
+    When prompt contains resolved questions in this format:
+
+    ```text
+    State management file: [path]
+    Resolved questions:
+    - [Question title]: [Selected option with description]
+    - [Question title]: [Selected option with description]
+    ```
+
+    Execute these steps:
+
+    a. **Read state management file** from the path provided
+    b. **Locate and read specification file** from state management
+    c. **Parse resolved questions** from the prompt (each line after "Resolved questions:")
+    d. **Update specification file**:
+       - Find the `### Open Questions` section in Requirements Definition
+       - For each resolved question:
+         - Locate the question by its title (ignoring `[STRUCTURED]` tag)
+         - Remove the entire question block from Open Questions
+       - Create or append to `### Resolved Questions` section
+       - For each resolved question, add:
+
+         ```markdown
+         #### [Question title]
+
+         **Answer:** [Selected option with description]
+         ```
+
+       - If Open Questions section becomes empty, remove it entirely
+    e. **Exit** - do not proceed to other steps
 
 ## Output Format
 

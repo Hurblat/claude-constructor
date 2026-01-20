@@ -59,10 +59,16 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
              - options: Array with label and description for each option
           3. Await and collect user responses for all questions in batch
           4. Continue to next batch
-     c. After all batches complete, update specification file:
-        - Move all answered questions to `### Resolved Technical Questions` section (create if needed)
-        - Format: Question title + "**Answer:** [selected option with description]"
-        - Remove the `[STRUCTURED]` tag from resolved questions
+     c. After all batches complete, use specification-writer subagent to update specification:
+
+        ```text
+        State management file: $1
+        Resolved questions:
+        - [Question title]: [Selected option with description]
+        - [Question title]: [Selected option with description]
+        ```
+
+        The subagent will move answered questions to `### Resolved Technical Questions` section
 
 4. **Handle Open-Ended Questions**:
    - If only OPEN-ENDED questions remain:
@@ -73,9 +79,17 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
    - Present the Implementation Plan section to the user for review
    - Tell the user where to find the full specification: "You can review the full specification at: `{specification-file-path}`"
 
-6. **Get User Feedback**:
-   - Ask the user to read and provide feedback on the Implementation Plan
-   - If user has feedback:
+6. **Get User Approval**:
+   - Use AskUserQuestion tool with:
+     - question: "Do you approve this implementation plan?"
+     - header: "Specification"
+     - options:
+       - label: "Approve"
+         description: "Implementation plan is complete and accurate, proceed to implementation"
+       - label: "Request changes"
+         description: "I have feedback to provide"
+   - If user selects "Approve": proceed to step 7
+   - If user selects "Request changes" or provides feedback via "Other":
      a. Use the specification-writer subagent to revise specification:
 
         ```text
@@ -85,7 +99,6 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
      b. The subagent will detect the feedback and revise accordingly
      c. Return to step 1 for re-review
-   - If user provides explicit sign-off, proceed to step 7
 
 7. **Update Workflow Progress**:
    - Read the state management file ($1)
