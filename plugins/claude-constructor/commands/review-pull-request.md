@@ -37,6 +37,6 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 7. **Add pull request feedback comment** (only if silent mode and not prompt):
    - If `silentMode` is `false` AND `issueTrackingProvider` is NOT `"prompt"`:
-     - Use the SlashCommand tool to execute `/create-comment $1 "[user feedback summary and changes made in response]" $2`
+     - Use the Skill tool to execute `/create-comment $1 "[user feedback summary and changes made in response]" $2`
    - If `silentMode` is `true` OR `issueTrackingProvider` is `"prompt"`:
      - Log: "Silent mode: Would have added PR feedback comment to issue"

@@ -66,4 +66,4 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 8. **Add Issue Comment**:
    - Did you get explicit approval on the specification? If not, go back to step 2.
    - Read the state management file to get the issue key
-   - Use the SlashCommand tool to execute `/create-comment [issue-key] "[specification details and assumptions]"`
+   - Use the Skill tool to execute `/create-comment [issue-key] "[specification details and assumptions]"`

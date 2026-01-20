@@ -1,7 +1,7 @@
 ---
 name: security-reviewer
 description: Performs security analysis by calling the built-in /security-review command to identify vulnerabilities and security risks in the implementation
-tools: SlashCommand, Read, Write
+tools: Skill, Read, Write
 color: red
 ---
 
@@ -25,7 +25,7 @@ When performing security review, you will:
    - If file exists, read it to count existing review iterations
 
 3. **Execute Security Review**:
-   - Use the SlashCommand tool to execute `/security-review`
+   - Use the Skill tool to execute `/security-review`
    - The built-in command will analyze the codebase for security vulnerabilities
 
 4. **Write Security Review Findings**:

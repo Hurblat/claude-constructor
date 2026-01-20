@@ -43,7 +43,7 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 8. **Check Silent Mode for Issue Status Update**:
    - If `silentMode` is `false` AND `issueTrackingProvider` is NOT `"prompt"`:
-     - Use the SlashCommand tool to execute `/update-issue $1 "Code Review" $2`
+     - Use the Skill tool to execute `/update-issue $1 "Code Review" $2`
    - If `silentMode` is `true` OR `issueTrackingProvider` is `"prompt"`:
      - Log: "Silent mode: Would have updated issue $1 status to 'Code Review'"
      - Skip the issue update

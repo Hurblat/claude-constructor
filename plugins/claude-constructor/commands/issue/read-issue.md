@@ -16,7 +16,7 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 ## Workflow Steps
 
 1. Get issue details:
-   - Use the SlashCommand tool to execute `/get-issue $1 $2`
+   - Use the Skill tool to execute `/get-issue $1 $2`
 
 2. Note findings in the state management file ($2)
 

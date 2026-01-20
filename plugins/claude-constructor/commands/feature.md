@@ -108,17 +108,17 @@ Implementation progress:
 
 ## Workflow Steps
 
-1. Create a state management file for this increment - use the SlashCommand tool to execute `/create-state-management-file $1` if the workflow was started from an issue, or the issue key if it was started from a prompt
-2. Read settings - use the SlashCommand tool to execute `/read-settings [state-management-file-path]` with any optional settings arguments from $2+ (e.g., `/read-settings [path] --provider=prompt --silent=true`)
-3. Read issue - check the issueTrackingProvider in the Settings section of the state management file. If not "prompt", use the SlashCommand tool to execute `/read-issue [issue-key] [state-management-file-path]`. If "prompt", skip this step as there is no external issue to read.
+1. Create a state management file for this increment - use the Skill tool to execute `/create-state-management-file $1` if the workflow was started from an issue, or the issue key if it was started from a prompt
+2. Read settings - use the Skill tool to execute `/read-settings [state-management-file-path]` with any optional settings arguments from $2+ (e.g., `/read-settings [path] --provider=prompt --silent=true`)
+3. Read issue - check the issueTrackingProvider in the Settings section of the state management file. If not "prompt", use the Skill tool to execute `/read-issue [issue-key] [state-management-file-path]`. If "prompt", skip this step as there is no external issue to read.
 4. Define requirements - Use the requirements-definer subagent to define requirements for [state-management-file-path]
 5. Audit requirements - Use the requirements-definer-auditor subagent to audit requirements in [state-management-file-path]. If audit fails with critical issues, return to step 4 to address them.
-6. Get sign-off on requirements. You are not allowed to go to step 7 until the user has signed off on the requirements. Use the SlashCommand tool to execute `/requirements-sign-off [state-management-file-path]`
+6. Get sign-off on requirements. You are not allowed to go to step 7 until the user has signed off on the requirements. Use the Skill tool to execute `/requirements-sign-off [state-management-file-path]`
 7. Write specification - Use the specification-writer subagent to write specification for [state-management-file-path]
 8. Audit specification - Use the specification-writer-auditor subagent to audit specification in [state-management-file-path]. If audit fails with critical issues, return to step 7 to address them.
-9. Get sign-off on specification. You are not allowed to go to step 10 until the user has signed off on the specification. Use the SlashCommand tool to execute `/specification-sign-off [state-management-file-path]`
-10. Check out new branch - use the SlashCommand tool to execute `/git-checkout [issue-key] [state-management-file-path]`
-11. Implement increment - use the SlashCommand tool to execute `/implement-increment [issue-key] [state-management-file-path]`
+9. Get sign-off on specification. You are not allowed to go to step 10 until the user has signed off on the specification. Use the Skill tool to execute `/specification-sign-off [state-management-file-path]`
+10. Check out new branch - use the Skill tool to execute `/git-checkout [issue-key] [state-management-file-path]`
+11. Implement increment - use the Skill tool to execute `/implement-increment [issue-key] [state-management-file-path]`
 12. Perform security review:
     - Use the security-reviewer subagent to analyze the implementation at [state-management-file-path]
     - Parse the verdict from the subagent's output (look for "**Decision**: APPROVED" or "**Decision**: NEEDS_CHANGES")
@@ -127,7 +127,7 @@ Implementation progress:
       a. Inform user that security vulnerabilities were found
       b. Return to step 11 (implement increment) where agents will read claude_constructor/{issue-key}/security_review.md to understand what needs to be fixed
       c. Continue through steps 11-12 until APPROVED
-13. Write end-to-end tests for the increment - use the SlashCommand tool to execute `/write-end-to-end-tests [state-management-file-path]`
+13. Write end-to-end tests for the increment - use the Skill tool to execute `/write-end-to-end-tests [state-management-file-path]`
 14. Perform code review:
     - Use the code-reviewer subagent to review the implementation for [state-management-file-path]
     - Parse the verdict from the agent's output (look for "**Decision**: APPROVED" or "**Decision**: NEEDS_CHANGES")
@@ -138,15 +138,15 @@ Implementation progress:
          - Extract everything from that heading through the end of the output
          - This section must include Decision, Summary, Completed, and other details
          - Format contract: The agent outputs this in a specific format (see code-reviewer.md section 9)
-      c. Use SlashCommand tool to execute `/issue:create-comment [issue-key] "[code review summary]" [state-management-file-path]`
+      c. Use Skill tool to execute `/issue:create-comment [issue-key] "[code review summary]" [state-management-file-path]`
       d. Proceed to next step
     - If NEEDS_CHANGES:
       a. Inform the user that code review returned NEEDS_CHANGES and implementation will be revised
       b. Return to step 11 (implement increment) where implementation agents will read claude_constructor/{issue-key}/review.md and address the issues
       c. Continue through steps 11-14 again until APPROVED
-15. Create pull request - use the SlashCommand tool to execute `/create-pull-request [issue-key] [state-management-file-path]`
-16. Review pull request - use the SlashCommand tool to execute `/review-pull-request [issue-key] [state-management-file-path]`
-17. Generate implementation summary - use the SlashCommand tool to execute `/implementation-summary [issue-key] [state-management-file-path]`
+15. Create pull request - use the Skill tool to execute `/create-pull-request [issue-key] [state-management-file-path]`
+16. Review pull request - use the Skill tool to execute `/review-pull-request [issue-key] [state-management-file-path]`
+17. Generate implementation summary - use the Skill tool to execute `/implementation-summary [issue-key] [state-management-file-path]`
 
 **If issue tracking system operations fail**:
 
