@@ -6,11 +6,10 @@ A workflow automation plugin for Claude Code that guides feature development thr
 
 | Problem | Solution |
 |---------|----------|
-| Claude loses focus mid-implementation | Structured workflow with state tracking prevents drift |
-| Unplanned changes and scope creep | Requirements and spec sign-off gates before coding begins |
-| Implementation differs from intent | Detailed specifications with parallel execution plans |
-| No visibility into Claude's assumptions | Transparent requirements definition you approve |
-| Code ships without review | Built-in code review and security audit before PR |
+| Claude loses focus mid-implementation | State-tracked workflow keeps execution on rails |
+| Scope creep and unplanned changes | Sign-off gates lock requirements before coding starts |
+| Implementation diverges from intent | Detailed specs with parallel execution plans |
+| Hidden assumptions and blind spots | Explicit requirements you review and approve |
 
 ## Quick Start
 
