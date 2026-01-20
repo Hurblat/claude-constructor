@@ -129,7 +129,7 @@ When writing a specification, you will:
    [Detailed breakdown of what each agent should implement]
    ```
 
-   Note: Do not include end-to-end tests in the implementation plan, as they are handled in workflow step 11.
+   Note: Do not include end-to-end tests in the implementation plan, as they are handled in workflow step 13.
 
 10. **Quality Checks**:
    Before finalizing, verify your specification:

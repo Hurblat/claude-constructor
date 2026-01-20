@@ -64,6 +64,5 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
    - Update `specificationApproved: false` to `specificationApproved: true` in the Workflow Progress section
 
 8. **Add Issue Comment**:
-   - Did you get explicit approval on the specification? If not, go back to step 2.
    - Read the state management file to get the issue key
    - Use the Skill tool to execute `/create-comment [issue-key] "[specification details and assumptions]"`

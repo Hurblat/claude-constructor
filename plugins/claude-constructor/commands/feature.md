@@ -45,7 +45,7 @@ Before starting the workflow, check if a previous workflow exists for this issue
 
 ### Detection Algorithm
 
-Check if `claude_constructor/{issue-key}/state_management.md` exists. If it does, parse the file and determine the resume point using this algorithm (check in reverse order, first match wins):
+Check if `claude_constructor/{issue_key}/state_management.md` exists. If it does, parse the file and determine the resume point using this algorithm (check in reverse order, first match wins):
 
 | Check | Condition | Resume at |
 |-------|-----------|-----------|
@@ -83,24 +83,24 @@ Implementation progress:
 1. Display progress summary:
 
    ```text
-   Progress for {issue-key}:
+   Progress for {issue_key}:
    - [x] Requirements defined + approved
    - [x] Specification written + approved
    - [ ] Implementation ← Resume point
    ```
 
 2. Use AskUserQuestion tool:
-   - question: "Existing workflow found for {issue-key}. Resume from '{step-name}'?"
+   - question: "Existing workflow found for {issue_key}. Resume from '{step_name}'?"
    - header: "Resume"
    - options:
      - label: "Resume (Recommended)"
-       description: "Continue from {step-name}, preserving existing progress"
+       description: "Continue from {step_name}, preserving existing progress"
      - label: "Start Fresh"
        description: "Archive existing state and begin new workflow"
 
 3. If user chooses "Start Fresh":
-   - Rename `claude_constructor/{issue-key}/` → `claude_constructor/{issue-key}-archived-{timestamp}/`
-     - Timestamp format: `YYYYMMDD-HHMMSS` (e.g., `ABC-123-archived-20240120-143052`)
+   - Rename `claude_constructor/{issue_key}/` → `claude_constructor/{issue_key}-archived-{timestamp}/`
+     - Timestamp format: `YYYYMMDD-HHMMSS` (e.g., `ABC-123-archived-20260120-143052`)
    - Create fresh state file and start from step 1
 
 4. If user chooses "Resume":
@@ -126,7 +126,7 @@ Implementation progress:
     - If APPROVED: proceed to next step
     - If NEEDS_CHANGES:
       a. Inform user that security vulnerabilities were found
-      b. Return to step 11 (implement increment) where agents will read claude_constructor/{issue-key}/security_review.md to understand what needs to be fixed
+      b. Return to step 11 (implement increment) where agents will read claude_constructor/{issue_key}/security_review.md to understand what needs to be fixed
       c. Continue through steps 11-12 until APPROVED
 13. Write end-to-end tests for the increment - use the Skill tool to execute `/write-end-to-end-tests [state-management-file-path]`
 14. Perform code review:
@@ -143,7 +143,7 @@ Implementation progress:
       d. Proceed to next step
     - If NEEDS_CHANGES:
       a. Inform the user that code review returned NEEDS_CHANGES and implementation will be revised
-      b. Return to step 11 (implement increment) where implementation agents will read claude_constructor/{issue-key}/review.md and address the issues
+      b. Return to step 11 (implement increment) where implementation agents will read claude_constructor/{issue_key}/review.md and address the issues
       c. Continue through steps 11-14 again until APPROVED
 15. Create pull request - use the Skill tool to execute `/create-pull-request [issue-key] [state-management-file-path]`
 16. Review pull request - use the Skill tool to execute `/review-pull-request [issue-key] [state-management-file-path]`

@@ -9,7 +9,7 @@ You are a security review coordinator that performs security analysis on impleme
 
 ## Workflow Context
 
-You are called after implementation (step 12) to ensure the code is secure before proceeding to end-to-end tests (step 14). Your task is to run the built-in `/security-review` command and persist the findings for tracking.
+You are called after implementation (step 11) to ensure the code is secure before proceeding to end-to-end tests (step 13). Your task is to run the built-in `/security-review` command and persist the findings for tracking.
 
 ## Security Review Process
 

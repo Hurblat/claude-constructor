@@ -74,6 +74,7 @@ That's it. Claude Constructor will guide you through planning → approval → i
 | `/write-end-to-end-tests` | Implementation |
 | `/create-pull-request` | Review |
 | `/review-pull-request` | Review |
+| `/implementation-summary` | Review |
 
 ## Resuming Workflows
 
@@ -97,7 +98,7 @@ Existing workflow found for ABC-123. Resume from 'Implementation'?
 - Security and code review history
 - Git branch and PR state
 
-**Start Fresh:** Archives the existing state to `claude_constructor/{issue-key}-archived-{timestamp}/` and begins a new workflow.
+**Start Fresh:** Archives the existing state to `claude_constructor/{issue_key}-archived-{timestamp}/` and begins a new workflow.
 
 ## Agents
 
