@@ -30,9 +30,11 @@ Create a TODO list for the workflow steps, and follow it.
 
 Before starting the workflow for user prompts, create an issue key based on $1:
 
-- List the contents of `state_management` in the additional directories
-- If there are no filenames using the format `prompt-{number}`, use issue key `prompt-1-{short-description}`
-- If there is at least one filename using the format `prompt-{number}`, use issue key `prompt-{number+1}-{short-description}`
+- List the contents of the `claude_constructor` directory (if it exists)
+- Check for existing directories named using the pattern `prompt-{number}` (e.g., `prompt-1`, `prompt-2`)
+- Determine the next issue key:
+  - If no `prompt-{number}` directories exist: use `prompt-1-{short-description}`
+  - If at least one exists: find the maximum number and use `prompt-{maxNumber+1}-{short-description}`
 - The short description should be a kebab-case summary of the prompt (e.g., `prompt-1-implement-cli`, `prompt-2-add-auth`)
 
 Parse optional settings arguments ($2, $3, etc.) to extract provider and silent overrides for passing to `/read-settings`.
@@ -57,7 +59,7 @@ Parse optional settings arguments ($2, $3, etc.) to extract provider and silent 
     - If APPROVED: proceed to next step
     - If NEEDS_CHANGES:
       a. Inform user that security vulnerabilities were found
-      b. Return to step 12 (implement increment) where agents will read security_reviews/{issue-key}.md to understand what needs to be fixed
+      b. Return to step 12 (implement increment) where agents will read claude_constructor/{issue-key}/security_review.md to understand what needs to be fixed
       c. Continue through steps 12-13 until APPROVED
 14. Write end-to-end tests for the increment - use the SlashCommand tool to execute `/write-end-to-end-tests [state-management-file-path]`
 15. Perform code review:
@@ -74,10 +76,11 @@ Parse optional settings arguments ($2, $3, etc.) to extract provider and silent 
       d. Proceed to next step
     - If NEEDS_CHANGES:
       a. Inform the user that code review returned NEEDS_CHANGES and implementation will be revised
-      b. Return to step 12 (implement increment) where implementation agents will read code_reviews/{issue-key}.md and address the issues
+      b. Return to step 12 (implement increment) where implementation agents will read claude_constructor/{issue-key}/review.md and address the issues
       c. Continue through steps 12-15 again until APPROVED
 16. Create pull request - use the SlashCommand tool to execute `/create-pull-request [issue-key] [state-management-file-path]`
 17. Review pull request - use the SlashCommand tool to execute `/review-pull-request [issue-key] [state-management-file-path]`
+18. Generate implementation summary - use the SlashCommand tool to execute `/implementation-summary [issue-key] [state-management-file-path]`
 
 **If issue tracking system operations fail**:
 
