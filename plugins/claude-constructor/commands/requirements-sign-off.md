@@ -23,16 +23,44 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 2. **Parse Open Questions**:
    - Find `### Open Questions` section in Requirements Definition
    - Extract questions with their type tags: `[STRUCTURED]` or `[OPEN-ENDED]`
-   - For STRUCTURED questions, extract options (A, B, C, D)
+   - For STRUCTURED questions, extract options using these rules:
+
+     **Canonical format** (from requirements-definer):
+
+     ```markdown
+     - **Option A**: Description text
+     - **Option B**: Description text
+     ```
+
+     **Also accept these variants** (normalize to canonical):
+
+     - `- **Option A**: text` (canonical)
+     - `- Option A: text`
+     - `- A. text`
+     - `- A) text`
+     - `- A: text`
+
+     Extract: label (A/B/C/D) and description text.
+
+     **Validation**:
+
+     - STRUCTURED questions must have at least 2 options
+     - If no options found: log warning "No options found for STRUCTURED question: [title]", treat as OPEN-ENDED
+     - If only 1 option found: log warning "Only 1 option found for STRUCTURED question: [title]", treat as OPEN-ENDED
 
 3. **Resolve Structured Questions Interactively**:
    - If STRUCTURED questions exist:
-     a. Group into batches of up to 4 questions (AskUserQuestion tool limit)
-     b. Use AskUserQuestion tool for each batch:
-        - question: The question text
-        - options: Array with label and description for each option
-     c. Update specification file:
-        - Move answered questions to `### Resolved Questions` section (create if needed)
+     a. Collect all STRUCTURED questions into a list (preserving original order)
+     b. Process in sequential batches of up to 4 questions each:
+        - While unprocessed STRUCTURED questions remain:
+          1. Take the next batch (up to 4 questions)
+          2. Call AskUserQuestion tool with the batch:
+             - question: The question text
+             - options: Array with label and description for each option
+          3. Await and collect user responses for all questions in batch
+          4. Continue to next batch
+     c. After all batches complete, update specification file:
+        - Move all answered questions to `### Resolved Questions` section (create if needed)
         - Format: Question title + "**Answer:** [selected option with description]"
         - Remove the `[STRUCTURED]` tag from resolved questions
 
