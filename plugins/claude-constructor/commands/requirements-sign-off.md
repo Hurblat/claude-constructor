@@ -19,6 +19,7 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
    - Read the state management file (path in $1)
    - Locate the specification file path
    - Present the Requirements Definition section to the user for review
+   - Tell the user where to find the full specification: "You can review the full specification at: `{specification-file-path}`"
 
 2. **Get User Feedback**:
    - Ask the user to read and provide feedback on the Requirements Definition
@@ -32,4 +33,9 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
      b. The subagent will detect the feedback and revise accordingly
      c. Return to step 1 for re-review
-   - If user provides explicit sign-off, requirements sign-off is complete
+   - If user provides explicit sign-off, proceed to step 3
+
+3. **Update Workflow Progress**:
+   - Read the state management file ($1)
+   - Update `requirementsApproved: false` to `requirementsApproved: true` in the Workflow Progress section
+   - Requirements sign-off is complete

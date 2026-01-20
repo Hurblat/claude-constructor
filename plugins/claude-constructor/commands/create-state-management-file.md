@@ -20,4 +20,13 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 2. Create a state management file called `claude_constructor/$1/state_management.md`.
 
 3. Write the following content to the newly created state management file:
-`Issue Key: {$1}`
+
+```markdown
+Issue Key: {$1}
+
+## Workflow Progress
+- requirementsApproved: false
+- specificationApproved: false
+- workingBranch:
+- pullRequestUrl:
+```

@@ -19,6 +19,7 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
    - Read the state management file (path in $1)
    - Locate the specification file path
    - Present the Implementation Plan section to the user for review
+   - Tell the user where to find the full specification: "You can review the full specification at: `{specification-file-path}`"
 
 2. **Get User Feedback**:
    - Ask the user to read and provide feedback on the Implementation Plan
@@ -34,7 +35,11 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
      c. Return to step 1 for re-review
    - If user provides explicit sign-off, proceed to step 3
 
-3. **Add Issue Comment**:
+3. **Update Workflow Progress**:
+   - Read the state management file ($1)
+   - Update `specificationApproved: false` to `specificationApproved: true` in the Workflow Progress section
+
+4. **Add Issue Comment**:
    - Did you get explicit approval on the specification? If not, go back to step 2.
    - Read the state management file to get the issue key
    - Use the SlashCommand tool to execute `/create-comment [issue-key] "[specification details and assumptions]"`

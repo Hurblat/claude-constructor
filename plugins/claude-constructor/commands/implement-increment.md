@@ -30,13 +30,21 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
       - If file exists: Read the latest review (most recent "Review #N" section) to understand what needs fixing
       - If this is a revision (code-review file exists), prioritize addressing review issues over spec additions
       - Note: Subagents will automatically check for and read claude_constructor/{issue-key}/review.md if it exists - no need to pass review content explicitly
-    - Create "Implementation Agents Status" section in state management file to track progress:
+    - **Check for existing Implementation Agents Status** (resume support):
+      - Read the state management file ($2)
+      - If `## Implementation Agents Status` section already exists:
+        - Parse existing agent statuses and revision counts
+        - Skip agents marked as "completed" - their work is preserved
+        - Resume agents marked as "in_progress" or "needs_revision"
+        - Preserve existing revision counts when resuming
+        - Log: "Resuming implementation - skipping N completed agents"
+      - If section does not exist, create it fresh:
 
-      ```markdown
-      ## Implementation Agents Status
-      - agent-1: pending (revision: 0)
-      - agent-2: pending (revision: 0)
-      ```
+        ```markdown
+        ## Implementation Agents Status
+        - agent-1: pending (revision: 0)
+        - agent-2: pending (revision: 0)
+        ```
 
     - Process agents in dependency order:
       a. Identify agents with no dependencies or whose dependencies are complete

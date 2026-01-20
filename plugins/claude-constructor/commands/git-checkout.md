@@ -22,3 +22,7 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 3. Ensure that you have the latest changes, using `git pull`
 
 4. Check out a new branch, using `git checkout -b feat/$1`
+
+5. **Update Workflow Progress**:
+   - Read the state management file ($2)
+   - Update `workingBranch:` to `workingBranch: feat/$1` in the Workflow Progress section
