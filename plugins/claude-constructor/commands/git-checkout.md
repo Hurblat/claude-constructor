@@ -25,4 +25,7 @@ You MUST follow all workflow steps below, not skipping any step and doing all st
 
 5. **Update Workflow Progress**:
    - Read the state management file ($2)
-   - Update `workingBranch:` to `workingBranch: feat/$1` in the Workflow Progress section
+   - Locate the `## Workflow Progress` section
+   - Find the `workingBranch:` field and replace its value with `feat/$1`
+   - If field doesn't exist, add `workingBranch: feat/$1` to the section
+   - Write the updated content back to the state management file

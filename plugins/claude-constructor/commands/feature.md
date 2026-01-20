@@ -100,6 +100,7 @@ Implementation progress:
 
 3. If user chooses "Start Fresh":
    - Rename `claude_constructor/{issue-key}/` → `claude_constructor/{issue-key}-archived-{timestamp}/`
+     - Timestamp format: `YYYYMMDD-HHMMSS` (e.g., `ABC-123-archived-20240120-143052`)
    - Create fresh state file and start from step 1
 
 4. If user chooses "Resume":
