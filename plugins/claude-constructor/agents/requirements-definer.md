@@ -92,7 +92,36 @@ When defining requirements, you will:
    - **Integration Points**: How this integrates with existing systems or components
    - **Error Handling**: How errors and edge cases should be handled gracefully
    - **Performance Expectations**: Any specific performance or scalability requirements
-   - **Open Questions**: Anything that needs clarification from the user or stakeholders
+   - **Open Questions**: Questions that need clarification from the user or stakeholders
+
+     For each question, classify and format:
+
+     **STRUCTURED questions** (answerable with 2-4 discrete options):
+
+     ```markdown
+     #### [STRUCTURED] Question title
+
+     Full question text?
+
+     - **Option A**: First option description
+     - **Option B**: Second option description
+     - **Option C**: Third option (if needed)
+     - **Option D**: Fourth option (if needed)
+     ```
+
+     **OPEN-ENDED questions** (require detailed explanation):
+
+     ```markdown
+     #### [OPEN-ENDED] Question title
+
+     Full question text requiring free-form response?
+     ```
+
+     Guidelines:
+
+     - Prefer STRUCTURED when possible (faster resolution)
+     - STRUCTURED questions must have exactly 2-4 options
+     - Options should be mutually exclusive
 
 8. **Focus on "What" not "How"**:
    - Define what needs to be accomplished, not how to implement it

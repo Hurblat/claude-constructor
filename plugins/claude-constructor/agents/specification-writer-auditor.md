@@ -90,6 +90,14 @@ When auditing specifications, you will:
 - Confirm implementation stays within requirement boundaries
 - Identify potential scope expansion risks
 
+#### 7. Technical Questions Format Audit
+
+- Verify all questions are tagged as `[STRUCTURED]` or `[OPEN-ENDED]`
+- Check STRUCTURED questions have exactly 2-4 options
+- Validate options represent valid technical alternatives
+- Ensure questions relate to implementation decisions, not requirements
+- Verify option descriptions provide enough context for decision-making
+
 5. **Detect Zero-Tolerance Issues**:
    Identify automatic fail conditions:
    - Requirements not mapped to implementation tasks

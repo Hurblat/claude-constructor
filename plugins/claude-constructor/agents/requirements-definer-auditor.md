@@ -85,6 +85,14 @@ When auditing requirements, you will:
 - Validate integration point clarity
 - Assess technical constraint documentation
 
+#### 7. Open Questions Format Audit
+
+- Verify all questions are tagged as `[STRUCTURED]` or `[OPEN-ENDED]`
+- Check STRUCTURED questions have exactly 2-4 options
+- Validate options are mutually exclusive and clearly distinct
+- Ensure questions are specific and answerable
+- Verify option descriptions provide enough context for decision-making
+
 5. **Detect Zero-Tolerance Issues**:
    Identify automatic fail conditions:
    - Missing critical sections (Business Value, Acceptance Criteria)
